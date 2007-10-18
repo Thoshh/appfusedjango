@@ -7,6 +7,7 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('agenda.views',
     # Example:
      (r'^$', 'index'),
+     (r'^list/page/(?P<page>\w+)/$','index'),
      (r'^ficha/(?P<accion>\w+)/(?P<id>\d+)/$','ficha'),
      (r'^edit/(?P<id>\d+)/$','edit'),
      (r'^add/$','edit'),

@@ -1,7 +1,8 @@
+{% load i18n %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Agenda per Django</title>
+	<title>{% trans "Agenda per Django" %}</title>
 <!--
 <link rel="stylesheet" type="text/css" href="FIXME" />
 <script type="text/javascript" src="FIXME"></script>
@@ -12,11 +13,11 @@
 -->
 </head>
 <body>
-	<h1>Agenda</h1>
+	<h1>{% trans "Agenda" %}</h1>
 	<h3>{{info}}</h3>
 	<table>
 		<thead>
-			<tr><th>ID</th><th>Nombre</th><th>Telefono</th><th>Edad</th></tr>
+			<tr><th>{%trans "ID" %}</th><th>{% trans "Nom" %}</th><th>{% trans "Telefono" %}</th><th>{% trans "Edad" %}</th></tr>
 		</thead>
 		<tbody>
 			{% for persona in agenda %}
@@ -25,7 +26,25 @@
 			</tr>
 			{% endfor %}
 		</tbody>
-	</table>
-	<a href="/admin/" title="Go to the admin page">Admin</a> <a href="/agenda/add/" title="Add a new record">Add</a>
+		{% spaceless %}
+			<span class="paginate-pages">{% blocktrans count pages as num %}{{ num }} P&aacute;gina{% plural %}{{ num }} P&aacute;ginas{% endblocktrans %}&nbsp;
+						{% ifnotequal pages 1 %}
+						{% if show_first %}<span class="paginate-first"><a href="{{ url }}1" title="{% trans "Primera"%}">&laquo;</a></span>{% endif %}
+						{% if has_previous %}<span class="paginate-previous"><a href="{{ url }}{{ previous_page }}" title="{%trans "Anterior" %}">&lt;</a></span>{% endif %}
+						{% for num in page_numbers %}
+							{% ifequal num actual_page %}
+								<span class="paginate-current" title="Actual">{{ num }}</span>
+							{% else %}
+								<span class="paginate-link"><a href="{{ url }}{{ num }}" title="{% trans "P&aacute;gina" %} {{ num }}">{{ num }}</a></span>
+							{% endifequal %}
+						{% endfor %}
+						{% if has_next %}<span class="paginate-next"><a href="{{ url }}{{ next_page }}" title="{% trans "Siguiente" %}">&gt;</a></span>{% endif %}
+						{% if show_last %}<span class="paginate-last"><a href="{{ url }}{{ pages }}" title="{% trans "&Uacute;ltima" %}">&raquo;</a></span>{% endif %}
+						{% endifnotequal %}
+			</span>
+		{% endspaceless %}
+</table>
+
+	<a href="/admin/" title="{% trans "Go to the admin page" %}">{% trans "Admin" %}</a> <a href="/agenda/add/" title="{% trans "Add a new record"%}">{% trans "Add" %}</a>
 </body>
 </html>

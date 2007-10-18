@@ -5,12 +5,32 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django import newforms as forms
 from agenda.models import Person
 from django.newforms import form_for_model, form_for_instance
-
-def index(request):
-    "Home page"
+from django.core.paginator import ObjectPaginator, InvalidPage
+RECORDS_PER_PAGE=2
+VISIBLE_PAGES=2
+def index(request, page=1):
+    "Home page with pagination"
     data = dict()
-    agenda = Person.objects.all()
-    data['agenda']=agenda
+    paginator = ObjectPaginator(Person.objects.all(),RECORDS_PER_PAGE)
+    actual =  int(page) 
+    min_page = actual
+    max_page = actual + VISIBLE_PAGES
+    if actual >= paginator.pages:
+        max_page = actual+1
+        min_page = actual-VISIBLE_PAGES+1
+    page_numbers = [n for n in range(min_page, max_page ) ]
+    data['agenda']=paginator.get_page(actual-1)
+    data['actual_page'] = actual
+    data['previous_page'] = actual-1
+    data['next_page'] = actual +1
+    data['has_next']=paginator.has_next_page(actual-1)
+    data['has_previous'] = paginator.has_previous_page(actual-1)
+    data['page_numbers'] = page_numbers
+    data['url']='/agenda/list/page/'
+    data['pages']=paginator.pages
+    data['hits'] = paginator.hits
+    data['show_first'] = 1 not in page_numbers
+    data['show_last'] = page not in page_numbers
     return render_to_response('agenda/index.html',data)
 
 
