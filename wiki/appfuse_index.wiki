@@ -1,0 +1,7 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+This project goal is to create a minimun project that works but that goes beyond the Django tutorial.
+That is, it will give you an scheleton that will allow you to create cruds operation, use of i18n, etc.
+
