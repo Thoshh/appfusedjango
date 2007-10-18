@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Agenda per Django</title>
+<!--
+<link rel="stylesheet" type="text/css" href="FIXME" />
+<script type="text/javascript" src="FIXME"></script>
+<style type="text/css">
+/* <![CDATA[ */
+/* ]]> */
+</style>
+-->
+</head>
+<body>
+	<h1>Agenda</h1>
+	<h3>{{info}}</h3>
+	<table>
+		<thead>
+			<tr><th>ID</th><th>Nombre</th><th>Telefono</th><th>Edad</th></tr>
+		</thead>
+		<tbody>
+			{% for persona in agenda %}
+			<tr>
+				<td><a href="/agenda/ficha/editar/{{persona.id}}/">{{persona.id}}</a></td><td>{{persona.first_name}} {{persona.last_name}}</td><td>{{persona.phone}}</td><td>{{persona.age}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="/admin/" title="Go to the admin page">Admin</a> <a href="/agenda/add/" title="Add a new record">Add</a>
+</body>
+</html>
