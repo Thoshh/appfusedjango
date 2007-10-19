@@ -13,6 +13,15 @@ it shows:
  * Some simple views to show and edit a record
  * Use of pagination
 
+== Installation ==
+
+ * Install the last Django svn.
+ * Install sqlite libraries
+ * Checkout the project
+ * Copy properties.py.template to properties.py and cofigure it accornding your needs
+ * run the server : python manage.py run server
+ * point to http://localhost:8000/agenda
+
 == Reference ==
 
  * Pagination styles: http://blog.localkinegrinds.com/2007/09/06/digg-style-pagination-in-django/
