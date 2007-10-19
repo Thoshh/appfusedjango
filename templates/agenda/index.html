@@ -3,9 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>{% trans "Agenda per Django" %}</title>
+<link rel="stylesheet" type="text/css" href="/media/css/paginator.css" />
 <!--
-<link rel="stylesheet" type="text/css" href="FIXME" />
-<script type="text/javascript" src="FIXME"></script>
+script type="text/javascript" src="FIXME"></script>
 <style type="text/css">
 /* <![CDATA[ */
 /* ]]> */
@@ -15,36 +15,41 @@
 <body>
 	<h1>{% trans "Agenda" %}</h1>
 	<h3>{{info}}</h3>
-	<table>
-		<thead>
-			<tr><th>{%trans "ID" %}</th><th>{% trans "Nom" %}</th><th>{% trans "Telefono" %}</th><th>{% trans "Edad" %}</th></tr>
-		</thead>
-		<tbody>
-			{% for persona in agenda %}
-			<tr>
-				<td><a href="/agenda/ficha/editar/{{persona.id}}/">{{persona.id}}</a></td><td>{{persona.first_name}} {{persona.last_name}}</td><td>{{persona.phone}}</td><td>{{persona.age}}</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-		{% spaceless %}
-			<span class="paginate-pages">{% blocktrans count pages as num %}{{ num }} P&aacute;gina{% plural %}{{ num }} P&aacute;ginas{% endblocktrans %}&nbsp;
+	<div id ="agenda">
+		<table>
+			<thead>
+				<tr><th>{%trans "ID" %}</th><th>{% trans "Nom" %}</th><th>{% trans "Telefono" %}</th><th>{% trans "Edad" %}</th></tr>
+			</thead>
+			<tbody>
+				{% for persona in agenda %}
+				<tr>
+					<td><a href="/agenda/ficha/editar/{{persona.id}}/">{{persona.id}}</a></td><td>{{persona.first_name}} {{persona.last_name}}</td><td>{{persona.phone}}</td><td>{{persona.age}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		  </table>
+	  </div>
+	  {% spaceless %}
+		<hr/>
+		<div class="paginator">
+			<span class="paginate-pages">{% blocktrans count pages as num %}{{ num }} P&aacute;gina{% plural %}{{ num }} P&aacute;ginas{% endblocktrans %}&nbsp;</span>
 						{% ifnotequal pages 1 %}
-						{% if show_first %}<span class="paginate-first"><a href="{{ url }}1" title="{% trans "Primera"%}">&laquo;</a></span>{% endif %}
-						{% if has_previous %}<span class="paginate-previous"><a href="{{ url }}{{ previous_page }}" title="{%trans "Anterior" %}">&lt;</a></span>{% endif %}
+						{% if show_first %}<span class="first"><a href="{{ url }}1" title="{% trans "Primera"%}">&laquo;</a></span>{% endif %}
+						{% if has_previous %}<span class="prev"><a href="{{ url }}{{ previous_page }}" title="{%trans "Anterior" %}">&lt;</a></span>{% endif %}
 						{% for num in page_numbers %}
 							{% ifequal num actual_page %}
-								<span class="paginate-current" title="Actual">{{ num }}</span>
+								<span class="curr" title="Actual">{{ num }}</span>
 							{% else %}
-								<span class="paginate-link"><a href="{{ url }}{{ num }}" title="{% trans "P&aacute;gina" %} {{ num }}">{{ num }}</a></span>
+								<span class="page"><a href="{{ url }}{{ num }}" title="{% trans "P&aacute;gina" %} {{ num }}">{{ num }}</a></span>
 							{% endifequal %}
 						{% endfor %}
-						{% if has_next %}<span class="paginate-next"><a href="{{ url }}{{ next_page }}" title="{% trans "Siguiente" %}">&gt;</a></span>{% endif %}
-						{% if show_last %}<span class="paginate-last"><a href="{{ url }}{{ pages }}" title="{% trans "&Uacute;ltima" %}">&raquo;</a></span>{% endif %}
+						{% if has_next %}<span class="next"><a href="{{ url }}{{ next_page }}" title="{% trans "Siguiente" %}">&gt;</a></span>{% endif %}
+						{% if show_last %}<span class="last"><a href="{{ url }}{{ pages }}" title="{% trans "&Uacute;ltima" %}">&raquo;</a></span>{% endif %}
 						{% endifnotequal %}
-			</span>
+		</div>
 		{% endspaceless %}
-</table>
-
+<div id="menu">
 	<a href="/admin/" title="{% trans "Go to the admin page" %}">{% trans "Admin" %}</a> <a href="/agenda/add/" title="{% trans "Add a new record"%}">{% trans "Add" %}</a>
+</div>
 </body>
 </html>
