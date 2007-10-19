@@ -1,0 +1,86 @@
+# Translations template for PROJECT.
+# Copyright (C) 2007 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2007-10-19 12:32+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.1\n"
+
+#: templates/agenda/index.html:5
+msgid "Agenda per Django"
+msgstr ""
+
+#: templates/agenda/index.html:16
+msgid "Agenda"
+msgstr ""
+
+#: templates/agenda/index.html:21
+msgid "ID"
+msgstr ""
+
+#: templates/agenda/index.html:21
+msgid "Nom"
+msgstr ""
+
+#: templates/agenda/index.html:21
+msgid "Telefono"
+msgstr ""
+
+#: templates/agenda/index.html:21
+msgid "Edad"
+msgstr ""
+
+#: templates/agenda/index.html:35
+#, python-format
+msgid "%(num)s P&aacute;gina"
+msgid_plural "%(num)s P&aacute;ginas"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/agenda/index.html:37
+msgid "Primera"
+msgstr ""
+
+#: templates/agenda/index.html:38
+msgid "Anterior"
+msgstr ""
+
+#: templates/agenda/index.html:43
+msgid "P&aacute;gina"
+msgstr ""
+
+#: templates/agenda/index.html:46
+msgid "Siguiente"
+msgstr ""
+
+#: templates/agenda/index.html:47
+msgid "&Uacute;ltima"
+msgstr ""
+
+#: templates/agenda/index.html:52
+msgid "Go to the admin page"
+msgstr ""
+
+#: templates/agenda/index.html:52
+msgid "Admin"
+msgstr ""
+
+#: templates/agenda/index.html:52
+msgid "Add a new record"
+msgstr ""
+
+#: templates/agenda/index.html:52
+msgid "Add"
+msgstr ""
+
