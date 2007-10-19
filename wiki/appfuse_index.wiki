@@ -5,4 +5,16 @@
 This project goal is to create a minimun project that works but that goes beyond the Django tutorial.
 That is, it will give you an scheleton that will allow you to create cruds operation, use of i18n, etc.
 
-This is the first phase, playing a bit with Google subversion
+This is the first phase, playing a bit with Google subversion and defining the project. At this stage
+it shows:
+
+ * A basic project structure.
+ * How to make a project developer independent, using a separated file to store the configuration.
+ * Configuration to serve static media throught the Django server
+ * Some simple views to show and edit a record
+ * Use of pagination
+
+== Reference ==
+
+ * Pagination styles: http://blog.localkinegrinds.com/2007/09/06/digg-style-pagination-in-django/
+ * Django & Babe integration : http://babel.edgewall.org/wiki/BabelDjango
