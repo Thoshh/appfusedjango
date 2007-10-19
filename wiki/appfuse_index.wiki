@@ -1,5 +1,4 @@
-﻿#summary One-sentence summary of this page.
-
+﻿#summary Starting a Django project
 = Introduction =
 
 This project goal is to create a minimun project that works but that goes beyond the Django tutorial.
