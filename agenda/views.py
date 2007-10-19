@@ -58,3 +58,16 @@ def ficha(request,accion,id):
     data['accion']=accion
     data['persona']=get_object_or_404(Person,id=id)
     return render_to_response('agenda/ficha.html',data)
+
+def delete(request,id):
+    persona = get_object_or_404(Person,id=id)
+    if request.method =='POST':
+        persona.delete()
+        return HttpResponseRedirect('/agenda/deleted/')
+    else:
+        data = dict()
+        data['ficha']=persona
+        return render_to_response('agenda/confirmar.html',data)
+
+def deleted(request):
+    return render_to_response('agenda/deleted.html')
