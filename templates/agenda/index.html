@@ -14,6 +14,16 @@ script type="text/javascript" src="FIXME"></script>
 </head>
 <body>
 	<h1>{% trans "Agenda" %}</h1>
+    <ul>
+     <!-- selector idiomes -->
+     {% get_current_language as LANGUAGE_CODE %}
+     {% get_available_languages as LANGUAGES %}
+     {% for idioma in LANGUAGES %}
+        <li><a class="changeLang" id="{{idioma}}" title="{{idioma.1}}" href="/agenda/lang/{{ idioma.0 }}/">{{idioma.0}}</a></li>
+     {% endfor %}
+     <!-- fi selector -->
+    </ul>
+
 	<h3>{{info}}</h3>
 	<div id ="agenda">
 		<table>

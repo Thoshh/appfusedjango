@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2007-10-19 12:32+0200\n"
+"POT-Creation-Date: 2007-11-01 11:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,86 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.1\n"
+
+#: templates/agenda/confirmar.html:16
+msgid "Confirmacion de borrado "
+msgstr ""
+
+#: templates/agenda/confirmar.html:17
+msgid "Seguro que desea borrar esta ficha"
+msgstr ""
+
+#: templates/agenda/confirmar.html:19 templates/agenda/ficha.html:23
+msgid "Nombre"
+msgstr ""
+
+#: templates/agenda/confirmar.html:20
+msgid "Apellido"
+msgstr ""
+
+#: templates/agenda/confirmar.html:24
+msgid "Seguro, seguro"
+msgstr ""
+
+#: templates/agenda/confirmar.html:24
+msgid "seguro"
+msgstr ""
+
+#: templates/agenda/confirmar.html:26
+msgid "No estoy seguro, muestrame la lista"
+msgstr ""
+
+#: templates/agenda/deleted.html:5
+msgid "Registro borrado"
+msgstr ""
+
+#: templates/agenda/deleted.html:16
+msgid "Esborrat"
+msgstr ""
+
+#: templates/agenda/deleted.html:17
+msgid "El registro ha sido borrado satisfactoriamente"
+msgstr ""
+
+#: templates/agenda/deleted.html:18
+msgid "Ir a la lista"
+msgstr ""
+
+#: templates/agenda/ficha.html:5
+msgid "Ficha de"
+msgstr ""
+
+#: templates/agenda/ficha.html:16
+msgid "Ficha de la agenda"
+msgstr ""
+
+#: templates/agenda/ficha.html:18
+msgid "La ficha ha sido guardada"
+msgstr ""
+
+#: templates/agenda/ficha.html:24 templates/agenda/index.html:21
+msgid "Telefono"
+msgstr ""
+
+#: templates/agenda/ficha.html:25 templates/agenda/index.html:21
+msgid "Edad"
+msgstr ""
+
+#: templates/agenda/ficha.html:26
+msgid "Comentarios"
+msgstr ""
+
+#: templates/agenda/ficha.html:30
+msgid "Editar"
+msgstr ""
+
+#: templates/agenda/ficha.html:30
+msgid "Retorna al Listado"
+msgstr ""
+
+#: templates/agenda/ficha.html:31
+msgid "Borrar"
+msgstr ""
 
 #: templates/agenda/index.html:5
 msgid "Agenda per Django"
@@ -31,14 +111,6 @@ msgstr ""
 
 #: templates/agenda/index.html:21
 msgid "Nom"
-msgstr ""
-
-#: templates/agenda/index.html:21
-msgid "Telefono"
-msgstr ""
-
-#: templates/agenda/index.html:21
-msgid "Edad"
 msgstr ""
 
 #: templates/agenda/index.html:35

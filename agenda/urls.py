@@ -12,6 +12,7 @@ urlpatterns = patterns('agenda.views',
      (r'^add/$','edit'),
      (r'^delete/(?P<id>\d+)/$','delete'),
      (r'^deleted/$','deleted'),
+     (r'^lang/(?P<idioma>\w+)/$','cambiar_idioma')
 )
 
 
