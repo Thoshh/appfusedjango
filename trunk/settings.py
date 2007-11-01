@@ -62,6 +62,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.gzip.GZipMiddleware',
@@ -98,3 +99,10 @@ if DEBUG:
 
 #Sesion engine if not default
 #SESSION_ENGINE=session_engine    
+
+ugettext = lambda s:s
+LANGUAGES = (
+    ('en', ugettext('English')),
+    ('es', ugettext('Spanish')),
+    ('ca', ugettext('Catalan')),
+)

@@ -2,10 +2,15 @@
 # -*- coding: UTF-8 -*-i
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
-from django import newforms as forms
-from agenda.models import Person
-from django.newforms import form_for_model, form_for_instance
 from django.core.paginator import ObjectPaginator, InvalidPage
+from django import http
+from django import newforms as forms
+from django.newforms import form_for_model, form_for_instance
+from agenda.models import Person
+from django.utils.translation import ugettext as _
+from django.utils.translation import check_for_language, activate, to_locale, get_language
+
+
 RECORDS_PER_PAGE=2
 VISIBLE_PAGES=2
 def index(request, page=1):
@@ -71,3 +76,28 @@ def delete(request,id):
 
 def deleted(request):
     return render_to_response('agenda/deleted.html')
+
+def cambiar_idioma(request,idioma):
+    """
+    Redirect to a given url while setting the chosen language in the
+    session or cookie. The url and the language code need to be
+    specified in the request parameters.
+
+    Since this view changes how the user will see the rest of the site, it should
+    only be accessed as a POST request, but just for this kind of operation I presonally
+    prefer the GET option
+    """
+    next = request.REQUEST.get('next', None)
+    if not next:
+        next = request.META.get('HTTP_REFERER', None)
+    if not next:
+        next = '/'
+    response = http.HttpResponseRedirect(next)
+
+    lang_code = idioma
+    if lang_code and check_for_language(lang_code):
+        if hasattr(request, 'session'):
+            request.session['django_language'] = lang_code
+        else:
+            response.set_cookie('django_language', lang_code)
+    return response
