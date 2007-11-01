@@ -1,6 +1,8 @@
 # Django settings for crud project.
 # -*- coding: UTF-8 -*-
 
+# You have to customize your properties files. Just make a copy from
+# properties.py.template and change the parameters to adapt them to your needs.
 from properties import *
 
 DEBUG = debug
