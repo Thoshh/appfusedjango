@@ -6,9 +6,10 @@ class Person (models.Model):
     phone = models.CharField(max_length=20)
     age = models.IntegerField()
     comments = models.TextField()
+    
 
     def __unicode__(self):
-        return u'%s %s' % (first_name, last_name)
+        return u'%s %s' % (self.first_name, self.last_name)
 
     class Admin:
         pass
@@ -16,3 +17,4 @@ class Person (models.Model):
     class Meta:
         verbose_name='Persona'
         verbose_name_plural='Personas'
+

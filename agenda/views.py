@@ -84,7 +84,7 @@ def cambiar_idioma(request,idioma):
     specified in the request parameters.
 
     Since this view changes how the user will see the rest of the site, it should
-    only be accessed as a POST request, but just for this kind of operation I presonally
+    only be accessed as a POST request, but just for this kind of operation I personally
     prefer the GET option
     """
     next = request.REQUEST.get('next', None)
