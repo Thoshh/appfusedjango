@@ -10,13 +10,14 @@ from agenda.models import Person
 from django.utils.translation import ugettext as _
 from django.utils.translation import check_for_language, activate, to_locale, get_language
 from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import cache_control
 from django.views.decorators.vary import vary_on_headers
 from django.utils.cache import patch_vary_headers
-
+from django.views.decorators.cache import never_cache
 RECORDS_PER_PAGE=2
 VISIBLE_PAGES=2
 
-@cache_page(3600)
+
 def index(request, page=1):
     "Home page with pagination"
     request.logger.info('Entrant a a Index')
@@ -41,13 +42,14 @@ def index(request, page=1):
     data['hits'] = paginator.hits
     data['show_first'] = 1 not in page_numbers
     data['show_last'] = page not in page_numbers
-    request.logger.info('dades obtingutdes, preiparant plana web')
+    request.logger.info('dades obtingutdes, preparant plana web')
     response = render_to_response('agenda/index.html',data)
-    patch_vary_headers(response,['Content-Language'])
     return response
+index = cache_page(index, 3600)
 
 def edit(request,id=None):
     "Edit the agenda"
+    request.logger.info('Editando')
     data = dict()
     if request.method == 'POST':
         Formulario = form_for_model(Person)
@@ -64,8 +66,12 @@ def edit(request,id=None):
         data['formulario']=formulario()
     return render_to_response('agenda/edit.html',data)
 
+@cache_page(3600)
+@cache_control(no_cache=True, must_revalidate=True)
+@vary_on_headers('Content-Language')
 def ficha(request,accion,id):
     "Add or modify the file"
+    request.logger.info('Informació de la fitxa')
     data = dict()
     data['accion']=accion
     data['persona']=get_object_or_404(Person,id=id)
