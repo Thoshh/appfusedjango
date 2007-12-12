@@ -61,7 +61,7 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
-#    'django.middleware.cache.CacheMiddleware',
+    #'django.middleware.cache.CacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -89,8 +89,8 @@ INSTALLED_APPS = (
     'agenda',
 )
 # set cache backend
-#CACHE_BACKEND=cache_backend
-#CACHE_MIDDLEWARE_PREFIX=cache_prefix
+CACHE_BACKEND=cache_backend
+CACHE_MIDDLEWARE_KEY_PREFIX=cache_prefix
 #CACHE_MIDDLEWARE_SECONDS=cache_seconds
 # set session backed
 #SESSION_BACKEND=session_backend
