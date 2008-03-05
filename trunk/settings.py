@@ -7,7 +7,7 @@ from properties import *
 
 DEBUG = debug
 TEMPLATE_DEBUG = debug
-
+SITE_ROOT="http://localhost:8000/"
 
 MANAGERS = admins
 
@@ -84,6 +84,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.humanize',
     'django.contrib.sites',
     'django.contrib.admin',
     'agenda',
@@ -112,3 +113,11 @@ WEEK_START_DAY = 1
 LOG_ENABLED=True
 LOG_FILE='./appfusedjango.log'
 
+
+TEMPLATE_CONTEXT_PROCESSORS=("django.core.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request")
+
+COPYRIGHT="apsl.net"

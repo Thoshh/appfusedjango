@@ -37,6 +37,3 @@ def _generate_cache_key_i18n(request, headerlist, key_prefix):
                key_prefix, iri_to_uri(request.path), ctx.hexdigest(),lang)
 cache._generate_cache_key=_generate_cache_key_i18n               
 
-
-
-print "Inicializando agenda ..."

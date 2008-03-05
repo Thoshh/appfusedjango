@@ -6,7 +6,7 @@ urlpatterns = patterns('',
      (r'^agenda/', include('agenda.urls')),
      # Then admin
      (r'^admin/', include('django.contrib.admin.urls')),
-)
+    )
 
 
 # We're going to use the Django server in development, so we'll server
