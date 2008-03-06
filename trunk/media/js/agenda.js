@@ -2,34 +2,29 @@
  * @author aaloy
  */
 
-Ext.onReady(function() {
+Ext.namespace('agendaSpace');
 
-	   var AgendaRecord = Ext.data.Record.create([        
-                {name: 'first_name', mapping: 'fields.first_name'},
-                {name: 'last_name', mapping: 'fields.last_name'},
-                {name: 'phone',mapping: 'fields.phone'},
-                {name: 'age',mapping: 'fields.age'},
-                {name: 'comments',mapping: 'fields.comments'}
-        ]);
-	
-		var ds = new Ext.data.Store({
-		    proxy: new Ext.data.HttpProxy({url: "/agenda/json/list/"}),
-		    reader: new Ext.data.JsonReader({
-		        root: 'rows',
-		        totalProperty: 'total',
-				id: 'pk'
-		    }, [        
+agendaSpace.app = function() {
+	 // private variables
+	 	
+	 var ds = new Ext.data.Store({
+            proxy: new Ext.data.HttpProxy({url: "/agenda/json/list/"}),
+            reader: new Ext.data.JsonReader({
+                root: 'rows',
+                totalProperty: 'total',
+                id: 'pk'
+            }, [        
                 {name: 'first_name', mapping: 'fields.first_name'},
                 {name: 'last_name', mapping: 'fields.last_name'},
                 {name: 'phone',mapping: 'fields.phone'},
                 {name: 'age',mapping: 'fields.age'},
                 {name: 'comments',mapping: 'fields.comments'}
                 ]
-			)
-		});  
-
-        function datos_cargados(){		
-			var grid = new Ext.grid.GridPanel({
+            )
+        });  
+		
+		function getGrid(){
+			return new Ext.grid.GridPanel({
 				store: ds,
 				columns: [{
 					header: 'First Name',
@@ -53,7 +48,7 @@ Ext.onReady(function() {
 					dataIndex: 'age'
 				}, {
 					header: 'Comments',
-					width: 60,
+					width: 160,
 					sortable: true,
 					dataIndex: 'comments'
 				}, ],
@@ -62,13 +57,30 @@ Ext.onReady(function() {
 				},
 				renderTo: 'content',
 				title: 'Agenda list',
-				width: 500,
+				width: 800,
 				frame: true,
 				loadMask: true,
-				sm: new Ext.grid.RowSelectionModel({singleSelect:true}),
+				sm: new Ext.grid.RowSelectionModel({
+					singleSelect: true
+				}),
 			});
-			grid.show();
-			grid.getSelectionModel().selectFirstRow();
 		}
-        ds.load({callback:datos_cargados});
+		
+	// private functions
+	function datos_cargados(){
+		  var grid = getGrid();
+		  grid.show();
+		  grid.getSelectionModel().selectFirstRow();
+	}
+	// public space
+	return {
+		init: function () {
+			ds.load({callback:datos_cargados});
+		}
+	}
+}
+
+
+Ext.onReady(function() {
+    new agendaSpace.app().init();
 });
