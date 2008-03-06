@@ -12,7 +12,11 @@ urlpatterns = patterns('agenda.views',
      (r'^add/$','edit'),
      (r'^delete/(?P<id>\d+)/$','delete'),
      (r'^deleted/$','deleted'),
-     (r'^lang/(?P<idioma>\w+)/$','cambiar_idioma')
+     (r'^lang/(?P<idioma>\w+)/$','cambiar_idioma'),
+     # extjs based agenda
+     (r'^tabla/$','grid_view'),
+     # json
+     (r'json/list/$','json_list'),
 )
 
 
