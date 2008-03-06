@@ -25,4 +25,4 @@ it shows:
 == Reference ==
 
  * Pagination styles: http://blog.localkinegrinds.com/2007/09/06/digg-style-pagination-in-django/
- * Django & Babe integration : http://babel.edgewall.org/wiki/BabelDjango
+ * Django & Babel integration : http://babel.edgewall.org/wiki/BabelDjango
