@@ -2,51 +2,50 @@
 # -*- coding: UTF-8 -*-i
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
-from django.core.paginator import ObjectPaginator, InvalidPage
+from django.core.paginator import QuerySetPaginator, InvalidPage
+
 from django import http
 from django import newforms as forms
 from django.newforms import form_for_model, form_for_instance
-from agenda.models import Person
 from django.utils.translation import ugettext as _
 from django.utils.translation import check_for_language, activate, to_locale, get_language
+from django.utils.cache import patch_vary_headers
 from django.views.decorators.cache import cache_page
 from django.views.decorators.cache import cache_control
 from django.views.decorators.vary import vary_on_headers
-from django.utils.cache import patch_vary_headers
 from django.views.decorators.cache import never_cache
+from agenda.models import Person
 
 # ext+json
 from django.http import HttpResponse 
 from django.core import serializers 
 
 RECORDS_PER_PAGE=2
-VISIBLE_PAGES=2
+VISIBLE_PAGES=3
 
 
 def index(request, page=1):
-    "Home page with pagination"
+    "Home page with pagination. Adapted to the trunk version of paginator"
     request.logger.info('Entrant a a Index')
     data = dict()
-    paginator = ObjectPaginator(Person.objects.all(),RECORDS_PER_PAGE)
-    actual =  int(page) 
-    min_page = actual
-    max_page = actual + VISIBLE_PAGES
-    if actual >= paginator.pages:
-        max_page = actual+1
-        min_page = actual-VISIBLE_PAGES+1
-    page_numbers = [n for n in range(min_page, max_page ) ]
-    data['agenda']=paginator.get_page(actual-1)
-    data['actual_page'] = actual
-    data['previous_page'] = actual-1
-    data['next_page'] = actual +1
-    data['has_next']=paginator.has_next_page(actual-1)
-    data['has_previous'] = paginator.has_previous_page(actual-1)
-    data['page_numbers'] = page_numbers
+    actual_page = int(page)
+    paginator = QuerySetPaginator(Person.objects.all(),RECORDS_PER_PAGE)
+    data['page'] = paginator.page(int(page))
+    data['paginator'] = paginator
     data['url']='/agenda/list/page/'
-    data['pages']=paginator.pages
-    data['hits'] = paginator.hits
-    data['show_first'] = 1 not in page_numbers
-    data['show_last'] = page not in page_numbers
+    #numbre of pages you want visible    
+    if actual_page+VISIBLE_PAGES-1 <= paginator.num_pages:
+        start_range = actual_page
+    else:
+        start_range = max(paginator.num_pages - VISIBLE_PAGES +1,1)
+    end_range= min(start_range+VISIBLE_PAGES-1, paginator.num_pages)
+    data['range'] = range(start_range,end_range)
+    data['end_range'] = end_range    
+#    if end_range<>total:
+#        print "..",
+#    print total
+#    if actual_page <= total:
+#        actual_page +=1
     request.logger.info('dades obtingutdes, preparant plana web')
     response = render_to_response('agenda/index.html',data)
     return response
