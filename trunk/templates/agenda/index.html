@@ -25,13 +25,14 @@ script type="text/javascript" src="FIXME"></script>
     </ul>
 
 	<h3>{{info}}</h3>
+	<p>{{paginator.count}} {% trans "registres en " %} {{paginator.num_pages}} {% trans "pàgines" %}</p>
 	<div id ="agenda">
 		<table>
 			<thead>
 				<tr><th>{%trans "ID" %}</th><th>{% trans "Nom" %}</th><th>{% trans "Telefono" %}</th><th>{% trans "Edad" %}</th></tr>
 			</thead>
 			<tbody>
-				{% for persona in agenda %}
+				{% for persona in page.object_list %}
 				<tr>
 					<td><a href="/agenda/ficha/editar/{{persona.id}}/">{{persona.id}}</a></td><td>{{persona.first_name}} {{persona.last_name}}</td><td>{{persona.phone}}</td><td>{{persona.age}}</td>
 				</tr>
@@ -39,25 +40,54 @@ script type="text/javascript" src="FIXME"></script>
 			</tbody>
 		  </table>
 	  </div>
-	  {% spaceless %}
+	
 		<hr/>
-		<div class="paginator">
-			<span class="paginate-pages">{% blocktrans count pages as num %}{{ num }} P&aacute;gina{% plural %}{{ num }} P&aacute;ginas{% endblocktrans %}&nbsp;</span>
-						{% ifnotequal pages 1 %}
-						{% if show_first %}<span class="first"><a href="{{ url }}1" title="{% trans "Primera"%}">&laquo;</a></span>{% endif %}
-						{% if has_previous %}<span class="prev"><a href="{{ url }}{{ previous_page }}" title="{%trans "Anterior" %}">&lt;</a></span>{% endif %}
-						{% for num in page_numbers %}
-							{% ifequal num actual_page %}
-								<span class="curr" title="Actual">{{ num }}</span>
-							{% else %}
-								<span class="page"><a href="{{ url }}{{ num }}" title="{% trans "P&aacute;gina" %} {{ num }}">{{ num }}</a></span>
-							{% endifequal %}
-						{% endfor %}
-						{% if has_next %}<span class="next"><a href="{{ url }}{{ next_page }}" title="{% trans "Siguiente" %}">&gt;</a></span>{% endif %}
-						{% if show_last %}<span class="last"><a href="{{ url }}{{ pages }}" title="{% trans "&Uacute;ltima" %}">&raquo;</a></span>{% endif %}
-						{% endifnotequal %}
-		</div>
-		{% endspaceless %}
+        {% ifnotequal paginator.count 0 %}
+		  {% spaceless %}
+			<div class="paginator">
+							{% ifnotequal paginator.num_pages 1 %}
+								{% if page.has_other_pages %}<span class="first"><a href="{{ url }}1" title="{% trans "Primera"%}">&laquo;</a></span>{% endif %}
+								{% if page.has_previous %}<span class="prev"><a href="{{ url }}{{ page.previous_page_number }}" title="{%trans "Anterior" %}">&lt;</a></span>{% endif %}
+								{% for num in paginator.page_range %}
+									{% ifequal num page.number %}
+										<span class="curr" title="Actual">{{ num }}</span>
+									{% else %}
+										<span class="page"><a href="{{ url }}{{ num }}" title="{% trans "P&aacute;gina" %} {{ num }}">{{ num }}</a></span>
+									{% endifequal %}
+								{% endfor %}
+								{% if page.has_next %}<span class="next"><a href="{{ url }}{{ page.next_page_number }}" title="{% trans "Siguiente" %}">&gt;</a></span>{% endif %}
+								{% ifnotequal page.number paginator.num_pages %}<span class="last"><a href="{{ url }}{{ paginator.num_pages }}" title="{% trans "&Uacute;ltima" %}">&raquo;</a></span>{% endifnotequal %}
+							{% endifnotequal %}
+			</div>
+			
+			<!- Other kind of paginator -->
+	        <div class="paginator">
+	                        {% ifnotequal paginator.num_pages 1 %}
+	                            {% if page.has_other_pages %}<span class="first"><a href="{{ url }}1" title="{% trans "Primera"%}">&laquo;</a></span>{% endif %}
+	                            {% if page.has_previous %}<span class="prev"><a href="{{ url }}{{ page.previous_page_number }}" title="{%trans "Anterior" %}">&lt;</a></span>{% endif %}
+	                            {% for num in range %}
+	                                {% ifequal num page.number %}
+	                                    <span class="curr" title="Actual">{{ num }}</span>
+	                                {% else %}
+	                                    <span class="page"><a href="{{ url }}{{ num }}" title="{% trans "P&aacute;gina" %} {{ num }}">{{ num }}</a></span>
+	                                {% endifequal %}
+	                            {% endfor %}
+								{% ifnotequal end_range paginator.num_pages%}<span class="page">....</span>{% endifnotequal %}
+								<!-- pintam el darrer -->
+								{% ifequal paginator.num_pages page.number %}
+	                                    <span class="curr" title="Actual">{{ page.number }}</span>
+	                            {% else %}
+	                                    <span class="page"><a href="{{ url }}{{ paginator.num_pages }}" title="{% trans "P&aacute;gina" %} {{ paginator.num_pages }}">{{ paginator.num_pages }}</a></span>
+	                            {% endifequal %}
+	                            {% if page.has_next %}<span class="next"><a href="{{ url }}{{ page.next_page_number }}" title="{% trans "Siguiente" %}">&gt;</a></span>{% endif %}
+	                            {% ifnotequal page.number paginator.num_pages %}<span class="last"><a href="{{ url }}{{ paginator.num_pages }}" title="{% trans "&Uacute;ltima" %}">&raquo;</a></span>{% endifnotequal %}
+	                        {% endifnotequal %}
+	        </div>					
+			{% endspaceless %}
+			<br/>
+		{% else %}
+		  <p>{% trans "No records found" %}</p>
+		{% endifnotequal %}
 <div id="menu">
 	<a href="/admin/" title="{% trans "Go to the admin page" %}">{% trans "Admin" %}</a> <a href="/agenda/add/" title="{% trans "Add a new record"%}">{% trans "Add" %}</a>
 </div>
