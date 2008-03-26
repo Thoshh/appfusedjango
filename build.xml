@@ -33,7 +33,7 @@ Script para la generación de los tests de appfusedjango
 		-->			
 		<!-- console output please -->
 		<exec dir="${src.test}" executable="${python.binary}">
-			<arg line="alltestsuite.py"/>
+			<arg line="runxmltests.py"/>
 			<!--
 			<env key="PYTHONPATH" path="${basedir}/${build.bin}:${basedir}/${build.bin}/lib"/>
 			-->
