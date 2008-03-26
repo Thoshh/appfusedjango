@@ -77,24 +77,26 @@ def ficha(request,accion,id):
     "Add or modify the file"
     request.logger.info('Informació de la fitxa')
     data = dict()
-    data['accion']=accion
-    data['persona']=get_object_or_404(Person,id=id)
-    return render_to_response('agenda/ficha.html',data)
+    data['accion'] = accion
+    data['persona'] = get_object_or_404(Person,id=id)
+    return render_to_response('agenda/ficha.html', data)
 
 def delete(request,id):
+    "Delete the file"
     persona = get_object_or_404(Person,id=id)
-    if request.method =='POST':
+    if request.method == 'POST':
         persona.delete()
         return HttpResponseRedirect('/agenda/deleted/')
     else:
         data = dict()
-        data['ficha']=persona
-        return render_to_response('agenda/confirmar.html',data)
+        data['ficha'] = persona
+        return render_to_response('agenda/confirmar.html', data)
 
 def deleted(request):
+    "Returns the deleted message"
     return render_to_response('agenda/deleted.html')
 
-def cambiar_idioma(request,idioma):
+def cambiar_idioma(request, idioma):
     """
     Redirect to a given url while setting the chosen language in the
     session or cookie. The url and the language code need to be
@@ -120,9 +122,11 @@ def cambiar_idioma(request,idioma):
     return response
 
 def grid_view(request):
+    "Shows the table js view"
     return render_to_response('agendajs/table.html')
 
 def json_list(request):
+    "Returns the data in json format"
     queryset = Person.objects.all()
     root_name = 'rows' # or it can be queryset.model._meta.verbose_name_plural
     data = '{"total": %s, "%s": %s}' % (queryset.count(), root_name, serializers.serialize('json', queryset))
