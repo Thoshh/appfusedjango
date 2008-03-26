@@ -1,6 +1,10 @@
 import unittest
 import sys
+from django.core.management import setup_environ
 sys.path.append('..')
+sys.path.append('../..')
+from appfusedjango import settings
+setup_environ(settings)
 from agenda.models import Person, Diari
 
 
@@ -31,4 +35,5 @@ class AgendaTestCase(unittest.TestCase):
 
 def agendaTestSuite():
     return unittest.TestLoader().loadTestsFromTestCase(AgendaTestCase)
+        
         
