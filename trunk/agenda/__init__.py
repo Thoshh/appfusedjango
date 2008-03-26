@@ -15,7 +15,7 @@ template_cache = {}
 original_get_template = loader.get_template
 def cached_get_template(template_name):
     global template_cache
-    t = template_cache.get(template_name,None)
+    t = template_cache.get(template_name, None)
     if not t or settings.DEBUG:
         template_cache[template_name] = t = original_get_template(template_name)
     return t
@@ -35,5 +35,5 @@ def _generate_cache_key_i18n(request, headerlist, key_prefix):
             ctx.update(value)
     return 'views.decorators.cache.cache_page.%s.%s.%s.%s' % (
                key_prefix, iri_to_uri(request.path), ctx.hexdigest(),lang)
-cache._generate_cache_key=_generate_cache_key_i18n               
+cache._generate_cache_key = _generate_cache_key_i18n               
 

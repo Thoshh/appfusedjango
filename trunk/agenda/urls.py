@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 # Autor: aaloy
 # -------------------------------------------------------------------
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns('agenda.views',
      (r'^$', 'index'),
