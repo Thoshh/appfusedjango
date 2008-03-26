@@ -53,10 +53,10 @@ Script para la generación de los tests de appfusedjango
     <target name="pylint">
     	<mkdir dir="${report.dir}"/>
         <delete file="report.pylint"/>
-        <echo>Salida en ${report.pylint}"</echo>
+        <echo>Salida en ${report.pylint}</echo>
         <exec dir="${src.python}" executable="${pylint.binary}" output="${report.pylint}">
             <env key="PYTHONPATH" path="..:."/>
-            <arg line="-f parseable -i y traslados.py excursiones.py --output-format=parseable --ignore-comments=y --min-similarity-lines=4 --disable-msg=R0903 --disable-msg=C0301 --disable-msg=W0611"/>
+            <arg line="-f parseable -i y ./agenda/ --output-format=parseable --ignore-comments=y --min-similarity-lines=4 --disable-msg=R0903 --disable-msg=C0301 --disable-msg=W0611"/>
         </exec>
     </target>
 
