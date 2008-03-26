@@ -27,18 +27,21 @@ Script para la generación de los tests de appfusedjango
 
 	<!-- Test targets -->
 	<target name="test">
+		<mkdir dir="report.dir"/>
 		<delete file="${report.pyunit.xml}"/>	
 		<exec dir="${src.test}" executable="${python.binary}" output="${report.pyunit.xml}">					
-		<!-- console output please 
-		<exec dir="${src.test}" executable="${python.binary}">
-		-->
 			<arg line="runxmltests.py"/>
-			<!--
-			<env key="PYTHONPATH" path="${basedir}/${build.bin}:${basedir}/${build.bin}/lib"/>
-			-->
 		</exec>
 	</target>
 	
+    <target name="test2console">                                       
+        <exec dir="${src.test}" executable="${python.binary}">
+            <arg line="runxmltests.py"/>
+            <!--
+            <env key="PYTHONPATH" path="${basedir}/${build.bin}:${basedir}/${build.bin}/lib"/>
+            -->
+        </exec>
+    </target>
 
 		
     <!-- Build reports -->
