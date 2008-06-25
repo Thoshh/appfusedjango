@@ -17,6 +17,9 @@ urlpatterns = patterns('agenda.views',
      (r'^tabla/$','grid_view'),
      # json
      (r'json/list/$','json_list'),
+     # jqgrid based agenda
+     (r'^jqgrid/$','jqgrid_view'),
+     (r'^ajax_jqgrid/$','ajax_dades'),
 )
 
 
