@@ -17,6 +17,8 @@ it shows:
 
 [26/06/2008] Added an example about how you can use jqgrid with Django. I have to adapt the js code a litte bit to use it with the json serializer that Django provides, but it's a minor change that in my oppinion corrects a bug in jqgrid.
 
+http://appfusedjango.googlecode.com/files/jqgrid_demo.jpg
+
 For the minor ones just check the subversion
 
 == Installation ==
