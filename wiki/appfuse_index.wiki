@@ -13,6 +13,12 @@ it shows:
  * Some simple views to show and edit a record
  * Use of pagination
 
+== Last major updates ==
+
+[26/06/2008] Added an example about how you can use jqgrid with Django. I have to adapt the js code a litte bit to use it with the json serializer that Django provides, but it's a minor change that in my oppinion corrects a bug in jqgrid.
+
+For the minor ones just check the subversion
+
 == Installation ==
 
  * Install the last Django svn.
@@ -26,3 +32,4 @@ it shows:
 
  * Pagination styles: http://blog.localkinegrinds.com/2007/09/06/digg-style-pagination-in-django/
  * Django & Babel integration : http://babel.edgewall.org/wiki/BabelDjango
+ * jqgrid : http://www.trirand.com/blog/
