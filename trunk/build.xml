@@ -49,6 +49,20 @@ Script para la generación de los tests de appfusedjango
     	<echo>Preparando el archivo de informes</echo>
         <mkdir dir="${report.dir}"/>
     </target>
+    
+    
+    <target name="definetasks">
+        <taskdef resource="pyAntTasks.properties">
+        </taskdef>               
+      </target>
+
+    
+	
+	<target name="runserver" depends="definetasks">
+		<py-run script="${src.dir}/manage.py" pythonpath="${src.dir}" optimize="0">
+		    <arg value="runserver"/>
+	    </py-run>
+	</target>
 
     <target name="pylint">
     	<mkdir dir="${report.dir}"/>
