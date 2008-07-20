@@ -1,11 +1,16 @@
 from django.conf.urls.defaults import *
 from django.conf import settings 
+from django.contrib import admin
+
+admin.autodiscover()
+
 urlpatterns = patterns('',
      # our agenda application
      (r'^$','agenda.views.index'),
      (r'^agenda/', include('agenda.urls')),
-     # Then admin
-     (r'^admin/', include('django.contrib.admin.urls')),
+     # Administration
+     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+     (r'^admin/(.*)', admin.site.root),
     )
 
 

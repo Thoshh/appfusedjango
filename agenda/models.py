@@ -1,6 +1,6 @@
 __doc__ = """Defines de application model"""
 from django.db import models
-
+from django.contrib import admin
 
 class Person (models.Model):
     "Defines the model for the person entity"
@@ -9,19 +9,14 @@ class Person (models.Model):
     phone = models.CharField(max_length=20)
     age = models.IntegerField()
     comments = models.TextField()
-    
 
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)
 
-    class Admin:
-        "Admministration configuration"
-        pass
-
-    class Meta:
-        "Meta definition"
-        verbose_name = 'Persona'
-        verbose_name_plural = 'Personas'
+    #class Meta:
+    #    "Meta definition"
+    #    verbose_name = 'Persona'
+    #    verbose_name_plural = 'Personas'
 
 class Diari(models.Model):
     "Defines a model for a related table entity"
@@ -33,13 +28,11 @@ class Diari(models.Model):
         return u'%s - %s' % (self.date, self.comments[:50])
 
 
-    class Admin:
-        "Administration configuration"
-        pass
-
 class Test(models.Model):
     "Test model entity"
     hora = models.DateTimeField()
     comments = models.TextField()
-    class Admin:
-        pass
+
+admin.site.register(Person)
+admin.site.register(Diari)
+admin.site.register(Test)

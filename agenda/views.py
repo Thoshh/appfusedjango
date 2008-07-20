@@ -5,8 +5,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.core.paginator import QuerySetPaginator, InvalidPage
 
 from django import http
-from django import newforms as forms
-from django.newforms import form_for_model, form_for_instance
+from django import forms
+from django.forms import form_for_model, form_for_instance
 from django.utils.translation import ugettext as _
 from django.utils.translation import check_for_language, activate, to_locale, get_language
 from django.utils.cache import patch_vary_headers
