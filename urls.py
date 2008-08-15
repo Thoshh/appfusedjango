@@ -1,12 +1,13 @@
 from django.conf.urls.defaults import *
 from django.conf import settings 
 from django.contrib import admin
+from django.views.generic.simple import direct_to_template
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
      # our agenda application
-     (r'^$','agenda.views.index'),
+     (r'^$',direct_to_template, {'template': 'index.html'}),
      (r'^agenda/', include('agenda.urls')),
      # Administration
      (r'^admin/doc/', include('django.contrib.admindocs.urls')),
