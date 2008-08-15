@@ -1,6 +1,8 @@
+# -*- coding: UTF-8 -*-
 __doc__ = """Defines de application model"""
+
 from django.db import models
-from django.contrib import admin
+
 
 class Person (models.Model):
     "Defines the model for the person entity"
@@ -33,6 +35,3 @@ class Test(models.Model):
     hora = models.DateTimeField()
     comments = models.TextField()
 
-admin.site.register(Person)
-admin.site.register(Diari)
-admin.site.register(Test)
