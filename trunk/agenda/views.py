@@ -6,7 +6,7 @@ from django.core.paginator import QuerySetPaginator, InvalidPage
 
 from django import http
 from django import forms
-from django.forms import form_for_model, form_for_instance
+
 from django.utils.translation import ugettext as _
 from django.utils.translation import check_for_language, activate, to_locale, get_language
 from django.utils.cache import patch_vary_headers
@@ -23,6 +23,8 @@ from django.utils import simplejson
 # settings
 from django.conf import settings
 from django.db import connection
+
+from formularis import PersonForm
 
 RECORDS_PER_PAGE=2
 VISIBLE_PAGES=3
@@ -55,24 +57,18 @@ def index(request, page=1):
     return response
 index = cache_page(index, 3600)
 
+
+
 def edit(request,id=None):
-    "Edit the agenda"
+    """Edit the agenda, the definition is a nice trick from 
+    http://themorgue.org/blog/2008/05/14/django-and-modelform/"""
     request.logger.info('Editando')
-    data = dict()
+    formulario = PersonForm(request.POST or None, instance = id and Person.objects.get(id = id) )
     if request.method == 'POST':
-        Formulario = form_for_model(Person)
-        formulario = Formulario(request.POST)
         if formulario.is_valid():
             persona = formulario.save()
             return HttpResponseRedirect('/agenda/ficha/guardada/%s/'%persona.id)
-    else:
-        if id == None:
-            formulario = form_for_model(Person)
-        else:
-            persona = get_object_or_404(Person, id=id)
-            formulario = form_for_instance(persona)
-        data['formulario']=formulario()
-    return render_to_response('agenda/edit.html',data)
+    return render_to_response('agenda/edit.html', {'formulario': formulario})
 
 @cache_page(3600)
 @cache_control(no_cache=True, must_revalidate=True)
