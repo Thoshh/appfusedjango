@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block center_content %}
+    <h3>Upload a File please</h3>
+    <form action ="." method="POST" enctype="multipart/form-data">
+        <table>
+            {{form}}
+            <tr><td>&nbsp;</td><td><input type="submit" name="send"></td></tr>
+        </table>
+    </form>
+    <hr class="noscreen clear"  />
+{% endblock center_content %}

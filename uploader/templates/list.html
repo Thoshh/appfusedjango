@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block center_content %}
+    <h3>Uploaded Files</h3>
+    {% for attachment in attachments %}
+        <div class="thumbnail">
+            <ul>
+            <li>Uploaded: {{attachment.created|date:"D, d -m-Y"}} </li>
+            <li><a href="{{attachment.get_download_url}}">{{attachment.name}}</a></li>
+            <li>{{attachment.attachment.size}} bytes</li>
+            <li>{{attachment.mime_type}}</li>
+        </div>
+    {% endfor %}
+    {% if not attachments %}<p>No uploaded files yet</p>{% endif %}
+    <hr class="noscreen clear"  />
+{% endblock center_content %}
