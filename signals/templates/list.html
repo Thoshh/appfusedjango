@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block center_content %}
+    <h3>Deleted Users</h3>
+    {% for deleted in deletions %}
+        <div class="thumbnail">
+            <ul>
+            <li>Date: {{delete.created|date:"D, d -m-Y"}} </li>
+            <li>User Name: {{deleted.user}}</li>
+        </div>
+    {% endfor %}
+    {% if not deleted %}<p>No Deleted users yet!</p>{% endif %}
+    <hr class="noscreen clear"  />
+{% endblock center_content %}
