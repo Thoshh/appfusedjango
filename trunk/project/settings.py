@@ -1,4 +1,3 @@
-# Django settings for crud project.
 # -*- coding: UTF-8 -*-
 
 # You have to customize your properties files. Just make a copy from
@@ -7,6 +6,13 @@ import properties
 
 DEBUG = getattr(properties, 'debug', True)
 TEMPLATE_DEBUG = getattr(properties,'template_debug', True)
+
+import logging
+import logging.config
+logging.config.fileConfig(properties.logfile)
+LOGGER = logging.getLogger(properties.default_logger)
+
+
 SITE_ROOT= getattr(properties, 'site_root', "http://localhost:8000/")
 
 MANAGERS = getattr(properties, 'admins', ())

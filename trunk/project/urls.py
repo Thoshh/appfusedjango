@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+# Autor: your-name-here
+# --------------------------------------------------------------------
+
 from django.conf.urls.defaults import *
 from django.conf import settings 
 from django.contrib import admin
