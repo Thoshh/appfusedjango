@@ -1,0 +1,161 @@
+# translation of django.po to español
+# Spanish translations for PROJECT.
+# Copyright (C) 2007 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
+# Antoni Aloy <antoni.aloy@trespams.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: django\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2007-10-19 12:29+0200\n"
+"PO-Revision-Date: 2007-11-01 11:19+0100\n"
+"Last-Translator: Antoni Aloy <antoni.aloy@trespams.com>\n"
+"Language-Team: español <ca@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: templates/agenda/confirmar.html:16
+msgid "Confirmacion de borrado "
+msgstr "Confirmación de borrado "
+
+#: templates/agenda/confirmar.html:17
+msgid "Seguro que desea borrar esta ficha"
+msgstr "¿Seguro que desea borrar esta ficha?"
+
+#: templates/agenda/confirmar.html:19 templates/agenda/ficha.html:23
+msgid "Nombre"
+msgstr "Nombre"
+
+#: templates/agenda/confirmar.html:20
+msgid "Apellido"
+msgstr "Apellido"
+
+#: templates/agenda/confirmar.html:24
+msgid "Seguro, seguro"
+msgstr "Seguro, seguro"
+
+#: templates/agenda/confirmar.html:24
+msgid "seguro"
+msgstr "seguro"
+
+#: templates/agenda/confirmar.html:26
+msgid "No estoy seguro, muestrame la lista"
+msgstr "No estoy seguro, muéstrame la lista"
+
+#: templates/agenda/deleted.html:5
+msgid "Registro borrado"
+msgstr "Registro borrado"
+
+#: templates/agenda/deleted.html:16
+msgid "Esborrat"
+msgstr "Borrado"
+
+#: templates/agenda/deleted.html:17
+msgid "El registro ha sido borrado satisfactoriamente"
+msgstr "El registro ha sido borrado satisfactoriamente"
+
+#: templates/agenda/deleted.html:18
+msgid "Ir a la lista"
+msgstr "Ir a la lista"
+
+#: templates/agenda/ficha.html:5
+msgid "Ficha de"
+msgstr "Ficha de"
+
+#: templates/agenda/ficha.html:16
+msgid "Ficha de la agenda"
+msgstr "Ficha de la agenda"
+
+#: templates/agenda/ficha.html:18
+msgid "La ficha ha sido guardada"
+msgstr "La ficha ha sido guardada"
+
+#: templates/agenda/ficha.html:24 templates/agenda/index.html:21
+msgid "Telefono"
+msgstr "Teléfono"
+
+#: templates/agenda/ficha.html:25 templates/agenda/index.html:21
+msgid "Edad"
+msgstr "Edad"
+
+#: templates/agenda/ficha.html:26
+msgid "Comentarios"
+msgstr "Comentarios"
+
+#: templates/agenda/ficha.html:30
+msgid "Editar"
+msgstr "Editar"
+
+#: templates/agenda/ficha.html:30
+msgid "Retorna al Listado"
+msgstr "Retorna al Listado"
+
+#: templates/agenda/ficha.html:31
+msgid "Borrar"
+msgstr "Borrar"
+
+#: templates/agenda/index.html:5
+msgid "Agenda per Django"
+msgstr "Agenda para Django"
+
+#: templates/agenda/index.html:16
+msgid "Agenda"
+msgstr "Agenda"
+
+#: templates/agenda/index.html:21
+msgid "ID"
+msgstr "ID"
+
+#: templates/agenda/index.html:21
+msgid "Nom"
+msgstr "Nombre"
+
+#: templates/agenda/index.html:35
+#, python-format
+msgid "%(num)s P&aacute;gina"
+msgid_plural "%(num)s P&aacute;ginas"
+msgstr[0] ""
+msgstr[1] "%(num)s P&aacute;gina"
+
+#: templates/agenda/index.html:37
+msgid "Primera"
+msgstr "Primera"
+
+#: templates/agenda/index.html:38
+msgid "Anterior"
+msgstr "Anterior"
+
+#: templates/agenda/index.html:43
+msgid "P&aacute;gina"
+msgstr "P&aacute;gina"
+
+#: templates/agenda/index.html:46
+msgid "Siguiente"
+msgstr "Siguiente"
+
+#: templates/agenda/index.html:47
+msgid "&Uacute;ltima"
+msgstr "&Uacute;ltima"
+
+#: templates/agenda/index.html:52
+msgid "Go to the admin page"
+msgstr "Ir a al página de administración"
+
+#: templates/agenda/index.html:52
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/agenda/index.html:52
+msgid "Add a new record"
+msgstr "Añadir un nuevo registro"
+
+#: templates/agenda/index.html:52
+msgid "Add"
+msgstr "Añadir"
+
