@@ -1,0 +1,15 @@
+ValidateIgnoreFuzzy=false
+ValidateMarkAsFuzzy=false
+
+[CatalogManager]
+Marker=
+PoBaseDir=/home/aaloy/workspace/appfusedjango/agenda/locale
+PotBaseDir=/home/aaloy/workspace/appfusedjango/agenda/locale
+ValidationIgnoreURL=/home/aaloy/.kde/share/apps/catalogmanager/spellignores
+
+[Header]
+Language=Catalan
+
+[Project]
+Name=agenda
+Version=1.0.1
