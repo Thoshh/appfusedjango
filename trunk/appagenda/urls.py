@@ -19,7 +19,7 @@ urlpatterns = patterns('',
 # also the estatic content.
 if settings.DEBUG:
 	urlpatterns += patterns('',
-       (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'./media/'}),
+       (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     )
 
 

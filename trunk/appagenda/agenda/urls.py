@@ -6,7 +6,7 @@ from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns('agenda.views',
      (r'^$', 'index'),
-     (r'^list/page/(?P<page>\w+)/$','index'),
+     (r'^list/page/(?P<page>\w+)/(.*)$','index'),
      (r'^ficha/(?P<accion>\w+)/(?P<id>\d+)/$','ficha'),
      (r'^edit/(?P<id>\d+)/$','edit'),
      (r'^add/$','edit'),
@@ -17,9 +17,6 @@ urlpatterns = patterns('agenda.views',
      (r'^tabla/$','grid_view'),
      # json
      (r'json/list/$','json_list'),
-     # jqgrid based agenda
-     (r'^jqgrid/$','jqgrid_view'),
-     (r'^ajax_jqgrid/$','ajax_dades'),
 )
 
 
