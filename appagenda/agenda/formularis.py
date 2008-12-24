@@ -8,13 +8,19 @@
 # -------------------------------------------------------------------
 """put your forms here"""
 
-from django.forms import ModelForm
+from django import forms
 from agenda.models import Person
 
-class PersonForm(ModelForm):
+class PersonForm(forms.ModelForm):
     "Simple form for the Person model"
     class Meta:
         model = Person
+
+class SearchForm(forms.Form):
+    "Form for searching, no required fields"
+    first_name = forms.CharField(max_length=30, required = False)
+    last_name = forms.CharField(max_length=30, required = False)
+    age = forms.IntegerField(required = False)
 
 
 if __name__ == "__main__":

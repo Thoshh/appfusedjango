@@ -1,30 +1,24 @@
 #/usr/bin/env python
 # -*- coding: UTF-8 -*-
-from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-from django.core.paginator import QuerySetPaginator, InvalidPage
-
-from django import http
-from django import forms
-
-from django.utils.translation import ugettext as _
-from django.utils.translation import check_for_language, activate, to_locale, get_language
-from django.utils.cache import patch_vary_headers
-from django.views.decorators.cache import cache_page
-from django.views.decorators.cache import cache_control
-from django.views.decorators.vary import vary_on_headers
-from django.views.decorators.cache import never_cache
 from agenda.models import Person
-
-# ext+json+jqrid
-from django.http import HttpResponse 
-from django.core import serializers 
-from django.utils import simplejson
-# settings
-from django.conf import settings
-from django.db import connection
-
+from django import http
+from django.core import serializers
+from django.core.paginator import QuerySetPaginator
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render_to_response
+from django.utils.translation import check_for_language
+from django.views.decorators.cache import cache_control
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 from formularis import PersonForm
+from formularis import SearchForm
+from django.db.models import Q
+from django.core.paginator import EmptyPage
+from django.template import RequestContext
+import urllib
+import cgi
 
 RECORDS_PER_PAGE=2
 VISIBLE_PAGES=3
@@ -32,11 +26,44 @@ VISIBLE_PAGES=3
 
 def index(request, page=1):
     "Home page with pagination. Adapted to the trunk version of paginator"
-    request.logger.info('Entrant a a Index')
+    newurl = ''
+    
+    #cgi.parse_qsl(request)
+    if (len(request.GET)>0) or (len(request.META['PATH_INFO']) >0):
+        if request.GET:
+            search_form = SearchForm(request.GET)
+        else:
+            values = {}
+            for k,v in cgi.parse_qs(request.META['PATH_INFO'], True).items():
+                if v[0] != 'None':
+                    values[k] = v[0]
+            search_form = SearchForm(values)
+
+        if search_form.is_valid():
+            searchdict = search_form.cleaned_data
+            qdict = { 'first_name': 'first_name__icontains',
+                      'last_name': 'last_name__icontains',
+                      'age': 'age'}
+            q_objs = [Q(**{qdict[k]: searchdict[k]}) for k in qdict.keys() if searchdict.get(k, None)]
+            results = Person.objects.select_related().filter(*q_objs).order_by('first_name')
+
+            # Encode the GET data to a URL so we can append it to the next
+            # and previous page links.
+            rawurl = urllib.urlencode(searchdict)
+            if len(rawurl):
+                newurl = '&' + rawurl
+    else:
+        results = Person.objects.all()
+        search_form = SearchForm()
+
     data = dict()
     actual_page = int(page)
-    paginator = QuerySetPaginator(Person.objects.all(),RECORDS_PER_PAGE)
-    data['page'] = paginator.page(int(page))
+    paginator = QuerySetPaginator(results,RECORDS_PER_PAGE)
+    try:
+        data['page'] = paginator.page(int(page))
+    except EmptyPage:
+        data['page'] = paginator.page(1)
+        actual_page = 1
     data['paginator'] = paginator
     data['url']='/agenda/list/page/'
     #numbre of pages you want visible    
@@ -46,17 +73,11 @@ def index(request, page=1):
         start_range = max(paginator.num_pages - VISIBLE_PAGES +1,1)
     end_range= min(start_range+VISIBLE_PAGES-1, paginator.num_pages)
     data['range'] = range(start_range,end_range)
-    data['end_range'] = end_range    
-#    if end_range<>total:
-#        print "..",
-#    print total
-#    if actual_page <= total:
-#        actual_page +=1
-    request.logger.info('dades obtingutdes, preparant plana web')
-    response = render_to_response('agenda/index.html',data)
-    return response
-index = cache_page(index, 3600)
-
+    data['end_range'] = end_range
+    data['form'] = search_form
+    data['newurl'] = newurl
+    return  render_to_response('agenda/index.html',data, context_instance=RequestContext(request))
+    
 
 
 def edit(request,id=None):
@@ -70,7 +91,7 @@ def edit(request,id=None):
             return HttpResponseRedirect('/agenda/ficha/guardada/%s/'%persona.id)
     return render_to_response('agenda/edit.html', {'formulario': formulario})
 
-@cache_page(3600)
+
 @cache_control(no_cache=True, must_revalidate=True)
 @vary_on_headers('Content-Language')
 def ficha(request,accion,id):
@@ -131,96 +152,3 @@ def json_list(request):
     root_name = 'rows' # or it can be queryset.model._meta.verbose_name_plural
     data = '{"total": %s, "%s": %s}' % (queryset.count(), root_name, serializers.serialize('json', queryset))
     return HttpResponse(data, mimetype='text/javascript;') 
-
-
-# How to usue jqGrid. First version
-# ---------------------------------
-
-def jqgrid_view(request):
-    # more code here :)
-    return render_to_response('jqagenda/jqgrid.html')
-
-
-def jqfilter(op,field):
-    """We need to make the conversion from the search parameters that
-    jqgrid sends and the sql ones.
-    I you send a non existing codintion it would apply the equal one"""
-
-    jqgrid = {'bw': ("%s like %%s", "%s%%"  ),
-              'eq': ("%s = %%s",    "%s"    ),
-              'gt': ("%s > %%s",    "%s"    ),
-              'ge': ("%s >= %%s",   "%s"    ),
-              'ne': ("%s <> %%s",   "%s"    ),
-              'lt': ("%s < %%s",    "%s"    ),
-              'le': ("%s <= %%s",   "%s"    ),
-              'ew': ("%s like %%s", "%%%s"  ),
-              'cn': ("%s like %%s", "%%%s%%")
-              }
-    try:
-        condition, template = jqgrid[op]
-    except:
-        condition, template = jqgrid['eq']
-    return condition % field, template
-
-def ajax_dades(request):
-    """Ajax needed by  jqgrid. This is not generic nor the best code you can have 
-    but for teaching purposes I prefer to sacrifice style.   
-    
-    This code takes a python object, Person in our case and deals with pagination,
-    and filters as is sent by jqGrid.
-    
-    """
-
-    orden = "id" if (request.GET.get('sidx')=="" or None) else request.GET.get('sidx') 
-    sort_order = "" if request.GET.get('sord') == "asc" else "-"
-    orden = sort_order+orden
-    pagina = int(request.GET.get('page')) if request.GET.get('page') != 'page' else 1 
-    files = int(request.GET.get('rows'))  # files = rows in catalan :)
-    
-    # Here goes the model.--
-    dades = Person.objects
-    # ----------------------
-    
-    # We compute what we are going to present in the grid
-
-    if request.GET.get('_search')=='true':
-        # We're on searching mode
-        searchField = request.GET.get('searchField')
-        searchOp = request.GET.get('searchOper')
-        field, template = jqfilter(searchOp, searchField)
-        fields = [ field ]
-        values = [ template  % request.GET.get('searchString')]
-        try:
-            total = dades.all().extra(where=fields, params = values).count()
-            rta = dades.all().extra(where=fields, params = values)
-        except Exception, e:
-            print e
-            data = '{"total":%(pages)s, "page":%(page)s, "records":%(total)s, "rows":%(rta)s }' % {'pages':0, 'page':0, 'total':0, 'rta':None}
-            return HttpResponse(data, mimetype="application/json")
-    else:
-        # Normal mode, so no filters applied
-        rta = dades.all()
-        total = dades.all().count() 
-    
-    # Page calculation
-    reste = 1 if total % files >0 else 0
-    pages = total / files  + reste
-    if pagina > pages:
-        pagina = 1
-
-    # Get just the data we needo for our page
-    rta = rta.order_by(orden)[(pagina-1)*files:pagina*files]
-
-    #just for debug purposes
-    if settings.DEBUG:
-        print 
-        print "QUERY ====================================="
-        print connection.queries
-        print "==========================================="
-        print
-
-    # We build the json that jqgrid likes best :)
-    rows = serializers.serialize("json",rta)
-    dades = '{"total":%(pages)s, "page":%(page)s, "records":%(total)s, "rows":%(rta)s }' % {'pages':pages, 'page':pagina, 'total':total, 'rta':rows}
-    return HttpResponse(dades, mimetype='application/json')
- 
