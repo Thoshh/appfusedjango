@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!--
+Script para la generación de los tests de appfusedjango
+-->
+<project name="appfusedjango" default="pylint">
+
+    <!--
+	<property file="build.properties"/>
+	-->
+	<property name="project.name" value="appfusedjango"/>
+	<property name="python.binary" value="/usr/bin/python"/>
+
+
+	<!-- Properties for all source file folders -->
+	<property name="src.dir" value="."/>
+	<property name="src.python" value="${src.dir}"/>
+	<property name="src.test" value="${src.dir}/tests"/>
+	<property name="report.dir" value="${src.test}/build/reports"/>
+	<property name="report.pylint" value="${report.dir}/pylint.txt"/>
+	<property name="report.pyunit.xml" value="${report.dir}/pyunit.xml"/>
+	<property name="pylint.binary" value="/usr/bin/pylint"/>
+	<!--
+	<property name="test.out" value="${report.pyunit.xml}" />
+	-->
+
+    
+
+	<!-- Test targets -->
+	<target name="test">
+		<mkdir dir="${report.dir}"/>
+		<delete file="${report.pyunit.xml}"/>	
+		<exec dir="${src.test}" executable="${python.binary}" output="${report.pyunit.xml}">					
+			<arg line="runxmltests.py"/>
+		</exec>
+	</target>
+	
+    <target name="test2console">                                       
+        <exec dir="${src.test}" executable="${python.binary}">
+            <arg line="runxmltests.py"/>
+            <!--
+            <env key="PYTHONPATH" path="${basedir}/${build.bin}:${basedir}/${build.bin}/lib"/>
+            -->
+        </exec>
+    </target>
+
+		
+    <!-- Build reports -->
+    <target name="report-prepare">
+    	<echo>Preparando el archivo de informes</echo>
+        <mkdir dir="${report.dir}"/>
+    </target>
+    
+    
+    <target name="definetasks">
+        <taskdef resource="pyAntTasks.properties">
+        </taskdef>               
+      </target>
+
+    
+	
+	<target name="runserver" depends="definetasks">
+		<py-run script="${src.dir}/manage.py" pythonpath="${src.dir}" optimize="0">
+		    <arg value="runserver"/>
+	    </py-run>
+	</target>
+
+    <target name="pylint">
+    	<mkdir dir="${report.dir}"/>
+        <delete file="report.pylint"/>
+        <echo>Salida en ${report.pylint}</echo>
+        <exec dir="${src.python}" executable="${pylint.binary}" output="${report.pylint}">
+            <env key="PYTHONPATH" path="..:."/>
+            <arg line="-f parseable -i y ./agenda/ --output-format=parseable --ignore-comments=y --min-similarity-lines=4 --disable-msg=R0903 --disable-msg=C0301 --disable-msg=W0611"/>
+        </exec>
+    </target>
+
+</project>

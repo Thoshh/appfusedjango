@@ -1,0 +1,33 @@
+{%load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{% trans "Ficha de" %} {{persona.firstname}} {{persona.last_name}} :: {{persona.id}}</title>
+<!--
+<link rel="stylesheet" type="text/css" href="FIXME" />
+<script type="text/javascript" src="FIXME"></script>
+<style type="text/css">
+/* <![CDATA[ */
+/* ]]> */
+</style>
+-->
+</head>
+<body>
+	<h1>{% trans "Ficha de la agenda" %}</h1>
+	{% ifequal accion "guardada" %}
+	<h2>{% trans "La ficha ha sido guardada" %} </h2>
+	{% endifequal %}
+	<table>
+		<tr>
+			<td>
+				<tr><td>{% trans "Nombre" %}:</td><td>{{persona.first_name}} {{persona.last_name}}</td></tr>
+				<tr><td>{% trans "Telefono" %}:</td><td>{{persona.phone}}</td></tr>
+				<tr><td>{% trans "Edad" %}:</td><td>{{persona.age}}</td></tr>
+				<tr><td>{% trans "Comentarios"%}:</td><td>{{persona.comments}}</td></tr>
+			<td>
+		</tr>
+	</table>
+    <a href="{% url agenda-edit persona.id %}">{%trans "Editar" %}</a> <a href="{% url agenda-index %}">{% trans "Retorna al Listado" %}</a>
+    <a href="{% url agenda-delete persona.id %}">{%trans "Borrar" %}<a>
+</body>
+</html>
