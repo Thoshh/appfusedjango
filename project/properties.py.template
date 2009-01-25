@@ -2,13 +2,11 @@
 # -*- coding: UTF-8 -*-
 # Autor: aaloy
 # -------------------------------------------------------------------
-debug=True
+debug=False
 # managers
 admins = (
         ('aaloy','aaloy@apsl.net'),
 )
-logfile ='loggin.conf'
-default_logger = 'apsl'
 
 # Database configuration
 database_engine='sqlite3'
@@ -18,17 +16,23 @@ database_password=''
 database_host=''
 database_port=''
 # Urls
-app_root = r'/home/aaloy/workspace/crud'
+app_root = r'/home/aaloy/workspace/appfusedjango/project'
 media_root=app_root+r'/media/'
 media_url = 'http://localhost:8000/media/'
 admin_media_prefix ='/adm_media/'
 # Cache and session backend
-#cache_backend = 'locmem:///?timeout=5&max_entries=100'
-#cache_prefix='appfuse'
-#cache_backend='simple:///'
-#cache_seconds=300
-#session_engine='django.contrib.sessions.backends.cache'
+cache_backend = 'dummy:///'
+cache_prefix='appfuse'
+cache_seconds=300
+session_engine='django.contrib.sessions.backends.cache'
 secret_key='h61_=!)rbt%w=pwzzv$d3$ou9&m7^)=c#2ve)83l)ne)aowp5+'
+language_code = 'es-es'
+template_dirs = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    r'templates/',
+)
 
 
 if __name__ == "__main__":
