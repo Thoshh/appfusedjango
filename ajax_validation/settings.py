@@ -1,57 +1,62 @@
-# Django settings for crud project.
 # -*- coding: UTF-8 -*-
 
 # You have to customize your properties files. Just make a copy from
 # properties.py.template and change the parameters to adapt them to your needs.
 import properties
 
-DEBUG = getattr(properties,'debug', True)
-TEMPLATE_DEBUG = DEBUG
-SITE_ROOT=getattr(properties, 'site_root', "http://localhost:8000/")
+DEBUG = getattr(properties, 'debug', True)
+TEMPLATE_DEBUG = getattr(properties,'template_debug', True)
 
-MANAGERS =  getattr(properties, 'admins', list())
+import logging
+import logging.config
+logging.config.fileConfig(properties.logfile)
+LOGGER = logging.getLogger(properties.default_logger)
 
-# NO default values here, you have to configure it yourself
-DATABASE_ENGINE = properties.database_engine               # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = properties.database_name                   # Or path to database file if using sqlite3.
-DATABASE_USER = properties.database_user                   # Not used with sqlite3.
-DATABASE_PASSWORD = properties.database_password           # Not used with sqlite3.
-DATABASE_HOST = properties.database_host                   # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = properties.database_port                   # Set to empty string for default. Not used with sqlite3.
+
+SITE_ROOT= getattr(properties, 'site_root', "http://localhost:8000/")
+
+MANAGERS = getattr(properties, 'admins', ())
+
+DATABASE_ENGINE = getattr(properties, 'database_engine', 'sqlite3')   # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = getattr(properties, 'database_name', 'db.sqlite')     # Or path to database file if using sqlite3.
+DATABASE_USER = getattr(properties, 'database_user', None)            # Not used with sqlite3.
+DATABASE_PASSWORD = getattr(properties, 'database_password', '')      # Not used with sqlite3.
+DATABASE_HOST = getattr(properties, 'database_host','')               # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_PORT = getattr(properties, 'database_port','')               # Set to empty string for default. Not used with sqlite3.
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be avilable on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE =  getattr(properties,'time_zone','Europe/Madrid')
+TIME_ZONE = getattr(properties,'time_zone', 'Europe/Madrid')
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE =  getattr(properties,'language_code','es-es')
+LANGUAGE_CODE = getattr(properties, 'language_code', 'en-en')
 
-SITE_ID =  getattr(properties,'site_id',1)
+SITE_ID = getattr(properties, 'site_id', 1)
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = getattr(properties,'use_i18n', True)
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT =  properties.media_root
+MEDIA_ROOT = getattr(properties, 'media_root', '.')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = properties.media_url
+MEDIA_URL = getattr(properties, 'media_url','http://localhost:8000/media/')
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = properties.admin_media_prefix
+ADMIN_MEDIA_PREFIX = getattr(properties, 'admin_media_prefix','/adm_media/')
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = properties.secret_key
+SECRET_KEY = getattr(properties, 'secret_key','secret-key')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -62,25 +67,17 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.cache.CacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'middleware.logmw.LoggingMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.gzip.GZipMiddleware',
-    # Not using cache
 )
 
-ROOT_URLCONF = getattr(properties, 'root_urlconf', 'urls')
+ROOT_URLCONF = 'urls'
 
-TEMPLATE_DIRS = getattr(properties, 'template_dirs', (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    r'templates/',
-    )
-)
+TEMPLATE_DIRS = getattr(properties, 'template_dirs', ('templates',))
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -89,16 +86,13 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.sites',
     'django.contrib.admin',
-    'django.contrib.admindocs',
-    'agenda',
-    'django_cpserver',
 )
-# set cache backend
-CACHE_BACKEND=properties.cache_backend
-CACHE_MIDDLEWARE_KEY_PREFIX=properties.cache_prefix
-#CACHE_MIDDLEWARE_SECONDS=cache_seconds
-# set session backed
-#SESSION_BACKEND=session_backend
+
+# set cache adn session backend
+CACHE_BACKEND=getattr(properties, 'cache_backend','dummy:///')
+CACHE_MIDDLEWARE_KEY_PREFIX=getattr(properties, 'cache_prefix', 'appfuse')
+CACHE_MIDDLEWARE_SECONDS=getattr(properties, 'cache_seconds', 5)
+SESSION_BACKEND=getattr(properties, 'session_backend','django.contrib.sessions.backends.file')
 
 if DEBUG:
     SESSION_EXPIRE_AT_BROWSER_CLOSE=True
@@ -112,11 +106,6 @@ LANGUAGES = (
     ('es', ugettext('Spanish')),
     ('ca', ugettext('Catalan')),
 )
-
-WEEK_START_DAY = 1
-LOG_ENABLED=True
-LOG_FILE= getattr(properties, 'log_file', './appfusedjango.log')
-
 
 TEMPLATE_CONTEXT_PROCESSORS=("django.core.context_processors.auth",
     "django.core.context_processors.debug",

@@ -7,7 +7,7 @@ function jqGridInclude()
     var combinedIncludeURL = "/media/js/jqGrid/";
     var minver = false;
     var modules = [
-        { include: true, incfile:'grid.locale-en.js',minfile: 'min/grid.locale-en-min.js'}, // jqGrid translation
+        { include: true, incfile:'grid.locale-sp.js',minfile: 'min/grid.locale-sp-min.js'}, // jqGrid translation
 /*        { include: true, incfile:'grid.pack.js',minfile: ''},  */ // jqGrid all packecd
         { include: true, incfile:'grid.base.js',minfile: '/media/js/jqGrid/js/min/grid.base-min.js'}, // jqGrid base
         { include: true, incfile:'grid.common.js',minfile: '/medis/js/jqGrid/js/min/grid.common-min.js' }, // jqGrid common for editing

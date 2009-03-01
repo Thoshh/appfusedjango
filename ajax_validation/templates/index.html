@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block js_libs %}
+    <script type="text/javascript" src="/media/js/jquery.js"></script>
+    <script type="text/javascript" src="/media/js/jquery.form.js"></script>
+{% endblock js_libs %}
+{% block content %}
+{% block errors %}
+<div class="errores" {% if not form.errors %} style="display: none" {% endif %} >
+  <p id="error_msg">
+      {{form.errors}}
+  </p>
+</div>
+{% endblock errors %}
+<table>
+<form action='.' method="POST" id="testform">
+<tr><td>{{form.subject.label}}<td>{{form.subject}}</td></tr>
+<tr><td>{{form.message.label}}<td>{{form.message}}</td></tr>
+<tr><td>{{form.email.label}}<td>{{form.email}}</td></tr>
+<tr><td>{{form.cc_myself.label}}<td>{{form.cc_myself}}</td></tr>
+<tr><td span="2"><input type="submit" value="send" name="enviar" id="boton" /></td></tr>
+</form>
+</table>
+{% endblock content %}
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function(){
+        form_options = {
+          timeout: 3000,
+          dataType: 'json',
+          type: 'POST',
+          beforeSubmit: function(formData, jqForm, options) {
+              // you can add additional validation here and return
+              // false if it's not valid
+              jQuery('#boton').toggle();
+          },
+          success: function(responseJson, statusText) {
+              if (responseJson.valid) {
+                 // redirect to hte new url
+                 document.location.href = responseJson.url;
+              } else {
+                  // create the error structure
+                  var msg = ""
+                  for (key in  responseJson.errors) {
+                    camp = key.split('_')[1];
+                    msg = msg + camp+":"+responseJson.errors[key][0]+"<br/>";
+                  }
+                  $('#error_msg').html(msg+'<br/>');
+                  $('.errores').show(100);
+                  jQuery('#boton').toggle();
+              }
+          }
+        };
+        $('#testform').ajaxForm(form_options);
+});
+</script>
+{% endblock js %}
