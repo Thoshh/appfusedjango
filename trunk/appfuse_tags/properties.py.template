@@ -2,10 +2,8 @@
 # -*- coding: UTF-8 -*-
 # Autor: aaloy
 # -------------------------------------------------------------------
-import os
-debug=True
+debug=False
 # managers
-
 admins = (
         ('aaloy','aaloy@apsl.net'),
 )
@@ -18,8 +16,8 @@ database_password=''
 database_host=''
 database_port=''
 # Urls
-app_root = = os.path.dirname(__file__)
-media_root=os.path.join(app_root, 'media/')
+app_root = r'/home/aaloy/workspace/appfusedjango/project'
+media_root=app_root+r'/media/'
 media_url = 'http://localhost:8000/media/'
 admin_media_prefix ='/adm_media/'
 # Cache and session backend
@@ -33,8 +31,9 @@ template_dirs = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(app_root,'templates/'),
+    r'templates/',
 )
+
 
 if __name__ == "__main__":
     pass
