@@ -32,6 +32,7 @@ Farem un formulari molt senzill, el típic formulari de contatcte, però ho apro
 per introduïr-hi una opció nova a Django 1.0: la personalització dels missatges
 de validació.
 
+<pre class="sh_python">
 
     from django import forms
 
@@ -47,18 +48,21 @@ de validació.
         def clean_message(self):
             "We wan't to verify that it containts some words"
             msg = self.cleaned_data['message'].strip()
-            if len(msg.split(None))<5:
+            if len(msg.split(None)) >5:
                 raise forms.ValidationError(u"Really? This is quite short for a message")
             return msg
+</pre>
 
 La manera més ràpida de mostrar el formulari és quelcom com
 
-    <table>
-    <form action='.' method="POST">
+<pre>
+    &lt;table>
+    &lt;form action='.' method="POST">
     {{form}}
-    <tr><td span="2"><input type="submit" value="send" name="enviar" /></td></tr>
-    </form>
-    </table>
+    &lt;tr>&lt;td span="2">&lt;input type="submit" value="send" name="enviar" />&lt;/td>&lt;/tr>
+    &lt;/form>
+    &lt;/table>
+</pre>
 
 Però té un problema, que no controlam on es posen els missatges d'error i nosaltres
 volem controlar-ho. En aquest cas, i per simplicitat, posarem tots els missatges
@@ -67,18 +71,20 @@ per a que ho contempli.
 
 El nostre formulari queda doncs com
 
+<pre>
     {% if form.errors %}
         {{ form.errors }}
     {% endif %}
-    <table>
-    <form action='.' method="POST">
-    <tr><td>{{form.subject.label}}<td>{{form.subject}}</td></tr>
-    <tr><td>{{form.message.label}}<td>{{form.message}}</td></tr>
-    <tr><td>{{form.email.label}}<td>{{form.email}}</td></tr>
-    <tr><td>{{form.cc_myself.label}}<td>{{form.cc_myself}}</td></tr>
-    <tr><td span="2"><input type="submit" value="send" name="enviar" /></td></tr>
-    </form>
-    </table>
+    &lt;table>
+    &lt;form action='.' method="POST" >
+    &lt;tr>&lt;td>{{form.subject.label}}&lt;td>{{form.subject}}&lt;/td>&lt;/tr>
+    &lt;tr>&lt;td>{{form.message.label}}&lt;td>{{form.message}}&lt;/td>&lt;/tr>
+    &lt;tr>&lt;td>{{form.email.label}}&lt;td>{{form.email}}&lt;/td>&lt;/tr>
+    &lt;tr>&lt;td>{{form.cc_myself.label}}&lt;td>{{form.cc_myself}}&lt;/td>&lt;/tr>
+    &lt;tr>&lt;td span="2">&lt;input type="submit" value="send" name="enviar" />&lt;/td>&lt;/tr>
+    &lt;/form>
+    &lt;/table>
+</pre>
 
 És a dir, ara tenim exactament el que teníem abans (no us hi fixeu amb la maquetació),
 però ara si hi ha errors es presentaran a la part superior del formulari.
@@ -88,16 +94,18 @@ Concentrem-nos ara en la manera de presentar els errors. Com que la nostra idea
 presentar-los així, sinó que els posarem dins un div i farem que aquest es presenti
 o no en funció de si hi ha errors.
 
+<pre>
     {% block errors %}
-    <div class="errores" {% if not form.errors %} style="display: none" {% endif %} >
-      <p id="error_msg">
+    &lt;div class="errores" {% if not form.errors %} style="display: none" {% endif %} >
+      &lt;p id="error_msg">
           {{form.errors}}
-      </p>
-    </div>
+      &lt;/p>
+    &lt;/div>
     {% endblock errors %}
+</pre>
 
 Això a efectes pràctics és el mateix que el cas anterior, ja que com que si no
-hi ha errors <code>from.errors</code> no mostrarà res. El que sí hi ha ja és 
+hi ha errors <code>from.errors</code> no mostrarà res. El que sí hi ha ja és
 tota l'estructura que ens servirà per mostrar els errors dins l'arbre DOM de la
 plana web.
 
@@ -122,6 +130,7 @@ estructura json:
 
 
 <pre class="sh_python">
+
     class LazyEncoder(JSONEncoder):
         def default(self, obj):
             if isinstance(obj, Promise):
@@ -166,6 +175,7 @@ HttpRequest o no, **request.is_ajax()** això ens permetrà distingir com s'ha
 enviat el post i fer la validació d'una manera o altra
 
 <pre class="sh_python">
+
     def index(request):
         redirect_url = '/thanks'
         if request.method == 'POST':
@@ -216,9 +226,9 @@ matriu amb tots els errors que hi hagi. El procés que facem ja és cosa nostra.
                       var msg = ""
                       for (key in  responseJson.errors) {
                         camp = key.split('_')[1];
-                        msg = msg + camp+":"+responseJson.errors[key][0]+"<br/>";
+                        msg = msg + camp+":"+responseJson.errors[key][0]+"&lt;br/>";
                       }
-                      $('#error_msg').html(msg+'<br/>');
+                      $('#error_msg').html(msg+'&lt;br/>');
                       $('.errores').show(100);
                       jQuery('#boton').toggle();
                   }
@@ -232,3 +242,6 @@ A l'exemple el que he fet és montar un missatge amb el primer error de cada cam
 a efectes demostratius, podeu fer el que us vengui millor: validar abans d'enviar,
 mostrar efectes als camps dels errors, mostrar un diàleg, sols estau limitats
 per la vostra imaginiació i el Javascript.
+
+El [codi complet de l'exemple](http://code.google.com/p/appfusedjango/source/browse/#svn/trunk/ajax_validation)
+ l'he pujat al [projecte appfusedjango](http://code.google.com/p/appfusedjango/)

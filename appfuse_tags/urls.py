@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+# Autor: your-name-here
+# --------------------------------------------------------------------
+
 from django.conf.urls.defaults import *
 from django.conf import settings 
 from django.contrib import admin
@@ -6,12 +11,13 @@ from django.views.generic.simple import direct_to_template
 admin.autodiscover()
 
 urlpatterns = patterns('',
-     # our agenda application
+     # direct to template sample
      (r'^$',direct_to_template, {'template': 'index.html'}),
-     (r'^appfuse/agenda/', include('agenda.urls')),
+     # application url include
+     #(r'^app/', include('app.urls')),
      # Administration
-     (r'^appfuse/admin/doc/', include('django.contrib.admindocs.urls')),
-     (r'^appfuse/admin/(.*)', admin.site.root),
+     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+     (r'^admin/(.*)', admin.site.root),
     )
 
 
@@ -19,7 +25,7 @@ urlpatterns = patterns('',
 # also the estatic content.
 if settings.DEBUG:
 	urlpatterns += patterns('',
-       (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+       (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':'./media/'}),
     )
 
 

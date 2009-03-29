@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">    
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load tags_appfused i18n %}
+<head>
+    <title>{% trans "Simple project Demo" %}</title>
+</head>
+<body>
+    <body>
+        <h1>{% trans "Hello!" %}</h1>
+        <p>This is a minimum application for "copy and paste purposes" </p>
+        <p>Just use <code>svn export </code> to get the contents to your own
+        projects</p>
+        <table>
+            <tr><td>The limit tag: </td><td>Showing the request</td><td>{{request|to_limit:"100"}}</td></tr>
+        </table>
+    </body>
+</html>
