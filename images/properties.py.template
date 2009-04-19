@@ -18,7 +18,7 @@ database_password=''
 database_host=''
 database_port=''
 # Urls
-app_root = = os.path.dirname(__file__)
+app_root =  os.path.dirname(__file__)
 media_root=os.path.join(app_root, 'media/')
 media_url = 'http://localhost:8000/media/'
 admin_media_prefix ='/adm_media/'
