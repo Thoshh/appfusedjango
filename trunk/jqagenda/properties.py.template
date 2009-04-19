@@ -28,7 +28,8 @@ cache_prefix='jq_appfuse'
 #cache_seconds=300
 session_engine='django.contrib.sessions.backends.cache'
 secret_key='h61_=!)rbt%w=pwzzv$d3$ou9&m7^)=c#2ve)83l)ne)aowp5+'
-
+logfile="loggin.conf"
+default_logger="apsl"
 
 if __name__ == "__main__":
     pass
