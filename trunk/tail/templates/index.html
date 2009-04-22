@@ -9,24 +9,21 @@
     {% endblock js_libs %}
 </head>
 <body>
-    <body>
-        <h1>{% trans "Hello Logger!" %}</h1>
-        <p>This demo show how can you emulate a tail -f linux command to
-        display a log file</p>
-        <p>Use the generate_log.py file to create the test data</p>
-        <div class="wrapper">
-            <h3>Controlled everyTime</h3>            
-            <div class="demos">
-				<div class="controlled-interval">
-					<div id="log" style="max-height:422px; min-height:422px; overflow:auto; background-color:blue;"></div>
-                    <p><span class="start">Start</span> | <span class="stop">Stop</span>|
-                        <span id="loading" style="display:none;"><img src="/media/img/ajax-loader.gif"></span></p>
-				</div>
+    <h1>{% trans "Hello Logger!" %}</h1>
+    <p>This demo show how can you emulate a tail -f linux command to
+    display a log file</p>
+    <p>Use the generate_log.py file to create the test data</p>
+    <div class="wrapper">
+        <h3>Controlled everyTime</h3>
+        <div class="demos">
+            <div class="controlled-interval">
+                <div id="log" style="max-height:422px; min-height:422px; overflow:auto; background-color:blue;"></div>
+                <p><span class="start">Start</span> | <span class="stop">Stop</span>|
+                    <span id="loading" style="display:none;"><img src="/media/img/ajax-loader.gif"></span></p>
             </div>
-            
         </div>
-        
-    </body>
+
+    </div>
     <script type="text/javascript">
 			$(function() {
                 var pos = 0;
@@ -34,8 +31,6 @@
 				var active = false;
                 $('#log').ajaxStart(function(){$('#loading').show()});
                 $('#log').ajaxStop(function(){$('#loading').hide()});
-
-
 				$('.controlled-interval', demos).find('.start').css("cursor", "pointer").click(function() {
 					if (!active) {
 						active = !active;
@@ -59,4 +54,5 @@
 				});
             });
     </script>
+  </body>
 </html>
