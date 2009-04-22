@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.sites',
     'django.contrib.admin',
+    'dlog',
 )
 
 # set cache adn session backend
