@@ -14,7 +14,7 @@ urlpatterns = patterns('',
      # direct to template sample
      (r'^$',direct_to_template, {'template': 'index.html'}),
      # application url include
-     #(r'^app/', include('app.urls')),
+     (r'^log/', include('dlog.urls')),
      # Administration
      (r'^admin/doc/', include('django.contrib.admindocs.urls')),
      (r'^admin/(.*)', admin.site.root),
