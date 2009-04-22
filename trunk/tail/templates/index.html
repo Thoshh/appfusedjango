@@ -49,7 +49,7 @@
 				}).end().find('.stop').css("cursor", "pointer").click(function() {
 					if (active) {
 						active = !active;
-						$(this).parents("div").find('#log').stopTime('controlled');
+						$('#log').stopTime('controlled');
 					}
 				});
             });
