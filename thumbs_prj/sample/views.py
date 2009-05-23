@@ -16,7 +16,6 @@ def index(request):
     if request.method == 'POST':
         form = AttachmentForm(request.POST, request.FILES)
         if form.is_valid():
-            import ipdb; ipdb.set_trace()
             f = form.cleaned_data['image']
             foto = Photo()
             foto.image.save(f.name, f)
