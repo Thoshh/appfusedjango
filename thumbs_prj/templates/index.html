@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">    
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load i18n %}    
+<head>
+    <title>{% trans "Simple project Demo" %}</title>
+</head>
+<body>   
+        <h1>{% trans "Hello!" %}</h1>
+        <form action="." method="POST" enctype="multipart/form-data">
+        <table>        
+            {{form}}
+            <tr><td span="2" center><input type="submit" value="enviar" name="enviar" /></td></tr>
+        </table>
+        </form>
+        <hr/>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th width="75%">Descripcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for foto in fotos %}
+                <tr>
+                    <td><a href="{% url display-image foto.id %}"><img src="{{foto.thumbnail.url}}" /></a></td>
+                    <td>{{foto.comments}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</body>
+</html>
