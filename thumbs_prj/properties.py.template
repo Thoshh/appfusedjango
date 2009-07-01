@@ -35,6 +35,8 @@ template_dirs = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(app_root,'templates/'),
 )
+logfile = 'loggin.conf'
+default_logger='apsl'
 
 if __name__ == "__main__":
     pass
