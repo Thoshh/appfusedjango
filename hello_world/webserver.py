@@ -23,7 +23,7 @@ from django.core.handlers.wsgi import WSGIHandler
 
 # Global variable!
 options = None
-sys.path.append('..')
+
 
 def change_uid_gid(uid, gid=None):
     """Try to change UID and GID to the provided values.
