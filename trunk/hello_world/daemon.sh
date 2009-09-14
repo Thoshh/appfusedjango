@@ -15,14 +15,14 @@
 # Your path.
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 # Location of the webserver.py file
-DAEMON=/home/aaloy/workspace/appfusedjango/hello_world/server/webserver.py
+DAEMON=/home/login/djangoserver/webserver.py
 # PID file to be created. It must match with the PID file in the
 # configuration module.
 PIDFILE=/var/run/django-myproject.pid
 # Before running the daemon we change the current working directory to
 # this directory so to be able to include config files which are not
 # in the python path.
-BASEDIR=/home/aaloy/workspace/appfusedjango/hello_world/
+BASEDIR=/home/login/djangoserver
 # Config module for the webserver.
 CONFIG=myprojectconf
 #
