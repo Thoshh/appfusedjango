@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery Bulk Uploader plugin</title>
+
+<script type="text/javascript" src="/media/js/jquery.js"></script>
+<script type="text/javascript" src="/media/js/bulk/jquery.bulkupload.js"></script>
+<script type="text/javascript" src="/media/js/bulk/bulk.js"></script>
+<link rel="stylesheet" type="text/css" href="/media/css/jquery.bulkupload.css" />
+
+</head>
+
+<body>
+
+    <div id="FileUploaderHolder">
+    	<h1>BulkUpload for jQuery</h1>
+        <p>
+        	BulkUpload is a simple straight forward plugin which you can use in your HTML forms to let your website&prime;s users to select multiple files and manage them with a list to upload them straight to your webserver. If your website is about file management or related to any uploading this will be a good use for you.
+        </p>
+        <p>Plugin from <a href=" http://whynotonline.com/">Whyynotonline.com</a></p>
+        <h2>Demo</h2>        
+        <div>			
+				<form method='POST' enctype='multipart/form-data' action='/envia/'>
+                    <div id="FileUploaderHolderHook">
+					<input type="file" class="bulkupload" name="arx" />
+                    <br/>
+                    </div>
+                    <input type=submit value="Press!!" />
+				</form>            
+        </div>        
+    </div>
+</body>
+</html>
