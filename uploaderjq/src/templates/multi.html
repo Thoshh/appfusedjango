@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery Bulk Uploader plugin</title>
+<script type="text/javascript" src="/media/js/jquery.js"></script>
+<script src="/media/js/multi/jquery.MultiFile.pack.js" type="text/javascript" language="javascript"></script>
+</head>
+
+<body>
+    <div id="FileUploaderHolder">
+    	<h1>Multi File upload</h1>
+        <p>This plugging allows to limit the number of uploads as well as the file extensions it allows</p>
+        <p>
+        Plugin Code From: <a href="http://www.fyneworks.com/jquery/multiple-file-upload/">http://www.fyneworks.com/jquery/multiple-file-upload/</a>
+        </p>		
+        <h2>Demo</h2>        
+        <div>			
+            <form method='POST' enctype='multipart/form-data' action='/envia_multi/'>
+                <div id="FileUploaderHolderHook">
+                <input type="file" class="multi"  accept="zip|jpg|JPG|JPEG" name="arx" maxlength="2"/>
+                <br/>
+                </div>
+                <input type=submit value="Press!" />
+            </form>            
+        </div>        
+    </div>
+</body>
+</html>
