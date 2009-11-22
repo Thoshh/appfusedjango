@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Project &mdash; appfusedjango v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="appfusedjango v0.1 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to appfusedjango’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to appfusedjango’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">appfusedjango v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="project">
+<h1>Project<a class="headerlink" href="#project" title="Permalink to this headline">¶</a></h1>
+<p>Projects vol ser una manera ràpida de començar un projecte. Ens dóna un esquelet mínim per a la nostra aplicació.</p>
+<p>Com executar-lo:</p>
+<ul class="simple">
+<li>Feis un <cite>svn export project nom-del-vostre-projecte</cite></li>
+<li>Copiar properties.py.template a properties.py</li>
+<li>Executa <cite>python manage.py syncdb</cite> i contesta a les preguntes</li>
+<li>Executa <cite>python manage.py runserver</cite></li>
+</ul>
+<p>Executant el navegador i anant a <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> hauríeu de veure una plana de venvinguda.</p>
+<div class="section" id="conceptes-a-destacar">
+<h2>Conceptes a destacar<a class="headerlink" href="#conceptes-a-destacar" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="separaci-de-la-configuraci">
+<h3>Separació de la configuració<a class="headerlink" href="#separaci-de-la-configuraci" title="Permalink to this headline">¶</a></h3>
+<p>Es separa la configuració de l&#8217;aplicatiu del settings. Tot el que sigui susceptible de ser modificat en producció
+s&#8217;ha de posar dins properties.py i utilitzat dins el settings via la variable de configuració:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">SITE_ROOT</span><span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="s">&#39;site_root&#39;</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>D&#8217;aquesta manera si a properties hi posam la variable site_root aquest tendrà preferència sobre el valor per defecte,
+que en aquest cas és <a class="reference external" href="http://localhost:80000">http://localhost:80000</a></p>
+</div>
+<div class="section" id="el-nivell-de-login-es-defineix-al-properties">
+<h3>El nivell de login es defineix al properties<a class="headerlink" href="#el-nivell-de-login-es-defineix-al-properties" title="Permalink to this headline">¶</a></h3>
+<p>Al properties.py posam el logger:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="n">filename</span><span class="o">=</span><span class="s">&#39;the_filename_log_output.log&#39;</span><span class="p">,</span>
+    <span class="n">format</span><span class="o">=</span><span class="s">&quot;</span><span class="si">%(asctime)s</span><span class="s">-</span><span class="si">%(levelname)s</span><span class="s">-</span><span class="si">%(name)s</span><span class="s">-</span><span class="si">%(lineno)s</span><span class="s">-</span><span class="si">%(message)s</span><span class="s">&quot;</span><span class="p">,</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c">#logging.getLogger(&#39;app.module.file&#39;).setLevel(logging.INFO)</span>
+<span class="c">#logging.getLogger(&#39;app2.module.file&#39;).setLevel(logging.ERROR)</span>
+</pre></div>
+</div>
+<p>D&#8217;aquesta manera podem configurar el loggin a diferents nivells a producció i desenvolupament. Això vol dir que
+no hi ha cap excusa per fer servir print.</p>
+<p>Als mòduls que requereixin loggin farem:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>D&#8217;aquesta manera el nom del nostre mòdul serà el del loggins i podrem fer-hi referència a la configuració de projecte.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Project</a><ul>
+<li><a class="reference external" href="#conceptes-a-destacar">Conceptes a destacar</a><ul>
+<li><a class="reference external" href="#separaci-de-la-configuraci">Separació de la configuració</a></li>
+<li><a class="reference external" href="#el-nivell-de-login-es-defineix-al-properties">El nivell de login es defineix al properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Welcome to appfusedjango&#8217;s documentation!</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/project.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to appfusedjango’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">appfusedjango v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, antoni aloy.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

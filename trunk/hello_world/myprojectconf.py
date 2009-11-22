@@ -9,7 +9,7 @@ DJANGO_SERVE_ADMIN = False # Serve admin files
 IP_ADDRESS = '127.0.0.1'
 PORT = 8088
 SERVER_NAME = 'localhost'
-SERVER_THREADS = 3
+SERVER_THREADS = 5
 # Change it to True if you want it to run as daemon, if you use a
 # daemon.sh file you should also change it to True
 RUN_AS_DAEMON = False
@@ -20,7 +20,7 @@ DAEMON_RUN_DIR = '/' # The daemon will change directory to this one
 # Log settings
 LOGFILE = '/tmp/webserver.log'
 LOGLEVEL = 'INFO' # if DEBUG is True, overwritten to DEBUG
-DEBUG = True
+DEBUG = False
 
 # It must match with the path given in your daemon.sh file if you are
 # using a daemon.sh file to control the server.

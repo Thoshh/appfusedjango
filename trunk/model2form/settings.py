@@ -7,9 +7,15 @@ import properties
 DEBUG = getattr(properties, 'debug', True)
 TEMPLATE_DEBUG = getattr(properties,'template_debug', True)
 
+import logging
+import logging.config
+logging.config.fileConfig(properties.logfile)
+LOGGER = logging.getLogger(properties.default_logger)
+
+
 SITE_ROOT= getattr(properties, 'site_root', "http://localhost:8000/")
 
-MANAGERS = getattr(properties, 'managers', ())
+MANAGERS = getattr(properties, 'admins', ())
 
 DATABASE_ENGINE = getattr(properties, 'database_engine', 'sqlite3')   # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = getattr(properties, 'database_name', 'db.sqlite')     # Or path to database file if using sqlite3.
@@ -80,6 +86,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.sites',
     'django.contrib.admin',
+    'test',
 )
 
 # set cache adn session backend
@@ -90,6 +97,9 @@ SESSION_BACKEND=getattr(properties, 'session_backend','django.contrib.sessions.b
 
 if DEBUG:
     SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
+#Sesion engine if not default
+#SESSION_ENGINE=session_engine    
 
 ugettext = lambda s:s
 LANGUAGES = (
