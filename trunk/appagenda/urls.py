@@ -8,10 +8,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
      # our agenda application
      (r'^$',direct_to_template, {'template': 'index.html'}),
-     (r'^appfuse/agenda/', include('agenda.urls')),
+     (r'^agenda/', include('agenda.urls')),
      # Administration
-     (r'^appfuse/admin/doc/', include('django.contrib.admindocs.urls')),
-     (r'^appfuse/admin/(.*)', admin.site.root),
+     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+     (r'^admin/(.*)', admin.site.root),
     )
 
 

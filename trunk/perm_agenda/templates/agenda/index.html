@@ -54,8 +54,9 @@
 								{% ifnotequal page.number paginator.num_pages %}<span class="last"><a href="{{ url }}{{ paginator.num_pages }}/{{newurl}}" title="{% trans "&Uacute;ltima" %}">&raquo;</a></span>{% endifnotequal %}
 							{% endifnotequal %}
 			</div>
-			
+            
 	        <div class="paginator">
+                <br/>
 	                        {% ifnotequal paginator.num_pages 1 %}
 	                            {% if page.has_other_pages %}<span class="first"><a href="{{ url }}1/{{newurl}}" title="{% trans "Primera"%}">&laquo;</a></span>{% endif %}
 	                            {% if page.has_previous %}<span class="prev"><a href="{{ url }}{{ page.previous_page_number }}/{{newurl}}" title="{%trans "Anterior" %}">&lt;</a></span>{% endif %}
@@ -83,8 +84,8 @@
 		  <p>{% trans "No records found" %}</p>
 		{% endifnotequal %}
 <div id="menu">
+    <br/>
 	<a href="/admin/" title="{% trans "Go to the admin page" %}">{% trans "Admin" %}</a> <a href="/agenda/add/" title="{% trans "Add a new record"%}">{% trans "Add" %}</a>
-    <a href="/agenda/search/" title="{% trans 'search'%}">{% trans "search" %}</a>
 </div>
 {% endblock content %}
 </body>

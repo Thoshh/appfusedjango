@@ -91,7 +91,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'agenda',
-    'django_cpserver',
 )
 # set cache backend
 CACHE_BACKEND=properties.cache_backend

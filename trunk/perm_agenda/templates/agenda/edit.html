@@ -1,17 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Agenda per Django</title>
-<!--
-<link rel="stylesheet" type="text/css" href="FIXME" />
-<script type="text/javascript" src="FIXME"></script>
-<style type="text/css">
-/* <![CDATA[ */
-/* ]]> */
-</style>
--->
-</head>
-<body>
+{% extends "agenda/base.html" %}
+{% load i18n %}
+{% block content %}
 	<h1>Agenda</h1>
 	<form action="." method="post">
 		<table>
@@ -21,5 +10,4 @@
 		<button name="reset" value="reset" type="reset">Reset</button>
 	</form>
 	<a href="/admin/">Admin</a> <a href="/agenda/">Agenda</a>
-</body>
-</html>
+{% endblock content %}

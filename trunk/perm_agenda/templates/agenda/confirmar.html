@@ -1,18 +1,6 @@
+{% extends "agenda/base.html" %}
 {% load i18n %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>FIXME</title>
-<!--
-<link rel="stylesheet" type="text/css" href="FIXME" />
-<script type="text/javascript" src="FIXME"></script>
-<style type="text/css">
-/* <![CDATA[ */
-/* ]]> */
-</style>
--->
-</head>
-<body>
+{% block content %}
 	<h1>{% trans "Confirmacion de borrado " %}</h1>
 	<p> {% trans "Seguro que desea borrar esta ficha" %} </p>
 	<dl>
@@ -24,5 +12,4 @@
 		<INPUT type="submit" name="sure" value="{% trans "Seguro, seguro"%}" alt="{% trans "seguro"%}">
 	</form>
 	<a href="/agenda/">{% trans "No estoy seguro, muestrame la lista" %}</a>
-</body>
-</html>
+{% endblock conntent %}
