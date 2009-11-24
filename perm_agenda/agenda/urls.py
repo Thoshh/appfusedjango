@@ -15,6 +15,3 @@ urlpatterns = patterns("",
      url(r'^deleted/$', agenda_views.deleted, name="agenda-deleted-record"),
      url(r'^lang/(?P<idioma>\w+)/$', agenda_views.cambiar_idioma, name ="change-language"),
 )
-
-if __name__ == "__main__":
-    pass

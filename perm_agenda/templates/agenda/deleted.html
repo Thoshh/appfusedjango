@@ -1,20 +1,7 @@
+{% extends "agenda/base.html" %}
 {% load i18n %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>{% trans "Registro borrado" %}</title>
-<!--
-<link rel="stylesheet" type="text/css" href="FIXME" />
-<script type="text/javascript" src="FIXME"></script>
-<style type="text/css">
-/* <![CDATA[ */
-/* ]]> */
-</style>
--->
-</head>
-<body>
+{% block content %}
 	<h1>{% trans "Esborrat" %} </h1>
 	<p>{%trans "El registro ha sido borrado satisfactoriamente" %} </p>
 	<p><a href="/agenda/">{% trans "Ir a la lista" %}</a>
-</body>
-</html>
+{% endblock content %}

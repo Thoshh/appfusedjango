@@ -8,10 +8,14 @@ from django.template import loader
 from django.conf import settings
 from django.utils import translation
 from django.utils.encoding import iri_to_uri
-from django.utils  import cache 
-import md5
+from django.utils  import cache
 
-template_cache = {} 
+try:
+    from hashlib import md5
+except ImportError:
+    from md5 import md5
+
+template_cache = {}
 original_get_template = loader.get_template
 def cached_get_template(template_name):
     global template_cache
@@ -25,9 +29,9 @@ loader.get_template = cached_get_template
 
 def _generate_cache_key_i18n(request, headerlist, key_prefix):
     """Returns a cache key from the headers given in the header list.
-    This function overrides the one that django provides in orde to consider
+    This function overrides the one that django provides in order to consider
     the page language"""
-    ctx = md5.new()
+    ctx = md5()
     lang = translation.get_language()
     for header in headerlist:
         value = request.META.get(header, None)
@@ -35,5 +39,5 @@ def _generate_cache_key_i18n(request, headerlist, key_prefix):
             ctx.update(value)
     return 'views.decorators.cache.cache_page.%s.%s.%s.%s' % (
                key_prefix, iri_to_uri(request.path), ctx.hexdigest(),lang)
-cache._generate_cache_key = _generate_cache_key_i18n               
+cache._generate_cache_key = _generate_cache_key_i18n
 

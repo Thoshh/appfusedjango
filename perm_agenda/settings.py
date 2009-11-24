@@ -66,7 +66,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'middleware.logmw.LoggingMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     # Not using cache
@@ -111,10 +110,6 @@ LANGUAGES = (
     ('es', ugettext('Spanish')),
     ('ca', ugettext('Catalan')),
 )
-
-WEEK_START_DAY = 1
-LOG_ENABLED=True
-LOG_FILE= getattr(properties, 'log_file', './appfusedjango.log')
 
 
 TEMPLATE_CONTEXT_PROCESSORS=("django.core.context_processors.auth",

@@ -1,7 +1,7 @@
 Project
 =======
 
-Projects vol ser una manera ràpida de començar un projecte. Ens dóna un esquelet mínim per a la nostra aplicació.
+Project vol ser una manera ràpida de començar un projecte. Ens dóna un esquelet mínim per a la nostra aplicació.
 
 Com executar-lo:
 

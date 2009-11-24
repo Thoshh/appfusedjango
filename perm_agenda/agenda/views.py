@@ -139,14 +139,3 @@ def cambiar_idioma(request, idioma):
         else:
             response.set_cookie('django_language', lang_code)
     return response
-
-def grid_view(request):
-    "Shows the table js view"
-    return render_to_response('agendajs/table.html')
-
-def json_list(request):
-    "Returns the data in json format"
-    queryset = Person.objects.all()
-    root_name = 'rows' # or it can be queryset.model._meta.verbose_name_plural
-    data = '{"total": %s, "%s": %s}' % (queryset.count(), root_name, serializers.serialize('json', queryset))
-    return HttpResponse(data, mimetype='text/javascript;') 
