@@ -41,8 +41,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="qu-s-un-decorador">
-<h1>Què és un decorador<a class="headerlink" href="#qu-s-un-decorador" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="que-es-un-decorador">
+<h1>Què és un decorador<a class="headerlink" href="#que-es-un-decorador" title="Permalink to this headline">¶</a></h1>
 <p>Un decorador és el nom d&#8217;un <em>patró de disseny</em>. Els decoradors alteren de manera dinàmica la funcionalitat d&#8217;una funció,
 mètode a classe sense tenir-ne que fer subclasses o canviar el codi font de la classe decorada. En el sentit de Python
 un decorador és quelcom més, inclou el patró de disseny, però van més allà, Bruce Eckel els assimila a les macros de Lisp.</p>
@@ -51,7 +51,7 @@ diferència d&#8217;altres llenguatges de programació no requereixen que ens ap
 (com passa amb les anotacions de Java per exemple). En la seva utilització podem atracar-nos a la programació orientada
 a aspectes (AOP) o utilitzar-los per a afegir sistemes de control a les nostres funcions, de log, caché, ...
 Les possibilitats són infinites. El decoradors formen part de Python des de la versió 2.4 i com
-diu [Michele Simionato](<a class="reference external" href="http://www.phyast.pitt.edu/~micheles/">http://www.phyast.pitt.edu/~micheles/</a>) ens aporten el següent:</p>
+diu <a class="reference external" href="http://www.phyast.pitt.edu/~micheles/">Michele Simionato</a> ens aporten el següent:</p>
 <blockquote>
 <ul class="simple">
 <li>Redueixen el codi comú i repetitiu (l&#8217;anomenat codi _boilerplate_).</li>
@@ -64,11 +64,11 @@ diu [Michele Simionato](<a class="reference external" href="http://www.phyast.pi
 desenvolupar-los. Un decorador típic veurem que és molt bo d&#8217;escriure, però la cosa es complica un poc quan volem passar
 paràmetres o mantenir la signatura del mètode. Aquesta complexitat no és tant pel codi que s&#8217;ha d&#8217;escriure sinó perquè
 hem de recordar com s&#8217;ha d&#8217;escriure el decorador per a cada cas.</p>
-<p>Afortunadament veurem que gent com [Michele Simionato](<a class="reference external" href="http://pypi.python.org/pypi/decorator/3.1.2">http://pypi.python.org/pypi/decorator/3.1.2</a>) han desenvolupat
+<p>Afortunadament veurem que gent com <a class="reference external" href="http://pypi.python.org/pypi/decorator/3.1.2">Michele Simionato</a> han desenvolupat
 paquets que ens simplifiquen molt la vida. Tot i això i abans de fer servir aquestes utilitats convé saber què són i
 desenvolupar-los sense ajuda. És un poc com aprendre&#8217;s les taules de multiplicar i després ja utilitzar la calculadora.</p>
-<div class="section" id="classificaci-dels-decoradors">
-<h2>Classificació dels decoradors<a class="headerlink" href="#classificaci-dels-decoradors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classificacio-dels-decoradors">
+<h2>Classificació dels decoradors<a class="headerlink" href="#classificacio-dels-decoradors" title="Permalink to this headline">¶</a></h2>
 <p>Podem dividir els decoradors en grups:</p>
 <blockquote>
 <ul>
@@ -163,7 +163,7 @@ la funció decorada:</p>
     <span class="s">&quot;suma dos parametres qualsevols si pot&quot;</span>
     <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
 
-<span class="n">suma</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="mf">2</span><span class="p">)</span>
+<span class="n">suma</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Ara ja no dona error. Així doncs <em>una altra conclusió</em>: a més de tornar una funció, hem de procurar que la definició de
@@ -174,13 +174,13 @@ això un poc més endavant. Ara per ara ja sabem com crear decoradors simples a 
 </div>
 <div class="section" id="fent-decoradors-no-intrusius">
 <h2>Fent decoradors no intrusius<a class="headerlink" href="#fent-decoradors-no-intrusius" title="Permalink to this headline">¶</a></h2>
-<p>Si heu fet un <cite>help(suma)</cite> o un <cite>suma.__name__</cite> potser un haureu sorprés en veure que le nom de la funció és _none_ en
+<p>Si heu fet un <cite>help(suma)</cite> o un <cite>suma.__name__</cite> potser un haureu sorprés en veure que le nom de la funció és <em>none</em> en
 lloc de l&#8217;esperada <cite>suma</cite>. Si pensau amb el que hem fet tampoc és d&#8217;extranyar, fet i fet hem substituït la funció
 original per una altra, recordem que el decorador f aplicat damunt la funció g és equivalent a fer g = f(g).</p>
 <p>El que és aconsellable és que el decorador sigui capaç de mantenir la documentació i el nom de la funció que decora,
 ja que d&#8217;aquesta manera es simplifica l&#8217;ús de la funció i els autocompletadors de codi no es tornen bojos.</p>
 <p>Això ho podem fer de dues maneres: la llarga i la curta</p>
-<p><em>La manera llarga</em>:</p>
+<p><strong>La manera llarga</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!python</span>
 <span class="k">def</span> <span class="nf">forat_negre</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">none</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_args</span><span class="p">):</span>
@@ -201,11 +201,10 @@ suma(*args, **kw_args)
 </div>
 <p>Fixem-nos en la signatura de la funció no s&#8217;ha preservar. Abans admetia dos paràmetres i ara n&#8217;admet un nombre
 qualsevol. Per la majoria de casos això no té més importància, però al final de l&#8217;article veurem com es pot resoldre.</p>
-<p><em>La manera curta</em></p>
+<p><strong>La manera curta</strong></p>
 <p>Com que el tema de reservar les metadades és força interessant i comú, al mòdul functools hi trobam la funció <cite>wraps</cite>
 que és en sí mateixa un decorador i que fa aquesta funció. D&#8217;aquesta manera el codi anterior quedaria:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!python</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 
 <span class="k">def</span> <span class="nf">forat_negre</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -221,7 +220,7 @@ que és en sí mateixa un decorador i que fa aquesta funció. D&#8217;aquesta ma
 <p>El decorador que hem fet a l&#8217;apartat anterior era prou simple, feia ben poca cosa i no tenia paràmetres. Si volem fer
 decoradors hem de fer primer de tot que siguin útils, i també ens trobarem amb la necessitat de que aquests decoradors
 admetin paràmetres.</p>
-<p>A Django, per exemple, podeu trobar que el [decorador de cache](<a class="reference external" href="http://docs.djangoproject.com/en/dev/topics/cache/">http://docs.djangoproject.com/en/dev/topics/cache/</a>)
+<p>A Django, per exemple, podeu trobar que el <a class="reference external" href="http://docs.djangoproject.com/en/dev/topics/cache/">decorador de cache</a>
 admet paràmetres que ens permet dir-li durant quan de temps ha de cachejar els resultats, o el decorador
 vary_on_headers, que ens permet modificar el contingut de la resposta de les vistes afegint les capçaleres que indiquem.</p>
 <p>Anem a veure com ho podem aconseguir nosaltres. També hi ha dues maneres de fer-ho, la clara i la complexa.
@@ -235,8 +234,8 @@ admeten paràmetres, que es construeixen preferentment fent servir classes.</p>
 Per això el que farem serà passar-li una funció com a paràmetre que en ser executada determinarà si s&#8217;ha de mostrar
 el resultat de la funció decorada o no</p>
 </div>
-<div class="section" id="el-m-tode-clar-de-fer-decoradors-amb-arguments">
-<h2>El mètode clar de fer decoradors amb arguments<a class="headerlink" href="#el-m-tode-clar-de-fer-decoradors-amb-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="el-metode-clar-de-fer-decoradors-amb-arguments">
+<h2>El mètode clar de fer decoradors amb arguments<a class="headerlink" href="#el-metode-clar-de-fer-decoradors-amb-arguments" title="Permalink to this headline">¶</a></h2>
 <p>Anem primer a veure l&#8217;exemple:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!python</span>
 <span class="c">#!/usr/bin/env python</span>
@@ -263,9 +262,9 @@ el resultat de la funció decorada o no</p>
 
 
 <span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span><span class="mf">6</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">9</span><span class="p">,</span><span class="mf">5</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Fitxem-nos amb que hem fet:</p>
@@ -318,17 +317,17 @@ el nom i documentació de la funció decorada.:</p>
 
 <span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="k">print</span> <span class="s">&quot;Exemple amb </span><span class="si">%s</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="n">suma</span><span class="o">.</span><span class="n">__name__</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span><span class="mf">6</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">9</span><span class="p">,</span><span class="mf">5</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
     <span class="k">print</span> <span class="s">&quot;Exemple amb </span><span class="si">%s</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="n">resta</span><span class="o">.</span><span class="n">__name__</span>
-    <span class="k">print</span> <span class="n">resta</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">resta</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span><span class="mf">6</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">resta</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">resta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="el-m-tode-enrevessat-de-fer-decoradors-amb-arguments">
-<h2>El mètode enrevessat de fer decoradors amb arguments<a class="headerlink" href="#el-m-tode-enrevessat-de-fer-decoradors-amb-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="el-metode-enrevessat-de-fer-decoradors-amb-arguments">
+<h2>El mètode enrevessat de fer decoradors amb arguments<a class="headerlink" href="#el-metode-enrevessat-de-fer-decoradors-amb-arguments" title="Permalink to this headline">¶</a></h2>
 <p>El nostre exemple:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">forat_negre_dos</span><span class="p">(</span><span class="n">mostrar</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
@@ -488,26 +487,26 @@ ArgSpec(args=['nom'], varargs=None, keywords=None, defaults=None)</pre>
 el nom de la funció original i no el del decorador. La documentació també s&#8217;ha mantingut i per acabar, podem veure
 que la signatura de la funció és correcta, ens diu que té un argument obligatori anomenat nom.</p>
 </div>
-<div class="section" id="conclusi">
-<h2>Conclusió<a class="headerlink" href="#conclusi" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="conclusio">
+<h2>Conclusió<a class="headerlink" href="#conclusio" title="Permalink to this headline">¶</a></h2>
 <p>Esper haver deixat un poc més clar el tema dels decoradors. Crear-los no és difícil, utilitzar-los és simple,
 sols hem de tenir clar què són i quan fer-los servir. Són una eina potent que ens permet fer el nostre codi més legible
 i cohesionat. Fora por i a disfrutar amb els decoradors.</p>
 <p>Com tot en aquesta vida, usau-los amb coneixement i moderació.</p>
 </div>
-<div class="section" id="refer-ncies">
-<h2>Referències<a class="headerlink" href="#refer-ncies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="referencies">
+<h2>Referències<a class="headerlink" href="#referencies" title="Permalink to this headline">¶</a></h2>
 <p>Per escriure aquest article m&#8217;he basat en múltiples fonts, les més importants i útils han estat:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.python.org/dev/peps/pep-0318">PEP 318</a></li>
 <li><a class="reference external" href="http://www.artima.com/weblogs/viewpost.jsp?thread=240808">Decorators I : Introduction to Python Decorators</a></li>
-<li>[Decorators II: Decorator Arguments] (<a class="reference external" href="http://www.artima.com/weblogs/viewpost.jsp?thread=240845">http://www.artima.com/weblogs/viewpost.jsp?thread=240845</a>)</li>
-<li>[PYthon Decorators] (<a class="reference external" href="http://wiki.python.org/moin/PythonDecorators">http://wiki.python.org/moin/PythonDecorators</a>)</li>
-<li>[Understanding decorators](<a class="reference external" href="http://uswaretech.com/blog/2009/06/understanding-decorators/">http://uswaretech.com/blog/2009/06/understanding-decorators/</a> &#8220;The Uswaretech Blog&#8221;)</li>
-<li>[Charming Python: Decorators make magic easy] (<a class="reference external" href="http://www.ibm.com/developerworks/linux/library/l-cpdecor.html">http://www.ibm.com/developerworks/linux/library/l-cpdecor.html</a> &#8220;Ibm technical library&#8221;)</li>
-<li>[Decorator 3.1.2] (<a class="reference external" href="http://pypi.python.org/pypi/decorator/3.1.2">http://pypi.python.org/pypi/decorator/3.1.2</a> &#8220;Package to simplify decorators&#8221;)</li>
-<li>[Decorator Pattern] (<a class="reference external" href="http://en.wikipedia.org/wiki/Decorator_pattern">http://en.wikipedia.org/wiki/Decorator_pattern</a>)</li>
-<li>[Python decorator Library](<a class="reference external" href="http://wiki.python.org/moin/PythonDecoratorLibrary">http://wiki.python.org/moin/PythonDecoratorLibrary</a>)</li>
+<li><a class="reference external" href="http://www.artima.com/weblogs/viewpost.jsp?thread=240845">Decorators II: Decorator Arguments</a></li>
+<li><a class="reference external" href="http://wiki.python.org/moin/PythonDecorators">PYthon Decorators</a></li>
+<li><a class="reference external" href="http://uswaretech.com/blog/2009/06/understanding-decorators/">Understanding decorators</a></li>
+<li><a class="reference external" href="http://www.ibm.com/developerworks/linux/library/l-cpdecor.html">Charming Python: Decorators make magic easy</a></li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/decorator/3.1.2&quot;Packagetosimplifydecorators&quot;">Decorator 3.1.2</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Decorator_pattern">Decorator Pattern</a></li>
+<li><a class="reference external" href="http://wiki.python.org/moin/PythonDecoratorLibrary">Python decorator Library</a></li>
 </ul>
 </div>
 </div>
@@ -521,16 +520,16 @@ i cohesionat. Fora por i a disfrutar amb els decoradors.</p>
             <h3><a href="index.html">Table Of Contents</a></h3>
             <ul>
 <li><a class="reference external" href="">Què és un decorador</a><ul>
-<li><a class="reference external" href="#classificaci-dels-decoradors">Classificació dels decoradors</a></li>
+<li><a class="reference external" href="#classificacio-dels-decoradors">Classificació dels decoradors</a></li>
 <li><a class="reference external" href="#un-decorador-que-no-fa-res">Un decorador que no fa res</a></li>
 <li><a class="reference external" href="#fent-decoradors-no-intrusius">Fent decoradors no intrusius</a></li>
 <li><a class="reference external" href="#un-decorador-amb-arguments">Un decorador amb arguments</a></li>
-<li><a class="reference external" href="#el-m-tode-clar-de-fer-decoradors-amb-arguments">El mètode clar de fer decoradors amb arguments</a></li>
-<li><a class="reference external" href="#el-m-tode-enrevessat-de-fer-decoradors-amb-arguments">El mètode enrevessat de fer decoradors amb arguments</a></li>
+<li><a class="reference external" href="#el-metode-clar-de-fer-decoradors-amb-arguments">El mètode clar de fer decoradors amb arguments</a></li>
+<li><a class="reference external" href="#el-metode-enrevessat-de-fer-decoradors-amb-arguments">El mètode enrevessat de fer decoradors amb arguments</a></li>
 <li><a class="reference external" href="#encadenant-decoradors">Encadenant decoradors</a></li>
 <li><a class="reference external" href="#la-signatura-pendent">La signatura pendent</a></li>
-<li><a class="reference external" href="#conclusi">Conclusió</a></li>
-<li><a class="reference external" href="#refer-ncies">Referències</a></li>
+<li><a class="reference external" href="#conclusio">Conclusió</a></li>
+<li><a class="reference external" href="#referencies">Referències</a></li>
 </ul>
 </li>
 </ul>

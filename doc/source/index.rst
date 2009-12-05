@@ -3,19 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-=========================================
-Welcome to appfusedjango's documentation!
-=========================================
+============================================
+Benvingud a la documentació d'Appfusedjango
+============================================
 
 Contents:
 
 .. toctree::
     :maxdepth: 2
 
+    start
     project
     decoradors
+    tools
         
-Indices and tables
+Inex i taules
 ==================
 
 * :ref:`genindex`

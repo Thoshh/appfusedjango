@@ -50,3 +50,9 @@ Als mòduls que requereixin loggin farem::
 
 D'aquesta manera el nom del nostre mòdul serà el del loggins i podrem fer-hi referència a la configuració de projecte.
 
+Comentaris
+----------
+
+Els arxius contenen nombrós codi comentat que serveix per a utilitzar-ho com 
+a plantilla, copiant directament o descomentant.
+

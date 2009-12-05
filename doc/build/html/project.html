@@ -21,7 +21,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="appfusedjango v0.1 documentation" href="index.html" />
     <link rel="next" title="Què és un decorador" href="decoradors.html" />
-    <link rel="prev" title="Welcome to appfusedjango’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Abans de començar" href="start.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,7 +34,7 @@
           <a href="decoradors.html" title="Què és un decorador"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to appfusedjango’s documentation!"
+          <a href="start.html" title="Abans de començar"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">appfusedjango v0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -58,8 +58,8 @@
 <p>Executant el navegador i anant a <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> hauríeu de veure una plana de venvinguda.</p>
 <div class="section" id="conceptes-a-destacar">
 <h2>Conceptes a destacar<a class="headerlink" href="#conceptes-a-destacar" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="separaci-de-la-configuraci">
-<h3>Separació de la configuració<a class="headerlink" href="#separaci-de-la-configuraci" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="separacio-de-la-configuracio">
+<h3>Separació de la configuració<a class="headerlink" href="#separacio-de-la-configuracio" title="Permalink to this headline">¶</a></h3>
 <p>Es separa la configuració de l&#8217;aplicatiu del settings. Tot el que sigui susceptible de ser modificat en producció
 s&#8217;ha de posar dins properties.py i utilitzat dins el settings via la variable de configuració:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">SITE_ROOT</span><span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="s">&#39;site_root&#39;</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)</span>
@@ -91,6 +91,11 @@ no hi ha cap excusa per fer servir print.</p>
 <p>D&#8217;aquesta manera el nom del nostre mòdul serà el del loggins i podrem fer-hi referència a la configuració de projecte.</p>
 </div>
 </div>
+<div class="section" id="comentaris">
+<h2>Comentaris<a class="headerlink" href="#comentaris" title="Permalink to this headline">¶</a></h2>
+<p>Els arxius contenen nombrós codi comentat que serveix per a utilitzar-ho com
+a plantilla, copiant directament o descomentant.</p>
+</div>
 </div>
 
 
@@ -103,17 +108,18 @@ no hi ha cap excusa per fer servir print.</p>
             <ul>
 <li><a class="reference external" href="">Project</a><ul>
 <li><a class="reference external" href="#conceptes-a-destacar">Conceptes a destacar</a><ul>
-<li><a class="reference external" href="#separaci-de-la-configuraci">Separació de la configuració</a></li>
+<li><a class="reference external" href="#separacio-de-la-configuracio">Separació de la configuració</a></li>
 <li><a class="reference external" href="#el-nivell-de-login-es-defineix-al-properties">El nivell de login es defineix al properties</a></li>
 </ul>
 </li>
+<li><a class="reference external" href="#comentaris">Comentaris</a></li>
 </ul>
 </li>
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="index.html"
-                                  title="previous chapter">Welcome to appfusedjango&#8217;s documentation!</a></p>
+            <p class="topless"><a href="start.html"
+                                  title="previous chapter">Abans de començar</a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="decoradors.html"
                                   title="next chapter">Què és un decorador</a></p>
@@ -149,7 +155,7 @@ no hi ha cap excusa per fer servir print.</p>
           <a href="decoradors.html" title="Què és un decorador"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to appfusedjango’s documentation!"
+          <a href="start.html" title="Abans de començar"
              >previous</a> |</li>
         <li><a href="index.html">appfusedjango v0.1 documentation</a> &raquo;</li> 
       </ul>
