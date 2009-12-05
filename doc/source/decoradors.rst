@@ -10,8 +10,7 @@ diferència d'altres llenguatges de programació no requereixen que ens aprengue
 (com passa amb les anotacions de Java per exemple). En la seva utilització podem atracar-nos a la programació orientada
 a aspectes (AOP) o utilitzar-los per a afegir sistemes de control a les nostres funcions, de log, caché, ...
 Les possibilitats són infinites. El decoradors formen part de Python des de la versió 2.4 i com
-diu [Michele Simionato](http://www.phyast.pitt.edu/~micheles/) ens aporten el següent:
-
+diu `Michele Simionato <http://www.phyast.pitt.edu/~micheles/>`_ ens aporten el següent: 
     * Redueixen el codi comú i repetitiu (l'anomenat codi _boilerplate_).
     * Afavoreixen la separació de responsabilitats del codi
     * Augmenten la legibilitat i la mantenibilitat
@@ -22,7 +21,7 @@ desenvolupar-los. Un decorador típic veurem que és molt bo d'escriure, però l
 paràmetres o mantenir la signatura del mètode. Aquesta complexitat no és tant pel codi que s'ha d'escriure sinó perquè
 hem de recordar com s'ha d'escriure el decorador per a cada cas.
 
-Afortunadament veurem que gent com [Michele Simionato](http://pypi.python.org/pypi/decorator/3.1.2) han desenvolupat
+Afortunadament veurem que gent com `Michele Simionato <http://pypi.python.org/pypi/decorator/3.1.2>`_ han desenvolupat
 paquets que ens simplifiquen molt la vida. Tot i això i abans de fer servir aquestes utilitats convé saber què són i
 desenvolupar-los sense ajuda. És un poc com aprendre's les taules de multiplicar i després ja utilitzar la calculadora.
 
@@ -128,7 +127,7 @@ això un poc més endavant. Ara per ara ja sabem com crear decoradors simples a 
 Fent decoradors no intrusius
 ----------------------------
 
-Si heu fet un `help(suma)` o un `suma.__name__` potser un haureu sorprés en veure que le nom de la funció és _none_ en
+Si heu fet un `help(suma)` o un `suma.__name__` potser un haureu sorprés en veure que le nom de la funció és *none* en
 lloc de l'esperada `suma`. Si pensau amb el que hem fet tampoc és d'extranyar, fet i fet hem substituït la funció
 original per una altra, recordem que el decorador f aplicat damunt la funció g és equivalent a fer g = f(g).
 
@@ -137,7 +136,7 @@ ja que d'aquesta manera es simplifica l'ús de la funció i els autocompletadors
 
 Això ho podem fer de dues maneres: la llarga i la curta
 
-*La manera llarga*::
+**La manera llarga**::
 
     #!python
     def forat_negre(f):
@@ -160,12 +159,11 @@ al decorador. Si hara feim un help veurem que es fa damunt el nom de la funció 
 Fixem-nos en la signatura de la funció no s'ha preservar. Abans admetia dos paràmetres i ara n'admet un nombre
 qualsevol. Per la majoria de casos això no té més importància, però al final de l'article veurem com es pot resoldre.
 
-*La manera curta*
+**La manera curta**
 
 Com que el tema de reservar les metadades és força interessant i comú, al mòdul functools hi trobam la funció `wraps`
 que és en sí mateixa un decorador i que fa aquesta funció. D'aquesta manera el codi anterior quedaria::
-
-    #!python
+    
     from functools import wraps
 
     def forat_negre(f):
@@ -184,7 +182,7 @@ El decorador que hem fet a l'apartat anterior era prou simple, feia ben poca cos
 decoradors hem de fer primer de tot que siguin útils, i també ens trobarem amb la necessitat de que aquests decoradors
 admetin paràmetres.
 
-A Django, per exemple, podeu trobar que el [decorador de cache](http://docs.djangoproject.com/en/dev/topics/cache/)
+A Django, per exemple, podeu trobar que el `decorador de cache <http://docs.djangoproject.com/en/dev/topics/cache/>`_
 admet paràmetres que ens permet dir-li durant quan de temps ha de cachejar els resultats, o el decorador
 vary_on_headers, que ens permet modificar el contingut de la resposta de les vistes afegint les capçaleres que indiquem.
 
@@ -243,7 +241,7 @@ Fitxem-nos amb que hem fet:
    És un constructor normal, així que admet paràmetres per defecte per exemple.
 
 2. Recordem que el decorador hem dit que ha de ser un objecte cridable (callable), a una classe, la cridabilitat
-   la dóna el mètode __call__. Aquesta classe la  definirem de manera que agafi la funció a decorar com a paràmetre.
+   la dóna el mètode \_\_call\_\_. Aquesta classe la  definirem de manera que agafi la funció a decorar com a paràmetre.
    D'aquesta manera tenim accés tant als paràmetres del decorador, que hem passat al constructor, com a la funció
    decorada, que hem passat com a paràmetre al call.
 
@@ -495,10 +493,10 @@ Per escriure aquest article m'he basat en múltiples fonts, les més importants 
 
 * `PEP 318 <http://www.python.org/dev/peps/pep-0318>`_
 * `Decorators I : Introduction to Python Decorators <http://www.artima.com/weblogs/viewpost.jsp?thread=240808>`_
-* [Decorators II: Decorator Arguments] (http://www.artima.com/weblogs/viewpost.jsp?thread=240845)
-* [PYthon Decorators] (http://wiki.python.org/moin/PythonDecorators)
-* [Understanding decorators](http://uswaretech.com/blog/2009/06/understanding-decorators/ "The Uswaretech Blog")
-* [Charming Python: Decorators make magic easy] (http://www.ibm.com/developerworks/linux/library/l-cpdecor.html "Ibm technical library")
-* [Decorator 3.1.2] (http://pypi.python.org/pypi/decorator/3.1.2 "Package to simplify decorators")
-* [Decorator Pattern] (http://en.wikipedia.org/wiki/Decorator_pattern)
-* [Python decorator Library](http://wiki.python.org/moin/PythonDecoratorLibrary)
+* `Decorators II: Decorator Arguments <http://www.artima.com/weblogs/viewpost.jsp?thread=240845>`_
+* `PYthon Decorators <http://wiki.python.org/moin/PythonDecorators>`_
+* `Understanding decorators <http://uswaretech.com/blog/2009/06/understanding-decorators/>`_
+* `Charming Python: Decorators make magic easy <http://www.ibm.com/developerworks/linux/library/l-cpdecor.html>`_
+* `Decorator 3.1.2 <http://pypi.python.org/pypi/decorator/3.1.2 "Package to simplify decorators">`_
+* `Decorator Pattern <http://en.wikipedia.org/wiki/Decorator_pattern>`_
+* `Python decorator Library <http://wiki.python.org/moin/PythonDecoratorLibrary>`_
