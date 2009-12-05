@@ -51,7 +51,7 @@ secret_key='no-oblidis-generar-la-secret-key'
 # -----------------------------------------------------------------------------
 # templates
 # -----------------------------------------------------------------------------
-language_code = 'es-es'
+language_code = 'en'
 template_dirs = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
