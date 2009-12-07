@@ -58,8 +58,8 @@
 <p>Executant el navegador i anant a <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> hauríeu de veure una plana de venvinguda.</p>
 <div class="section" id="conceptes-a-destacar">
 <h2>Conceptes a destacar<a class="headerlink" href="#conceptes-a-destacar" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="separacio-de-la-configuracio">
-<h3>Separació de la configuració<a class="headerlink" href="#separacio-de-la-configuracio" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="separaci-de-la-configuraci">
+<h3>Separació de la configuració<a class="headerlink" href="#separaci-de-la-configuraci" title="Permalink to this headline">¶</a></h3>
 <p>Es separa la configuració de l&#8217;aplicatiu del settings. Tot el que sigui susceptible de ser modificat en producció
 s&#8217;ha de posar dins properties.py i utilitzat dins el settings via la variable de configuració:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">SITE_ROOT</span><span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="s">&#39;site_root&#39;</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)</span>
@@ -108,7 +108,7 @@ a plantilla, copiant directament o descomentant.</p>
             <ul>
 <li><a class="reference external" href="">Project</a><ul>
 <li><a class="reference external" href="#conceptes-a-destacar">Conceptes a destacar</a><ul>
-<li><a class="reference external" href="#separacio-de-la-configuracio">Separació de la configuració</a></li>
+<li><a class="reference external" href="#separaci-de-la-configuraci">Separació de la configuració</a></li>
 <li><a class="reference external" href="#el-nivell-de-login-es-defineix-al-properties">El nivell de login es defineix al properties</a></li>
 </ul>
 </li>

@@ -20,6 +20,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="appfusedjango v0.1 documentation" href="index.html" />
+    <link rel="next" title="Eines" href="tools.html" />
     <link rel="prev" title="Project" href="project.html" /> 
   </head>
   <body>
@@ -29,6 +30,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tools.html" title="Eines"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="project.html" title="Project"
              accesskey="P">previous</a> |</li>
@@ -41,8 +45,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="que-es-un-decorador">
-<h1>Què és un decorador<a class="headerlink" href="#que-es-un-decorador" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="qu-s-un-decorador">
+<h1>Què és un decorador<a class="headerlink" href="#qu-s-un-decorador" title="Permalink to this headline">¶</a></h1>
 <p>Un decorador és el nom d&#8217;un <em>patró de disseny</em>. Els decoradors alteren de manera dinàmica la funcionalitat d&#8217;una funció,
 mètode a classe sense tenir-ne que fer subclasses o canviar el codi font de la classe decorada. En el sentit de Python
 un decorador és quelcom més, inclou el patró de disseny, però van més allà, Bruce Eckel els assimila a les macros de Lisp.</p>
@@ -67,8 +71,8 @@ hem de recordar com s&#8217;ha d&#8217;escriure el decorador per a cada cas.</p>
 <p>Afortunadament veurem que gent com <a class="reference external" href="http://pypi.python.org/pypi/decorator/3.1.2">Michele Simionato</a> han desenvolupat
 paquets que ens simplifiquen molt la vida. Tot i això i abans de fer servir aquestes utilitats convé saber què són i
 desenvolupar-los sense ajuda. És un poc com aprendre&#8217;s les taules de multiplicar i després ja utilitzar la calculadora.</p>
-<div class="section" id="classificacio-dels-decoradors">
-<h2>Classificació dels decoradors<a class="headerlink" href="#classificacio-dels-decoradors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classificaci-dels-decoradors">
+<h2>Classificació dels decoradors<a class="headerlink" href="#classificaci-dels-decoradors" title="Permalink to this headline">¶</a></h2>
 <p>Podem dividir els decoradors en grups:</p>
 <blockquote>
 <ul>
@@ -163,7 +167,7 @@ la funció decorada:</p>
     <span class="s">&quot;suma dos parametres qualsevols si pot&quot;</span>
     <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
 
-<span class="n">suma</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">suma</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="mf">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Ara ja no dona error. Així doncs <em>una altra conclusió</em>: a més de tornar una funció, hem de procurar que la definició de
@@ -234,8 +238,8 @@ admeten paràmetres, que es construeixen preferentment fent servir classes.</p>
 Per això el que farem serà passar-li una funció com a paràmetre que en ser executada determinarà si s&#8217;ha de mostrar
 el resultat de la funció decorada o no</p>
 </div>
-<div class="section" id="el-metode-clar-de-fer-decoradors-amb-arguments">
-<h2>El mètode clar de fer decoradors amb arguments<a class="headerlink" href="#el-metode-clar-de-fer-decoradors-amb-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="el-m-tode-clar-de-fer-decoradors-amb-arguments">
+<h2>El mètode clar de fer decoradors amb arguments<a class="headerlink" href="#el-m-tode-clar-de-fer-decoradors-amb-arguments" title="Permalink to this headline">¶</a></h2>
 <p>Anem primer a veure l&#8217;exemple:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!python</span>
 <span class="c">#!/usr/bin/env python</span>
@@ -262,9 +266,9 @@ el resultat de la funció decorada o no</p>
 
 
 <span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span><span class="mf">6</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">9</span><span class="p">,</span><span class="mf">5</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Fitxem-nos amb que hem fet:</p>
@@ -317,17 +321,17 @@ el nom i documentació de la funció decorada.:</p>
 
 <span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="k">print</span> <span class="s">&quot;Exemple amb </span><span class="si">%s</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="n">suma</span><span class="o">.</span><span class="n">__name__</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span><span class="mf">6</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">suma</span><span class="p">(</span><span class="mf">9</span><span class="p">,</span><span class="mf">5</span><span class="p">)</span>
     <span class="k">print</span> <span class="s">&quot;Exemple amb </span><span class="si">%s</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="n">resta</span><span class="o">.</span><span class="n">__name__</span>
-    <span class="k">print</span> <span class="n">resta</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-    <span class="k">print</span> <span class="n">resta</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">resta</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">resta</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span><span class="mf">6</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="el-metode-enrevessat-de-fer-decoradors-amb-arguments">
-<h2>El mètode enrevessat de fer decoradors amb arguments<a class="headerlink" href="#el-metode-enrevessat-de-fer-decoradors-amb-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="el-m-tode-enrevessat-de-fer-decoradors-amb-arguments">
+<h2>El mètode enrevessat de fer decoradors amb arguments<a class="headerlink" href="#el-m-tode-enrevessat-de-fer-decoradors-amb-arguments" title="Permalink to this headline">¶</a></h2>
 <p>El nostre exemple:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">forat_negre_dos</span><span class="p">(</span><span class="n">mostrar</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
@@ -487,15 +491,15 @@ ArgSpec(args=['nom'], varargs=None, keywords=None, defaults=None)</pre>
 el nom de la funció original i no el del decorador. La documentació també s&#8217;ha mantingut i per acabar, podem veure
 que la signatura de la funció és correcta, ens diu que té un argument obligatori anomenat nom.</p>
 </div>
-<div class="section" id="conclusio">
-<h2>Conclusió<a class="headerlink" href="#conclusio" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="conclusi">
+<h2>Conclusió<a class="headerlink" href="#conclusi" title="Permalink to this headline">¶</a></h2>
 <p>Esper haver deixat un poc més clar el tema dels decoradors. Crear-los no és difícil, utilitzar-los és simple,
 sols hem de tenir clar què són i quan fer-los servir. Són una eina potent que ens permet fer el nostre codi més legible
 i cohesionat. Fora por i a disfrutar amb els decoradors.</p>
 <p>Com tot en aquesta vida, usau-los amb coneixement i moderació.</p>
 </div>
-<div class="section" id="referencies">
-<h2>Referències<a class="headerlink" href="#referencies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="refer-ncies">
+<h2>Referències<a class="headerlink" href="#refer-ncies" title="Permalink to this headline">¶</a></h2>
 <p>Per escriure aquest article m&#8217;he basat en múltiples fonts, les més importants i útils han estat:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.python.org/dev/peps/pep-0318">PEP 318</a></li>
@@ -520,16 +524,16 @@ i cohesionat. Fora por i a disfrutar amb els decoradors.</p>
             <h3><a href="index.html">Table Of Contents</a></h3>
             <ul>
 <li><a class="reference external" href="">Què és un decorador</a><ul>
-<li><a class="reference external" href="#classificacio-dels-decoradors">Classificació dels decoradors</a></li>
+<li><a class="reference external" href="#classificaci-dels-decoradors">Classificació dels decoradors</a></li>
 <li><a class="reference external" href="#un-decorador-que-no-fa-res">Un decorador que no fa res</a></li>
 <li><a class="reference external" href="#fent-decoradors-no-intrusius">Fent decoradors no intrusius</a></li>
 <li><a class="reference external" href="#un-decorador-amb-arguments">Un decorador amb arguments</a></li>
-<li><a class="reference external" href="#el-metode-clar-de-fer-decoradors-amb-arguments">El mètode clar de fer decoradors amb arguments</a></li>
-<li><a class="reference external" href="#el-metode-enrevessat-de-fer-decoradors-amb-arguments">El mètode enrevessat de fer decoradors amb arguments</a></li>
+<li><a class="reference external" href="#el-m-tode-clar-de-fer-decoradors-amb-arguments">El mètode clar de fer decoradors amb arguments</a></li>
+<li><a class="reference external" href="#el-m-tode-enrevessat-de-fer-decoradors-amb-arguments">El mètode enrevessat de fer decoradors amb arguments</a></li>
 <li><a class="reference external" href="#encadenant-decoradors">Encadenant decoradors</a></li>
 <li><a class="reference external" href="#la-signatura-pendent">La signatura pendent</a></li>
-<li><a class="reference external" href="#conclusio">Conclusió</a></li>
-<li><a class="reference external" href="#referencies">Referències</a></li>
+<li><a class="reference external" href="#conclusi">Conclusió</a></li>
+<li><a class="reference external" href="#refer-ncies">Referències</a></li>
 </ul>
 </li>
 </ul>
@@ -537,6 +541,9 @@ i cohesionat. Fora por i a disfrutar amb els decoradors.</p>
             <h4>Previous topic</h4>
             <p class="topless"><a href="project.html"
                                   title="previous chapter">Project</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="tools.html"
+                                  title="next chapter">Eines</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="_sources/decoradors.txt"
@@ -565,6 +572,9 @@ i cohesionat. Fora por i a disfrutar amb els decoradors.</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="tools.html" title="Eines"
+             >next</a> |</li>
         <li class="right" >
           <a href="project.html" title="Project"
              >previous</a> |</li>
