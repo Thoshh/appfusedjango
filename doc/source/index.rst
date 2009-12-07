@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 ============================================
-Benvingud a la documentació d'Appfusedjango
+Benvinguts a la documentació d'Appfusedjango
 ============================================
 
 Contents:
