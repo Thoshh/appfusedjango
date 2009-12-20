@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mini Log &mdash; appfusedjango v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="appfusedjango v0.1 documentation" href="index.html" />
+    <link rel="next" title="Què és un decorador" href="decoradors.html" />
+    <link rel="prev" title="Project" href="project.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="decoradors.html" title="Què és un decorador"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="project.html" title="Project"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">appfusedjango v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mini-log">
+<h1>Mini Log<a class="headerlink" href="#mini-log" title="Permalink to this headline">¶</a></h1>
+<p>Aquesta apliació és un mini log, que en servirà de tutorial per
+a veure com podem crear una aplicació completa amb Django.</p>
+<div class="section" id="reconeixements">
+<h2>Reconeixements<a class="headerlink" href="#reconeixements" title="Permalink to this headline">¶</a></h2>
+<p>Mini log està creat a partir d&#8217;un guió d&#8217;exemple que va fer servir <a class="reference external" href="http://twitter.com/gallir">Ricardo Galli</a>
+a un dels seus cursos i que amablement ha cedit. He mantingut més o manco
+el codi font de Ricardo, els comentaris són meus i l&#8217;he adaptat per utilitzar
+la configuració d&#8217;AppfuseDjango i per a que servesqui de petit tutorial.</p>
+</div>
+<div class="section" id="creant-el-projecte">
+<h2>Creant el projecte<a class="headerlink" href="#creant-el-projecte" title="Permalink to this headline">¶</a></h2>
+<p>Crearem un projecte al que anomenarem mini-blog a partir del projecte project
+d&#8217;appusedjango:</p>
+<div class="highlight-python"><pre>svn export project mini-log</pre>
+</div>
+<p>Això ens haurà creat una project exacament igual que project, però sense
+configurar. Així que com el primer que farem serà copiar el properties.py.template
+a properties.py i regenerar la base de dades sqlite.:</p>
+<div class="highlight-python"><pre>cp properties.py.template properties.py
+python manage.py syncdb</pre>
+</div>
+<p>Contestau a les preguntes i ens crearà una estrucutra mínima, que podrem
+executar amb:</p>
+<div class="highlight-python"><pre>python manage.py runserver</pre>
+</div>
+<p>Per defecte al properties.py template hem configurat l&#8217;aplicació amb una base
+de dades anomenada <cite>db.sqlite</cite>. Fitxem-nos que el que feim és configurar a
+properties.py templates les variables que han de canviar del settings.py entre
+l&#8217;entorn de desenvolupament i l&#8217;entorn de producció.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DATABASE_ENGINE</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="s">&#39;database_engine&#39;</span><span class="p">,</span> <span class="s">&#39;sqlite3&#39;</span><span class="p">)</span>
+<span class="n">DATABASE_NAME</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="s">&#39;database_name&#39;</span><span class="p">,</span> <span class="s">&#39;db.sqlite&#39;</span><span class="p">)</span>
+<span class="n">DATABASE_USER</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="s">&#39;database_user&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+<span class="n">DATABASE_PASSWORD</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="s">&#39;database_password&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+<span class="n">DATABASE_HOST</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="s">&#39;database_host&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+<span class="n">DATABASE_PORT</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="s">&#39;database_port&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>És a dir, si a properties.py hi ha una variable anomenada <tt class="docutils literal"><span class="pre">database_name</span></tt> es
+farà servir aquesta com a nom de la base de dades, en cas contrari es farà
+servir el defecte, que en nostre cas hem establit com <tt class="docutils literal"><span class="pre">db.sqlite</span></tt></p>
+<p>Encara que Django té el seu propi ORM (Object Relational Mapper) sempre podem
+anar a baix nivell i obenir un cursor de base de dades:</p>
+<div class="highlight-python"><pre>$ python manage shell
+&gt;&gt;&gt; from django.db import connection
+&gt;&gt;&gt; cursor = connection.cursor()
+&gt;&gt;&gt; cursor.execute('select * from django_site')
+&lt;django.db.backends.sqlite3.base.SQLiteCursorWrapper object at 0x1096c800&gt;
+
+&gt;&gt;&gt; for r in cursor.fetchall():
+    ...:     print r
+    ...:
+    ...:
+(1, u'example.com', u'example.com')</pre>
+</div>
+</div>
+<div class="section" id="cream-l-aplicaci">
+<h2>Cream l&#8217;aplicació<a class="headerlink" href="#cream-l-aplicaci" title="Permalink to this headline">¶</a></h2>
+<p>Ara podem crear l&#8217;aplicació i afegir-la al nostre <tt class="docutils literal"><span class="pre">settings.py</span></tt> de manera
+que quedi registrada al projecte:</p>
+<div class="highlight-python"><pre>$ python manage.py startapp log
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+
+    'django.contrib.admin',
+    'log',
+)</pre>
+</div>
+<p>La comanda <tt class="docutils literal"><span class="pre">startapp</span></tt> ens ha creat una estructura d&#8217;aplicació Django, si
+hi entram veurem que realment no és més que un paquet Python</p>
+<p>Dins aques registre veurem un mòdul anomenat <tt class="docutils literal"><span class="pre">models.py</span></tt>, en aquest arxiu és
+on definirem els models</p>
+</div>
+<div class="section" id="definim-el-model">
+<h2>Definim el model<a class="headerlink" href="#definim-el-model" title="Permalink to this headline">¶</a></h2>
+<p>Editem <tt class="docutils literal"><span class="pre">log/models.py</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">Comment</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">nick</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mf">20</span><span class="p">)</span>
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>La comanda <tt class="docutils literal"><span class="pre">validate</span></tt> en permet verificar el el nostre model s&#8217;ha creat
+correctamente. Per un cas senzill com aquest no té molta utilitat, però convé
+executar-la quan definim més d&#8217;una clase dins el mateix arxiu, d&#8217;aquesta manera
+evitam crear taules amb relacions mal definides.:</p>
+<div class="highlight-python"><pre>$ python manage.py validate</pre>
+</div>
+<p>De la mateixa manera la comanda <tt class="docutils literal"><span class="pre">sqlall</span></tt> ens permet veure l&#8217;sql que es
+generarà per la nostra base de dades:</p>
+<div class="highlight-python"><pre>$ python manage.py sqlall log
+BEGIN;
+CREATE TABLE "log_comment" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "date" datetime NOT NULL,
+    "nick" varchar(20) NOT NULL,
+    "comment" text NOT NULL
+)
+;
+COMMIT;</pre>
+</div>
+<p>Si tot és correcte executarem la comanda <tt class="docutils literal"><span class="pre">syncdb</span></tt> que ens crearà les taules
+del model que he definit dins la base de dades.:</p>
+<div class="highlight-python"><pre>$ python manage.py syncdb</pre>
+</div>
+</div>
+<div class="section" id="utilitzant-l-administrador-de-django">
+<h2>Utilitzant l&#8217;administrador de Django<a class="headerlink" href="#utilitzant-l-administrador-de-django" title="Permalink to this headline">¶</a></h2>
+<p>Una de les eines que ens proporciona Django és un administrador que en permet
+interactuar amb els models, amb les nostres dades, d&#8217;una manera molt potent i
+amb un mínim de configuració i treball per la nostra part.</p>
+<p>Per utilitzar-lo el primer que farem serà verificar que dins l&#8217;arxiu <tt class="docutils literal"><span class="pre">urls.py</span></tt>
+del projecte hi ha aquest línies de codi:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">admin</span><span class="o">.</span><span class="n">autodiscover</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>i que a l&#8217;<tt class="docutils literal"><span class="pre">urlpatterns</span></tt> tenim definit l&#8217;url de l&#8217;aplicació d&#8217;administració:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+     <span class="c"># direct to template sample</span>
+     <span class="p">(</span><span class="s">r&#39;^$&#39;</span><span class="p">,</span><span class="n">direct_to_template</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;template&#39;</span><span class="p">:</span> <span class="s">&#39;index.html&#39;</span><span class="p">}),</span>
+     <span class="c"># application url include</span>
+     <span class="c">#(r&#39;^app/&#39;, include(&#39;app.urls&#39;)),</span>
+     <span class="c"># Administration</span>
+     <span class="p">(</span><span class="s">r&#39;^admin/doc/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;django.contrib.admindocs.urls&#39;</span><span class="p">)),</span>
+     <span class="p">(</span><span class="s">r&#39;^admin/(.*)&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">root</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Dins l&#8217;aplicació <tt class="docutils literal"><span class="pre">log</span></tt> crearem també un arxiu anomenat <tt class="docutils literal"><span class="pre">admin.py</span></tt> aquest
+arxiu és el que cerca Django per a registrar la nostra aplicació dins l&#8217;administrador
+i permetre&#8217;ns modifcar i afegir registres.</p>
+<p>Crearem l&#8217;arxiu de manera que quedi com:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: UTF-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Mòdul d&#39;administració</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">log.models</span> <span class="kn">import</span> <span class="n">Comment</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Comment</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Si tot va bé ara podem tornar a excutar el <tt class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">runserver</span></tt> i
+aquesta vegada apuntar a <a class="reference external" href="http://locahost:8000/admin">http://localhost:8000/admin/</a>
+En sotirà la pantalla de l&#8217;administrador i ens demanarà login i password, hem
+de posar els que hem defint quan hem fet el primer <tt class="docutils literal"><span class="pre">syncdb</span></tt>.</p>
+<p>Veurem que ens apareix una secció anomenada <tt class="docutils literal"><span class="pre">Log``amb</span> <span class="pre">un</span> <span class="pre">``Comments</span></tt> que és
+precisament el que acabam de crear.</p>
+<p>Podem començar a introduïr dades!</p>
+</div>
+<div class="section" id="mapejant-urls-amb-la-nostra-aplicaci">
+<h2>Mapejant URLs amb la nostra aplicació<a class="headerlink" href="#mapejant-urls-amb-la-nostra-aplicaci" title="Permalink to this headline">¶</a></h2>
+<p>Es considera una bonoa pràctica tenir les urls dins la aplicació i lligar
+les aplicacions a nivell de projecta amb el <tt class="docutils literal"><span class="pre">urls.py</span></tt> de primer nivell.</p>
+<p>Per això crearem un arxiu <tt class="docutils literal"><span class="pre">urls.py</span></tt> dins l&#8217;aplicació <tt class="docutils literal"><span class="pre">log</span></tt> i modificam
+l&#8217;arxiu <tt class="docutils literal"><span class="pre">urls.py</span></tt> del projecte principal per a que inclogui les
+urls quan la URI que se&#8217;ns passi comenci per <tt class="docutils literal"><span class="pre">log</span></tt>. Aquest nom és arbitrari,
+dependrà de la nomclatura que li donem al nostre projecte i no té perquè ser
+el nom de l&#8217;aplicació.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+      <span class="c"># direct to template sample</span>
+      <span class="p">(</span><span class="s">r&#39;^$&#39;</span><span class="p">,</span><span class="n">direct_to_template</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;template&#39;</span><span class="p">:</span> <span class="s">&#39;index.html&#39;</span><span class="p">}),</span>
+      <span class="c"># application url include</span>
+      <span class="p">(</span><span class="s">r&#39;^log/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;log.urls&#39;</span><span class="p">)),</span>
+      <span class="c"># Administration</span>
+      <span class="p">(</span><span class="s">r&#39;^admin/doc/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;django.contrib.admindocs.urls&#39;</span><span class="p">)),</span>
+      <span class="p">(</span><span class="s">r&#39;^admin/(.*)&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">root</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>L&#8217;arxiu <tt class="docutils literal"><span class="pre">urls.py</span></tt> que acaban de crear tindrà la forma:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: UTF-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">django.conf.urls.defaults</span> <span class="kn">import</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">url</span>
+
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&quot;log.views&quot;</span><span class="p">,</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^$&#39;</span><span class="p">,</span> <span class="s">&#39;index&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;main-log&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/([-+]{0,1}\d)*$&#39;</span><span class="p">,</span> <span class="s">&#39;current_time&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;curent_time&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Django el que fa és anar processant les urls per ordre, quan arribi a una url
+que comenci per <em>log</em> el que farà és processar les urls que estan dins l&#8217;arxiu
+<em>urls.py</em> que hem creat, quan trobi una expressió que coincideix executarà
+la funció el nom de la qual hem passat com a segon parametre (index, current_time),
+que es troba a <em>log.views</em>, a aquest mapeig entre URL i funció li podem assignar
+un nom que ens permetrà fer-hi referència en un futur.</p>
+</div>
+<div class="section" id="creant-views-py">
+<h2>Creant views.py<a class="headerlink" href="#creant-views-py" title="Permalink to this headline">¶</a></h2>
+<p>En aquest punt si se&#8217;ns acudís apuntar el nostre naveador cap a <a class="reference external" href="http://localhost:8000/log/">http://localhost:8000/log/</a>
+obtindríem un missatge d&#8217;error que ens indica que no existeix la funció index
+dins el mòdul views de l&#8217;aplicació log. Encara no l&#8217;hem creat. Anem a fer-ho:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render_to_response</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
+<span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+
+<span class="kn">from</span> <span class="nn">log.models</span> <span class="kn">import</span> <span class="n">Comment</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+
+<span class="k">class</span> <span class="nc">CommentForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="s">&quot;Simple form for the Person model&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Comment</span>
+
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">new_comment</span> <span class="o">=</span> <span class="n">CommentForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_comment</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">new_comment</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;main-log&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_comment</span> <span class="o">=</span> <span class="n">CommentForm</span><span class="p">()</span>
+    <span class="n">data</span><span class="p">[</span><span class="s">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span>
+    <span class="n">data</span><span class="p">[</span><span class="s">&#39;comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Comment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&quot;-date&quot;</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s">&#39;form&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_comment</span>
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&quot;log/log.html&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">current_time</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">offset</span><span class="p">:</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="mf">0</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">offset</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">:</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;current_time&quot;</span><span class="p">:</span> <span class="n">now</span><span class="p">,</span> <span class="s">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&quot;log/current_time.html&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Anem a estudir el que estam fent. El primer que hem fet és definir un
+formulari que ens servirà per a que la gent pugui introduïr els comentaris.
+Com que el formulari mapeja el model, farem servir una drecera que té Django
+anaomenada ModelForm, fitxau-vos que n&#8217;és de fàcil, simplement li hem de dir
+a partir de quin model generam el formulari:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">CommentForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="s">&quot;Simple form for the Person model&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Comment</span>
+</pre></div>
+</div>
+<p>Ara ja podem fer servir el formulari dins la nostra plantilla, per això
+l&#8217;instanciarem dins la funció <em>index</em>.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">new_comment</span> <span class="o">=</span> <span class="n">CommentForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_comment</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">new_comment</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;main-log&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_comment</span> <span class="o">=</span> <span class="n">CommentForm</span><span class="p">()</span>
+    <span class="n">data</span><span class="p">[</span><span class="s">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span>
+    <span class="n">data</span><span class="p">[</span><span class="s">&#39;comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Comment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&quot;-date&quot;</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s">&#39;form&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_comment</span>
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&quot;log/log.html&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>data</em> és el diccionari que contindrà les dades que presentarem a la plantilla.
+Si el mètode amb el qual s&#8217;arriba a aquest funció és un POST vol dir que estam
+intentant afegir un nou formulari, per tant omplirem el formulari amb les
+dades del POST.</p>
+<p>Comprovarem que les dades són vàlides, com que és un formulari molt senzill
+lligat a un model el que comprovarà és que tots els camps obligatoris estiguin
+plens i siguin dels tipus correcte.</p>
+<p>Si tot és vàlid guardam les dades a la base de dades i feim un redirect per
+evitar duplicitats degudes alr refresc de la pantalla. Fitxem-nos amb l&#8217;ús que
+se fa del <tt class="docutils literal"><span class="pre">reverse</span></tt>, d&#8217;aquesta manera evitam fer que les nostres urls estiguin
+prefixades al codi i podríem canviar-les en qualsevol momet sense tocar res més.</p>
+<p>Si el mètode d&#8217;entrada és un GET instanciam el formulari sense dades. Finalment,
+tant si és GET com si és un POST invàlid, el que feim és obtenir totes les
+dades del model <tt class="docutils literal"><span class="pre">Comment.objects.order_by(&quot;-date&quot;)</span></tt>. Com podem veure no hem
+utilitzat SQL per res, l&#8217;ORM de Django se n&#8217;encarrega de tot.</p>
+<p>També passam a la plantilla el formulari d&#8217;entrada de comentaris i el mètode.</p>
+<p>La funció <em>current_time</em> sols té interès per veure com no estam limitats a fer
+servir un model, sinó que podem executar codi Python arbitrari i passar-ne
+el resultat a una plantilla Django.</p>
+</div>
+<div class="section" id="les-plantilles">
+<h2>Les plantilles<a class="headerlink" href="#les-plantilles" title="Permalink to this headline">¶</a></h2>
+<p>Podem veure que les funcions de <em>views.py</em> fan referència a arxius html, aquests
+arxius són les plantilles Django. Tal com estan definides a aquest exemple són
+únicament arxius html on hem posat tags que fan referència a les variables
+de Django que hem passat dins el diccionari de dades. Pel que ens interessa
+veurem la plantilla <tt class="docutils literal"><span class="pre">log.html</span></tt></p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+ <span class="nt">&lt;body&gt;</span>
+ <span class="nt">&lt;p&gt;</span>hola, el mètode va ser {{ method }}<span class="nt">&lt;/p&gt;</span>
+
+{% if comments %}
+     {% for c in comments %}
+     <span class="nt">&lt;p&gt;</span>
+     <span class="nt">&lt;strong&gt;</span>nick:<span class="nt">&lt;/strong&gt;</span> {{c.nick|escape}} <span class="nt">&lt;br/&gt;</span>
+     <span class="nt">&lt;strong&gt;</span>comentari:<span class="nt">&lt;/strong&gt;</span> {{c.comment|escape}}
+     <span class="nt">&lt;/p&gt;</span>
+     {% endfor %}
+{% else %}
+<span class="nt">&lt;p&gt;</span>No hi ha comentaris! Sigues el primer en comentar!<span class="nt">&lt;/p&gt;</span>
+{% endif %}
+
+ <span class="nt">&lt;h2&gt;</span>Envía un comentari<span class="nt">&lt;/h2&gt;</span>
+ <span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">&quot;POST&quot;</span> <span class="na">action=</span><span class="s">&quot;.&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;table&gt;</span>
+{{form}}
+<span class="nt">&lt;/table&gt;</span>
+ <span class="nt">&lt;BR/&gt;</span>
+ <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;enviar&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;/form&gt;</span>
+ <span class="nt">&lt;/body&gt;</span>
+ <span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Les variables és referencien amb un doble claudator <tt class="docutils literal"><span class="pre">{{nom_variable}}</span></tt> i
+els tags amb una clau i un tant per cent <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">tag</span> <span class="pre">%}</span></tt></p>
+<p>Fitxem-nos com amb una sola variable <tt class="docutils literal"><span class="pre">form`</span></tt> Django renderitza el formulari
+d&#8217;entrada de comentaris.</p>
+<p>Django cerca les plantilles allà on li diguem al settings a la part de:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">TEMPLATE_DIRS</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="s">&#39;template_dirs&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;templates&#39;</span><span class="p">,))</span>
+</pre></div>
+</div>
+<p>als nostre <em>properties</em> ho hem definit de tal manera que el directori de
+cerca de plantilles sigui el del projecte.</p>
+</div>
+<div class="section" id="exercici-per-al-lector">
+<h2>Exercici per al lector<a class="headerlink" href="#exercici-per-al-lector" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fer que totes les plantilles d&#8217;aquest tutorial heredin de <em>base.html</em></li>
+<li>Modificar index.html per afegir enllaços a l&#8217;aplicació log</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Mini Log</a><ul>
+<li><a class="reference external" href="#reconeixements">Reconeixements</a></li>
+<li><a class="reference external" href="#creant-el-projecte">Creant el projecte</a></li>
+<li><a class="reference external" href="#cream-l-aplicaci">Cream l&#8217;aplicació</a></li>
+<li><a class="reference external" href="#definim-el-model">Definim el model</a></li>
+<li><a class="reference external" href="#utilitzant-l-administrador-de-django">Utilitzant l&#8217;administrador de Django</a></li>
+<li><a class="reference external" href="#mapejant-urls-amb-la-nostra-aplicaci">Mapejant URLs amb la nostra aplicació</a></li>
+<li><a class="reference external" href="#creant-views-py">Creant views.py</a></li>
+<li><a class="reference external" href="#les-plantilles">Les plantilles</a></li>
+<li><a class="reference external" href="#exercici-per-al-lector">Exercici per al lector</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="project.html"
+                                  title="previous chapter">Project</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="decoradors.html"
+                                  title="next chapter">Què és un decorador</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/mini_blog.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="decoradors.html" title="Què és un decorador"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="project.html" title="Project"
+             >previous</a> |</li>
+        <li><a href="index.html">appfusedjango v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, antoni aloy.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>
