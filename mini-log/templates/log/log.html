@@ -1,0 +1,25 @@
+<html>
+ <body>
+ <p>hola, el mètode va ser {{ method }}</p>
+
+{% if comments %}
+     {% for c in comments %}
+     <p>
+     <strong>nick:</strong> {{c.nick|escape}} <br/>
+     <strong>comentari:</strong> {{c.comment|escape}}
+     </p>
+     {% endfor %}
+{% else %}
+<p>No hi ha comentaris! Sigues el primer en comentar!</p>
+{% endif %}
+
+ <h2>Envía un comentari</h2>
+ <form method="POST" action=".">
+<table>
+{{form}}
+</table>
+ <BR/>
+ <input type="submit" value="enviar">
+ </form>
+ </body>
+ </html>

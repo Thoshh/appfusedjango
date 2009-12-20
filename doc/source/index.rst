@@ -14,9 +14,10 @@ Contents:
 
     start
     project
+    mini_log
     decoradors
     tools
-        
+
 Inex i taules
 ==================
 
