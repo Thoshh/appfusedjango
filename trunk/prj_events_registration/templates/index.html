@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n tags_evento %}
 
 {% block content %}
 {{extra_content}}
 {% if eventos %}
     {% for evento in eventos %}
-        {{evento.slug}} - {{evento.nombre}} - {{evento.descripcion_corta}}<br/>
+        {% is_inscrito user evento as inscrito %}
+        {{evento.slug}} - {{evento.nombre}} - {{evento.descripcion_corta}} {% if inscrito %}Ya está inscrito{% else %}Inscríbete{% endif %}<br/>
     {% endfor %}
 {% else %}
     <p>No hay eventos previstos por el momento</p>
