@@ -11,11 +11,10 @@ from django.views.generic.simple import direct_to_template
 admin.autodiscover()
 
 urlpatterns = patterns('',
-     # direct to template sample
-     url(r'^$',direct_to_template, kwargs = {'template': 'index.html'}, name ='index'),
+     url(r'^$', 'evento.views.eventos', name ='index'),
      # application url include
-     #(r'^app/', include('app.urls')),
-    (r'^accounts/', include('registration.backends.default.urls')),
+     (r'^evento/', include('evento.urls')),
+     (r'^accounts/', include('registration.backends.default.urls')),
      # Administration
      (r'^admin/doc/', include('django.contrib.admindocs.urls')),
      (r'^admin/(.*)', admin.site.root),
