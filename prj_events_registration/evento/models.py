@@ -44,9 +44,10 @@ class Evento (models.Model):
         return ('ficha-evento',[self.slug,]) 
 
 class Inscrito(models.Model):
-    """Mantiene el registro de los inscritos a un envento"""
+    """Mantiene el registro de los inscritos a un evento"""
     user = models.ForeignKey(User)
     evento = models.ForeignKey(Evento)
     fecha_inscripcion = models.DateTimeField(auto_now_add = True)
+
 
 
