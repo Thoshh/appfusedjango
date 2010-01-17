@@ -2,5 +2,12 @@
 {% load i18n %}
 
 {% block content %}
-Index page
-{% endblock %}
+{{extra_content}}
+{% if eventos %}
+    {% for evento in eventos %}
+        {{evento.slug}} - {{evento.nombre}} - {{evento.descripcion_corta}}<br/>
+    {% endfor %}
+{% else %}
+    <p>No hay eventos previstos por el momento</p>
+{% endif %}
+{% endblock content %}
