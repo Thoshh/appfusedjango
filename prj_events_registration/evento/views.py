@@ -4,7 +4,10 @@
 # -------------------------------------------------------------------
 from models import Evento
 from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.views.generic.simple import direct_to_template
+from django.contrib.auth.decorators import login_required
+from evento.models import Inscrito
 
 def eventos(request):
     """Muestra la lista de eventos activos en la página principal"""
@@ -16,3 +19,29 @@ def ficha_evento(request, slug):
     """Información sobre un evento concreto"""
     evento = get_object_or_404(Evento, slug = slug)
     return direct_to_template(request, 'evento/ficha.html', {'evento': evento})
+
+@login_required
+def inscribirse(request, slug):
+    """Un usuario puede inscribirse a un envento si no se ha inscrito ya,
+    está autenticado y el evento está activo"""
+    user = request.user
+    evento = get_object_or_404(Evento, slug = slug)
+    inscripcion = None
+    if evento.activo:
+        try:
+            inscripcion = Inscrito.objects.get(user=user, evento = evento)
+        except Inscrito.DoesNotExist:
+            inscripcion = Inscrito(user=user, evento=evento)
+            inscripcion.save()
+            return redirect('inscripcion-realizada', evento = slug) 
+        msg = 'Ya está inscrito en el evento'
+    else:
+        msg = 'El evento ya está finalizado y no admite más inscripciones'
+    data = {'msg': msg, 'inscripcion': inscripcion}
+    return direct_to_template(request, 'evento/message.html', data)
+
+@login_required
+def inscripcion_realizada(request, slug):
+    evento = get_object_or_404(Evento, slug=slug)
+    inscripcion = get_object_or_404(Inscrito, user = request.user, evento = evento)
+    return direct_to_template(request, 'evento/inscrito.html', {'evento':evento, 'inscripcion': inscripcion})

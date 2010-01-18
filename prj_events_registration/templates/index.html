@@ -4,10 +4,15 @@
 {% block content %}
 {{extra_content}}
 {% if eventos %}
+    <ul>
     {% for evento in eventos %}
         {% is_inscrito user evento as inscrito %}
-        {{evento.slug}} - {{evento.nombre}} - {{evento.descripcion_corta}} {% if inscrito %}Ya está inscrito{% else %}Inscríbete{% endif %}<br/>
+        <li>
+{{inscrito}}        {{evento.slug}} - {{evento.nombre}} - {{evento.descripcion_corta}} {% if inscrito %}Ya estás inscrito |<a href="#">Cancela</a>
+            {% else %}<a href="{% url inscribirse evento.slug %}">Inscríbete</a>{% endif %}
+        </li>
     {% endfor %}
+    </ul>
 {% else %}
     <p>No hay eventos previstos por el momento</p>
 {% endif %}
