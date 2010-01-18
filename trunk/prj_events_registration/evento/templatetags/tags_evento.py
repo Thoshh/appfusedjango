@@ -11,6 +11,11 @@ register = template.Library()
 def do_is_inscrito_msg(parser, token):
     """Devuelve verdadero si el usuario se ha inscrito a un congreso y falso
     en caso contrario.    
+
+    sintaxis:
+
+    {% is_inscrito usuario evento as variable %}
+
     """
     bits = token.contents.split()
     if len(bits) == 5 and bits[3] =='as':
@@ -31,7 +36,7 @@ class IsInscritoMsg(template.Node):
     def render(self, context):
         usuario = self.usuario.resolve(context)
         evento = self.evento.resolve(context)
-        if usuario.is_anonymous:
+        if usuario.is_anonymous():
             context[self.context_variable] = False
         else:
             context[self.context_variable] = Inscrito.objects.filter(user = usuario, evento = evento).count() > 0
