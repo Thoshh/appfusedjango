@@ -64,6 +64,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.gzip.GZipMiddleware',
 )
@@ -80,6 +81,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.sites',
     'django.contrib.admin',
+    'django.contrib.flatpages',
     'django.contrib.admindocs',
     'django_extensions',
     'registration',
@@ -90,7 +92,7 @@ INSTALLED_APPS = (
 CACHE_BACKEND=getattr(properties, 'cache_backend','dummy:///')
 CACHE_MIDDLEWARE_KEY_PREFIX=getattr(properties, 'cache_prefix', 'appfuse')
 CACHE_MIDDLEWARE_SECONDS=getattr(properties, 'cache_seconds', 5)
-SESSION_BACKEND=getattr(properties, 'session_backend','django.contrib.sessions.backends.file')
+SESSION_ENGINE=getattr(properties, 'session_engine','django.contrib.sessions.backends.file')
 
 if DEBUG:
     SESSION_EXPIRE_AT_BROWSER_CLOSE=True

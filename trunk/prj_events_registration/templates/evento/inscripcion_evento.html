@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<p>{{evento.slug}}</p>
+<p>{{evento.descripcion_corta|safe}}</p>
+{% if not evento.admite_inscripciones %}
+    {% trans "Ho setim aquest event ja no admet més inscripcions" %}
+{% else %}
+    {% if evento.completo %}
+        <p>{% trans "L'event està complet. Si vols pots inscriure't a la llista d'espera."%}</p>
+    {% endif %}
+    <form action="." method="post">
+        {% trans "Hi vull anar!" %}{{form.confirma}}
+        {% trans "Comentari" %} {{form.comentario}}
+        <input type="submit" value="{% trans 'Inscriu-me!' %}" />
+    </form>
+    {% if form.errors %}
+        {{form.errors.confirma}}
+    {% endif %}
+    {% if msg %}
+        <p>{{msg}}</p>
+    {% endif %}
+{% endif %}
+{% endblock content %}

@@ -41,7 +41,7 @@ admin_media_prefix ='/adm_media/'
 # uses the default session engine (database, or file or memory)
 cache_backend = 'locmem:///'
 cache_prefix='appfuse'
-cache_seconds=300
+cache_seconds = 300
 session_engine='django.contrib.sessions.backends.file'
 #session_engine='django.contrib.sessions.backends.cache' #use cache if you have it
 secret_key='no-oblidis-generar-la-secret-key'
@@ -51,7 +51,7 @@ secret_key='no-oblidis-generar-la-secret-key'
 # -----------------------------------------------------------------------------
 # templates
 # -----------------------------------------------------------------------------
-language_code = 'en'
+language_code = 'ca'
 template_dirs = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.

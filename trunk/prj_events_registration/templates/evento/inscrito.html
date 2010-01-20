@@ -3,5 +3,12 @@
 {% block content %}
 <p>{{evento.slug}}</p>
 <p>{{evento.descripcion_larga|safe}}</p>
+{{inscripcion.comentario}}
+{{inscripcion.fecha_inscripcion}}
+{% if inscripcion.en_lista_espera %}
+<p>{% trans "Estàs a la llista d'espera" %}</p>
+<p>{% trans "T'enviarem un missatges si algú es dóna de baixa" %}
+{% endif %}
+<br/>
 {% include "evento/includes/estado_inscripcion.html" %}
 {% endblock content %}
