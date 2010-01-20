@@ -113,3 +113,4 @@ COPYRIGHT="apsl.net"
 ACCOUNT_ACTIVATION_DAYS = getattr(properties, 'account_activation_days', 2)
 DEFAULT_FROM_EMAIL = getattr(properties, 'default_from_email', 'creant_bits@apsl.net')
 REGISTRATION_OPEN = getattr(properties, 'registration_open', True)
+LOGIN_REDIRECT_URL = getattr(properties, 'login_redirect_url', '/evento/mis_inscripciones/')

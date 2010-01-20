@@ -1,0 +1,13 @@
+{% load i18n tags_evento %}
+
+{% is_inscrito user evento as inscrito %}
+{% if evento.admite_inscripciones %}
+    {% if inscrito %}
+    {% trans "Ja estàs inscrit!" %} | <a href="{% url cancela-inscripcion evento.slug %}">{% trans "No hi podré anar!" %}</a>
+    {% else %}     
+        <a href="{% url inscribirse evento.slug %}">{% trans "Inscriu-te!"%}</a>
+    {% endif %}
+{% else  %}
+    {% trans "Event tancat!" %}
+{% endif %}
+

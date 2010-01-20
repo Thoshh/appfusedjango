@@ -32,6 +32,16 @@ class Evento (models.Model):
     objects = models.Manager()
     activos = EventosActivosManager()
 
+    @property
+    def admite_inscripciones(self):
+        "Devuelve verdadero si el evento admite inscripciones"
+        return self.activo and (self.fecha > date.today())
+    
+    @property
+    def inscritos(self):
+        """Número de inscritos al evento"""
+        return self.inscrito_set.all().count()
+
     def __unicode__(self):
         return u'%s %s' % (self.fecha, self.nombre)
 
@@ -49,5 +59,5 @@ class Inscrito(models.Model):
     evento = models.ForeignKey(Evento)
     fecha_inscripcion = models.DateTimeField(auto_now_add = True)
 
-
-
+    class Meta:
+        ordering = ['-fecha_inscripcion']

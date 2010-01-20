@@ -7,7 +7,7 @@ class InscritoInline(admin.TabularInline):
     model = Inscrito
 
 class EventoManager(admin.ModelAdmin):
-    list_display = ('fecha', 'slug', 'nombre', 'descripcion_corta', 'activo')
+    list_display = ('nombre', 'fecha', 'capacidad', 'inscritos', 'activo')
     list_filter = ('fecha', 'activo')
     prepopulated_fields  = {'slug': ("nombre",) }
     inlines = [ InscritoInline, ]

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<p>{{evento.slug}}</p>
+<p>{{evento.descripcion_corta|safe}}</p>
+<form action="." method="post">
+    {% trans "No hi podré anar" %}{{form.confirma}}
+    <input type="submit" value="{% trans 'Estic ben segur!' %}" />
+</form>
+{% if form.errors %}
+    {{form.errors.confirma}}
+{% endif %}
+{% endblock content %}

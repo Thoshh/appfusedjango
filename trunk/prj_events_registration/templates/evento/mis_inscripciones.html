@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+{% for inscripcion in user.inscrito_set.all %}
+    <p>{{inscripcion.evento.slug}}</p>
+    <p>{{inscripcion.evento.descripcion_corta|safe}}</p>
+    <p>{{inscripcion.evento.fecha}}</p>
+    <p>{{inscripcion.fecha_inscripcion}}</p>
+    {% with inscripcion.evento as evento %}
+    {% include "evento/includes/estado_inscripcion.html" %}
+    {% endwith %}
+{% endfor %}
+{% endblock content %}
