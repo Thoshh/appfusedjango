@@ -12,6 +12,7 @@ from datetime import date
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
+
 class EventosActivosManager(models.Manager):
     def get_query_set(self):
         """Modifica el queryset para devolver sólo los eventos
