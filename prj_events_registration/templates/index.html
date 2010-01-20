@@ -8,14 +8,18 @@
     {% for evento in eventos %}
         {% is_inscrito user evento as inscrito %}
         <li>
-{{evento.inscritos}} {{evento.capacidad}}        {{evento.slug}} - {{evento.nombre}} - {{evento.descripcion_corta}}
+            {{evento.inscritos}} {{evento.capacidad}}        {{evento.slug}} - {{evento.nombre}} - {{evento.descripcion_corta}}
             {% include "evento/includes/estado_inscripcion.html" %} 
             <a href="{% url ficha-evento evento.slug %}">{% trans "Més informació" %}</a>
         </li>
         {% if user.is_authenticated %}
         <ul>
             {% for inscrito in evento.inscrito_set.all %}
-                <li>{{inscrito.user.username}} {{inscrito.fecha_inscripcion}}</li>
+                <li>{% if inscrito.en_lista_espera %}
+                    {% trans "En llista d'espera" %}
+                    {% endif %}
+                    {{inscrito.user.username}} {{inscrito.fecha_inscripcion}} <br/> {{inscrito.comentario}}
+                </li>
             {% endfor %}
         </ul>
         {% endif %}
@@ -23,5 +27,9 @@
     </ul>
 {% else %}
     <p>{% trans "No hi ha events prevists de moment"%}</p>
+{% endif %}
+{% if not user.is_authenticated %}
+    {% trans "Per a registrar-se a un event és necessari estar identificat" %}
+    {% trans "El registre implica l'acceptació de les "%}<a href="/condicions-legals/">{% trans "condicions legals" %}</a>
 {% endif %}
 {% endblock content %}

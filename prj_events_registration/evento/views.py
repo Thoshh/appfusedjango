@@ -8,7 +8,9 @@ from django.shortcuts import redirect
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
 from evento.models import Inscrito
-from evento.forms import ConfirmForm
+from evento.forms import ConfirmForm, InscripcioForm
+from django.utils.translation import ugettext_lazy as _
+
 
 def eventos(request):
     """Muestra la lista de eventos activos en la página principal"""
@@ -29,15 +31,24 @@ def inscribirse(request, slug):
     evento = get_object_or_404(Evento, slug = slug)
     inscripcion = None
     if evento.activo:
-        try:
-            inscripcion = Inscrito.objects.get(user=user, evento = evento)
-        except Inscrito.DoesNotExist:
-            inscripcion = Inscrito(user=user, evento=evento)
-            inscripcion.save()
-            return redirect('inscripcion-realizada', slug = slug) 
-        msg = 'Ya está inscrito en el evento'
+        if request.method == 'GET':
+            form = InscripcioForm()
+        else:
+            form = InscripcioForm(request.POST)
+            if form.is_valid():
+                try:
+                    inscripcion = Inscrito.objects.get(user=user, evento = evento)
+                    msg = _("Ja estàs inscrit a l'event")
+                except Inscrito.DoesNotExist:
+                    inscripcion = Inscrito(user=user, evento=evento, 
+                                    comentario = form.cleaned_data['comentario'])
+                    inscripcion.en_lista_espera = evento.completo
+                    inscripcion.save()
+                    return redirect('inscripcion-realizada', slug = slug) 
+        return direct_to_template(request, 'evento/inscripcion_evento.html', 
+                                    {'evento': evento, 'form':form})
     else:
-        msg = 'El evento ya está finalizado y no admite más inscripciones'
+        msg = _("L'event ja està tancat i no admet més inscripcions")
     data = {'msg': msg, 'inscripcion': inscripcion}
     return direct_to_template(request, 'evento/message.html', data)
 
