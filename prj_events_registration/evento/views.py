@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
 from evento.models import Inscrito
+from evento.forms import ConfirmForm
 
 def eventos(request):
     """Muestra la lista de eventos activos en la página principal"""
@@ -33,7 +34,7 @@ def inscribirse(request, slug):
         except Inscrito.DoesNotExist:
             inscripcion = Inscrito(user=user, evento=evento)
             inscripcion.save()
-            return redirect('inscripcion-realizada', evento = slug) 
+            return redirect('inscripcion-realizada', slug = slug) 
         msg = 'Ya está inscrito en el evento'
     else:
         msg = 'El evento ya está finalizado y no admite más inscripciones'
@@ -45,3 +46,33 @@ def inscripcion_realizada(request, slug):
     evento = get_object_or_404(Evento, slug=slug)
     inscripcion = get_object_or_404(Inscrito, user = request.user, evento = evento)
     return direct_to_template(request, 'evento/inscrito.html', {'evento':evento, 'inscripcion': inscripcion})
+
+@login_required
+def mis_inscripciones(request):
+    return direct_to_template(request, 'evento/mis_inscripciones.html' )
+
+@login_required
+def cancela_inscripcion(request, slug):
+    """Cancela la inscripción a un evento"""
+    evento = get_object_or_404(Evento, slug=slug)
+    if not evento.admite_inscripciones:
+        return direct_to_template(request, 'evento/message.html', {msg: "L'event és tancat" })
+    if request.method == 'GET':
+        form = ConfirmForm()
+    else:
+        form = ConfirmForm(request.POST)
+        if form.is_valid():
+            inscripcion = get_object_or_404(Inscrito, user = request.user, evento = evento)
+            inscripcion.delete()
+            return redirect('inscripcion-cancelada', slug = slug)
+    return direct_to_template(request, 'evento/cancela_inscripcion.html', 
+                              {'evento': evento, 'form': form } )
+   
+
+@login_required
+def inscripcion_cancelada(request, slug):
+    evento = get_object_or_404(Evento, slug=slug) 
+    return direct_to_template(request, 'evento/inscripcion_cancelada.html', {'evento': evento} )
+
+
+    
