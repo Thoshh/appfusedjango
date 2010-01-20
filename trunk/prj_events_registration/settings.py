@@ -6,6 +6,7 @@ import properties
 
 DEBUG = getattr(properties, 'debug', True)
 TEMPLATE_DEBUG = getattr(properties,'template_debug', True)
+APP_ROOT  = getattr(properties, 'app_root', '.')
 
 SITE_ROOT= getattr(properties, 'site_root', "http://localhost:8000/")
 
@@ -87,6 +88,8 @@ INSTALLED_APPS = (
     'registration',
     'evento',
 )
+if DEBUG:
+    INSTALLED_APPS = INSTALLED_APPS + ('test_utils', )
 
 # set cache adn session backend
 CACHE_BACKEND=getattr(properties, 'cache_backend','dummy:///')
@@ -115,4 +118,4 @@ COPYRIGHT="apsl.net"
 ACCOUNT_ACTIVATION_DAYS = getattr(properties, 'account_activation_days', 2)
 DEFAULT_FROM_EMAIL = getattr(properties, 'default_from_email', 'creant_bits@apsl.net')
 REGISTRATION_OPEN = getattr(properties, 'registration_open', True)
-LOGIN_REDIRECT_URL = getattr(properties, 'login_redirect_url', '/evento/mis_inscripciones/')
+LOGIN_REDIRECT_URL = getattr(properties, 'login_redirect_url', '/evento/mis-inscripciones/')

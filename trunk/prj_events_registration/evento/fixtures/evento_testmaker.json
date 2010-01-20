@@ -1,0 +1,79 @@
+[
+    {
+        "pk": 1, 
+        "model": "evento.evento", 
+        "fields": {
+            "lugar": "lugar del evento", 
+            "capacidad": 20, 
+            "descripcion_corta": "this is a tes qu\u00e8 passa", 
+            "fecha": "2020-01-22", 
+            "comments": "xxxxx", 
+            "activo": true, 
+            "nombre": "creant bits amb django i python ele", 
+            "descripcion_larga": "Descripci\u00f3n larga del evento", 
+            "slug": "creant-bits-amb-django-i-pytho"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "evento.evento", 
+        "fields": {
+            "lugar": "Parc bit", 
+            "capacidad": 5, 
+            "descripcion_corta": "Segundo evento", 
+            "fecha": "2010-01-30", 
+            "comments": " ", 
+            "activo": true, 
+            "nombre": "evento dos", 
+            "descripcion_larga": "Imagine that this application will provide a way to first filter the documents by format, then to filter that QuerySet by other fields such as title. Following is a simple query to return just the text documents: Document.objects.filter(format=format_text).\r\n\r\nIn this example, the meaning of the query is quite clear, but in a mature application, you may need to apply many more restrictions to the result set. You may want to restrict the listing to only those documents marked public or documents no older than 30 days. If you have to call this query from multiple places in your application, keeping all of the filtering clauses in sync can become a real maintenance headache and a source of bugs.", 
+            "slug": "evento-dos"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "evento.inscrito", 
+        "fields": {
+            "fecha_inscripcion": "2010-01-20 17:20:46", 
+            "evento": 1, 
+            "en_lista_espera": false, 
+            "user": 2, 
+            "comentario": ""
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "jo", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2010-01-16 16:09:13", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$4d204$46a16667881edefb7635ad5002ff3175e06bacd2", 
+            "email": "jo@trespams.com", 
+            "date_joined": "2010-01-16 16:09:13"
+        }
+    },
+    {
+        "pk": 3, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "test", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2010-01-16 16:09:13", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$4d204$46a16667881edefb7635ad5002ff3175e06bacd2", 
+            "email": "jo@trespams.com", 
+            "date_joined": "2010-01-16 16:09:13"
+        }
+    }
+]
