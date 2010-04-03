@@ -55,11 +55,14 @@ set ruler								" line numbers and column the cursor is on
 set number								" Show line numbering
 set numberwidth=1						" Use 1 col + 1 space for numbers
 
-
 if &t_Co > 2 || has("gui_running")
 	syntax enable
 	set hlsearch
+	set clipboard=autoselect
+	set guioptions+=T
+	set toolbar=icons,tooltips
 	colorscheme blackboard
+	set guifont="DejaVu Sans Mono"
 endif
 
 
@@ -94,12 +97,15 @@ set backspace=2							" Backspace over anything! (Super backspace!)
 set showmatch							" Briefly jump to the previous matching paren
 set matchtime=2							" For .2 seconds
 set formatoptions-=tc					" I can format for myself, thank you very much
+set nosmartindent
+set autoindent
+set cindent
 set tabstop=4							" Tab stop of 4
 set shiftwidth=4						" sw 4 spaces (used on auto indent)
 set softtabstop=4						" 4 spaces as a tab for bs/del
 
 " we don't want to edit these type of files
-set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc,*.swp
+set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~
 
 """" Coding
 set history=100							" 100 Lines of history
@@ -146,17 +152,16 @@ au!
 	" smart indenting for python
 	au FileType python set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 	autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
-	set iskeyword+=.
+	set iskeyword+=.,_,$,@,%,#
 
 	" allows us to run :make and get syntax errors for our python scripts
 	au FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 	"au FileType python set makeprg=pylint\ -e\
 
-	" setup file type for code snippets
-	au FileType python if &ft !~ 'django' | setlocal filetype=python.django_model | endif
-	au FileType html if &ft !~ 'django' | setlocal filetype=html.django_template | endif
-
-	"au FileType python if &ft !~ 'django' | setlocal filetype=python.django_template.django_model | endif
+	" setup file type for code snipmate
+	"--------------------------------------------------------------------------
+	au FileType python if &ft !~ 'django' | setlocal filetype=python.django | endif
+	au FileType html if &ft !~ 'django' | setlocal filetype=htmldjango.html | endif
 	au FileType python set expandtab
 
 	" kill calltip window if we move cursor or leave insert mode
@@ -165,6 +170,7 @@ au!
 	
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
 	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python set omnifunc=pythoncomplete#Complete
 	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
@@ -229,17 +235,12 @@ vnoremap <space> zf
 
 " allow arrow keys when code completion window is up
 inoremap <Down> <C-R>=pumvisible() ? "\<lt>C-N>" : "\<lt>Down>"<CR>
-
+j
 """ Abbreviations
 function! EatChar(pat)
 	let c = nr2char(getchar(0))
 	return (c =~ a:pat) ? '' : c
 endfunc
-
-iabbr _me Antoni Aloy (antoni.aloy@trespams.com)<C-R>=EatChar('\s')<CR>
-iabbr _t  <C-R>=strftime("%H:%M:%S")<CR><C-R>=EatChar('\s')<CR>
-iabbr _d  <C-R>=strftime("%a, %d %b %Y")<CR><C-R>=EatChar('\s')<CR>
-iabbr _dt <C-R>=strftime("%a, %d %b %Y %H:%M:%S %z")<CR><C-R>=EatChar('\s')<CR>
 
 endif
 " Assignam com a compilador per defecte el pylint
@@ -248,4 +249,27 @@ autocmd FileType python compiler pylint
 "No executam pylint cada vegada, descomentar
 let g:pylint_onwrite = 1
 
+" Taglist variables
+" Display function name in status bar:
+let g:ctags_statusline=1
+" Automatically start script
+let generate_tags=1
+" Displays taglist results in a vertical window:
+let Tlist_Use_Horiz_Window=0
+" Shorter commands to toggle Taglist display
+nnoremap TT :TlistToggle<CR>
+map <F4> :TlistToggle<CR>
+" Various Taglist diplay config:
+let Tlist_Use_Right_Window = 1
+let Tlist_Compact_Format = 1
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_GainFocus_On_ToggleOpen = 1
+let Tlist_File_Fold_Auto_Close = 1
+
+" Let abbreviations be in its own file
+" ------------------------------------
+
+if filereadable(expand("~/.vim/abbr"))
+	source ~/.vim/abbr
+endif
 
