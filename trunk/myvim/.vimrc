@@ -5,17 +5,16 @@
 " Tested with vim7
 "
 
-"GUI option
-set guioptions-=T
-set guioptions+=t
-
 set encoding=utf-8
 
-au BufRead *.html set filetype=htmldjango
+" Establim els amples de tabulació
+
 au BufRead,BufNewFile *.py  set ai sw=4 sts=4 et tw=72 " Doc strs
 au BufRead,BufNewFile *.js  set ai sw=2 sts=2 et tw=72 " Doc strs
 au BufRead,BufNewFile *.html set ai sw=2 sts=2 et tw=72 " Doc strs
-au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
+au BufRead,BufNewFile *.json set ai sw=4 sts=4 et tw=72 " Doc strs
+au BufNewFile *.py,*.pyw,*.c,*.h,*.json set fileformat=unix
+au! BufRead,BufNewFile *.json setfiletype json 
 
 let python_highlight_all=1
 syntax on
@@ -55,20 +54,19 @@ set ruler								" line numbers and column the cursor is on
 set number								" Show line numbering
 set numberwidth=1						" Use 1 col + 1 space for numbers
 
-if &t_Co > 2 || has("gui_running")
+"colorscheme tango						" Use tango colors
+colorscheme	tango						"ir_black blackboard 
+
+if has("gui_running")
 	syntax enable
 	set hlsearch
 	set clipboard=autoselect
 	set guioptions+=T
 	set toolbar=icons,tooltips
-	colorscheme blackboard
-	set guifont="DejaVu Sans Mono"
+	colorscheme wombat "blackboard
+	set guifont=DejaVu\ Sans\ Mono
 endif
 
-
-
-"colorscheme tango						" Use tango colors
-colorscheme	blackboard						"ir_black
 
 " tab labels show the filename without path(tail)
 set guitablabel=%N/\ %t\ %M
@@ -89,7 +87,6 @@ set confirm								" Y-N-C prompt if closing with unsaved changes
 set vb t_vb=							" Disable visual bell!  I hate that flashing.
 set statusline=%<%f%m%r%y%=%b\ 0x%B\ \ %l,%c%V\ %P
 set laststatus=2  " always a status line
-
 
 
 """" Editing
@@ -158,7 +155,7 @@ au!
 	au FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 	"au FileType python set makeprg=pylint\ -e\
 
-	" setup file type for code snipmate
+	" setup file type for snipmate
 	"--------------------------------------------------------------------------
 	au FileType python if &ft !~ 'django' | setlocal filetype=python.django | endif
 	au FileType html if &ft !~ 'django' | setlocal filetype=htmldjango.html | endif
@@ -169,9 +166,10 @@ au!
 	au InsertLeave * if pumvisible() == 0|pclose|endif
 	
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
+	autocmd FileType python.django set omnifunc=pythoncomplete#Complete
 	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python set omnifunc=pythoncomplete#Complete
 	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType htmldjango.html set omnifunc=htmlcomplete#CompleteTags
 	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 	augroup END
