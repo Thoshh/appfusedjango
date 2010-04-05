@@ -8,8 +8,10 @@
 "           - Added better tab completion (test shift+tab)
 "           - Added markdown syntax
 "           - Added additional colour themes
+" 5/04/2010 - Merged with http://amix.dk/vim/vimrc.html
 "
 set encoding=utf-8
+set ffs=unix,dos,mac "Default file types
 
 " Establim els amples de tabulació
 
@@ -17,7 +19,7 @@ au BufRead,BufNewFile *.py  set ai sw=4 sts=4 et tw=72 " Doc strs
 au BufRead,BufNewFile *.js  set ai sw=2 sts=2 et tw=72 " Doc strs
 au BufRead,BufNewFile *.html set ai sw=2 sts=2 et tw=72 " Doc strs
 au BufRead,BufNewFile *.json set ai sw=4 sts=4 et tw=72 " Doc strs
-au BufNewFile *.py,*.pyw,*.c,*.h,*.json set fileformat=unix
+au BufNewFile *.html,*.py,*.pyw,*.c,*.h,*.json set fileformat=unix
 au! BufRead,BufNewFile *.json setfiletype json 
 
 let python_highlight_all=1
@@ -59,17 +61,18 @@ set number								" Show line numbering
 set numberwidth=1						" Use 1 col + 1 space for numbers
 set ttyfast
 
-"colorscheme tango						" Use tango colors
-colorscheme	tango						"ir_black blackboard 
-
 if has("gui_running")
 	syntax enable
+	set t_Co=256
 	set hlsearch
 	set clipboard=autoselect
 	set guioptions+=T
 	set toolbar=icons,tooltips
 	colorscheme wombat					"or blackboard
 	set guifont=DejaVu\ Sans\ Mono
+	set nu
+else
+	colorscheme tango
 endif
 
 
@@ -160,12 +163,6 @@ au!
 	" allows us to run :make and get syntax errors for our python scripts
 	au FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 	"au FileType python set makeprg=pylint\ -e\
-
-	" setup file type for snipmate
-	"--------------------------------------------------------------------------
-	au FileType python if &ft !~ 'django' | setlocal filetype=python.django | endif
-	au FileType html if &ft !~ 'django' | setlocal filetype=htmldjango.html | endif
-	au FileType python set expandtab
 
 	" kill calltip window if we move cursor or leave insert mode
 	au CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -271,6 +268,14 @@ let Tlist_Exit_OnlyWindow = 1
 let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_File_Fold_Auto_Close = 1
 
+" setup file type for snipmate
+"--------------------------------------------------------------------------
+au FileType python set ft=python.django
+au FileType xhtml set ft=htmldjango.html
+au FileType html set ft=htmldjango.html
+au FileType python set expandtab
+
+
 " Let abbreviations be in its own file
 " ------------------------------------
 
@@ -278,3 +283,18 @@ if filereadable(expand("~/.vim/abbr"))
 	source ~/.vim/abbr
 endif
 
+"Delete trailing white space, useful for Python ;)
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Cope
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" " Do :help cope if you are unsure what cope is. It's super useful!
+map <leader>cc :botright cope<cr>
+map <leader>n :cn<cr>
+map <leader>p :cp<cr>
