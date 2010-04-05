@@ -4,7 +4,11 @@
 " Afegit :  http://code.google.com/p/pycopia/source/browse/trunk/vim/vimfiles/vimrc.vim
 " Tested with vim7
 "
-
+" 5/04/2010 - Added tComment from  http://www.vim.org/scripts/script.php?script_id=1173
+"           - Added better tab completion (test shift+tab)
+"           - Added markdown syntax
+"           - Added additional colour themes
+"
 set encoding=utf-8
 
 " Establim els amples de tabulació
@@ -53,6 +57,7 @@ set scrolloff=3							" Keep 3 lines below and above the cursor
 set ruler								" line numbers and column the cursor is on
 set number								" Show line numbering
 set numberwidth=1						" Use 1 col + 1 space for numbers
+set ttyfast
 
 "colorscheme tango						" Use tango colors
 colorscheme	tango						"ir_black blackboard 
@@ -63,7 +68,7 @@ if has("gui_running")
 	set clipboard=autoselect
 	set guioptions+=T
 	set toolbar=icons,tooltips
-	colorscheme wombat "blackboard
+	colorscheme wombat					"or blackboard
 	set guifont=DejaVu\ Sans\ Mono
 endif
 
@@ -91,7 +96,6 @@ set laststatus=2  " always a status line
 
 """" Editing
 set backspace=2							" Backspace over anything! (Super backspace!)
-set showmatch							" Briefly jump to the previous matching paren
 set matchtime=2							" For .2 seconds
 set formatoptions-=tc					" I can format for myself, thank you very much
 set nosmartindent
@@ -100,9 +104,9 @@ set cindent
 set tabstop=4							" Tab stop of 4
 set shiftwidth=4						" sw 4 spaces (used on auto indent)
 set softtabstop=4						" 4 spaces as a tab for bs/del
+set matchpairs+=<:>						" specially for html
+set showmatch							" Briefly jump to the previous matching parent
 
-" we don't want to edit these type of files
-set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~
 
 """" Coding
 set history=100							" 100 Lines of history
@@ -119,6 +123,8 @@ set foldlevelstart=99					" All folds open by default
 
 """" Command Line
 set wildmenu							" Autocomplete features in the status bar
+set wildmode=longest,list
+set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~
 
 """" Autocommands
 if has("autocmd")
@@ -178,6 +184,7 @@ endif
 """" Key Mappings
 " bind ctrl+space for omnicompletion
 inoremap <Nul> <C-x><C-o>
+imap <c-space> <C-x><C-o>
 
 " Toggle the tag list bar
 nmap <F4> :TlistToggle<CR>
