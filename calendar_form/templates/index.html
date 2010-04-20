@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block page_css %}
+{% get_current_language as LANGUAGE_CODE %}
+<link rel="stylesheet" type="text/css" href="/adm_media/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/adm_media/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/adm_media/css/widgets.css"/>
+<script type="text/javascript" src="/adm_media/js/core.js"></script>
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+{{form.media}}
+{% endblock page_css %}
+
+{% block content %}
+<form action="/i18n/setlang/" method="post">
+{% csrf_token %}
+<input name="next" type="hidden" value="/" />
+<select name="language">
+{% for lang in LANGUAGES %}
+<option value="{{ lang.0 }}"{% ifequal lang.0 LANGUAGE_CODE %} selected="selected" {% endifequal %}>{{ lang.1 }}</option>
+{% endfor %}
+</select>
+<input type="submit" value="Go" />
+</form>
+<h1>Calendar Admin Demo {{LANGUAGE_CODE}} * </h1>
+<h2>Shows how to add the calendar admin to our forms</h2>
+<h3>{{LANGUAGES}}</h3>
+<div>
+  <form action="." method="post" accept-charset="utf-8">
+    <table>
+    {{form}}
+    </table>
+  <p><input type="submit" value="Continue &rarr;"></p>
+</form>
+</div>
+{% endblock content %}
