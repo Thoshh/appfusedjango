@@ -17,6 +17,7 @@ Contents:
     mini_log
     decoradors
     tools
+    events_registration
 
 Inex i taules
 ==================
